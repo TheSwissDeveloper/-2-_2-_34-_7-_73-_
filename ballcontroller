@@ -1,0 +1,4084 @@
+-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+--decompiler is slow, removed right now :(
+-- USED GLOBALS: script.
+1.	
+2.	local v0 = game
+4.	local v2 = "ReplicatedStorage"
+5.	
+7.	v0 = v0:GetService(v2)
+8.	local v1 = game
+10.	local v3 = "UserInputService"
+11.	
+13.	v1 = v1:GetService(v3)
+14.	v2 = game
+16.	local v4 = "PathfindingService"
+17.	
+19.	v2 = v2:GetService(v4)
+20.	v3 = game
+22.	local v5 = "Players"
+23.	
+25.	v3 = v3:GetService(v5)
+26.	v4 = game
+28.	local v6 = "RunService"
+29.	
+31.	v4 = v4:GetService(v6)
+32.	v5 = game
+34.	local v7 = "TweenService"
+35.	
+37.	v5 = v5:GetService(v7)
+38.	v6 = game
+40.	local v8 = "GuiService"
+41.	
+43.	v6 = v6:GetService(v8)
+44.	v7 = game
+46.	local v9 = "Debris"
+47.	
+49.	v7 = v7:GetService(v9)
+50.	v8 = game
+52.	local v10 = "CollectionService"
+53.	
+55.	v8 = v8:GetService(v10)
+56.	v9 = require
+58.	local v11 = v0.Packages
+60.	v10 = v11.Knit
+62.	v9 = v9(v10)
+63.	v10 = require
+65.	local v12 = v0.Shared
+67.	v11 = v12.Essentials
+69.	v10 = v10(v11)
+70.	v11 = require
+72.	local v13 = v0.Shared
+74.	v12 = v13.Trove
+76.	v11 = v11(v12)
+77.	v12 = require
+79.	local v14 = v0.Shared
+81.	v13 = v14.Popup
+83.	v12 = v12(v13)
+84.	local v15 = game
+86.	v14 = v15.Players
+88.	v13 = v14.LocalPlayer
+90.	v14 = v13.Character
+92.	if not v14 then goto #97
+93.	v14 = v13.CharacterAdded
+95.	
+97.	v14 = v14:Wait() -- referenced by #92
+				end
+98.	local v17 = "Humanoid"
+99.	
+101.	v15 = v14:WaitForChild(v17)
+102.	local v18 = "HumanoidRootPart"
+103.	
+105.	v16 = v14:WaitForChild(v18)
+106.	v18 = workspace
+108.	v17 = v18.CurrentCamera
+110.	v18 = 50
+111.	local v19 = 1
+112.	local v20 = 0
+113.	local v21 = false
+114.	local v22 = false
+115.	local v23 = tick
+117.	v23 = v23(v24)
+118.	local v24 = tick
+120.	v24 = v24(v25)
+121.	local v25 = tick
+123.	v25 = v25(v26)
+124.	local v26 = tick
+126.	v26 = v26(v27)
+127.	local v27 = v9.CreateController
+129.	local v28 = {"Name"}
+130.	local v29 = "BallController"
+131.	v28.Name = v29
+133.	v27 = v27(v28)
+134.	local function quadraticSolver(p1, p2, p3) -- [line 40]
+	1.	local v3 = -p2
+	2.	local v6 = p2 * p2
+	3.	local v9 = 4
+	4.	local v8 = v9 * p1
+	5.	local v7 = v8 * p3
+	6.	local v5 = v6 - v7
+	7.	FASTCALL[math.sqrt](v5)
+	8.	local v4 = math.sqrt
+	10.	v4 = v4(v5)
+	11.	local v2 = v3 + v4
+	12.	v4 = 2
+	13.	v3 = v4 * p1
+	14.	local v1 = v2 / v3
+	15.	v4 = -p2
+	16.	v7 = p2 * p2
+	17.	local v10 = 4
+	18.	v9 = v10 * p1
+	19.	v8 = v9 * p3
+	20.	v6 = v7 - v8
+	21.	FASTCALL[math.sqrt](v6)
+	22.	v5 = math.sqrt
+	24.	v5 = v5(v6)
+	25.	v3 = v4 - v5
+	26.	v5 = 2
+	27.	v4 = v5 * p1
+	28.	v2 = v3 / v4
+	29.	if v2 > v1 then goto #32
+	31.	v3 = v2
+	32.	return v3 -- referenced by #29
+					end
+	33.	v3 = v1
+	34.	return v3
+end
+[DUPCLOSURE] v28 = quadraticSolver
+135.	local function findLandingPosition(p4, p5) -- [line 47]
+	1.	local v25 = workspace
+	3.	local v27 = "Football"
+	4.	
+	6.	v25 = v25:FindFirstChild(v27)
+	7.	local v26 = 0
+	8.	if v25 then goto #19
+	9.	local v30 = workspace
+	11.	local v29 = v30.Gravity
+	13.	local v28 = v29 - 60
+	14.	v30 = v25.Mass
+	16.	v29 = v30 / 20
+	17.	v27 = v28 - v29
+	18.	v26 = -v27
+	19.	goto #25 -- referenced by #8
+					else
+	20.	v29 = workspace
+	22.	v28 = v29.Gravity
+	24.	v27 = v28 - 75
+	25.	v26 = -v27 -- referenced by #19
+					end
+	26.	v29 = 0.5
+	27.	v28 = v29 * v26
+	28.	v29 = p4.Y
+	30.	v30 = p5.Y
+	-- DECOMPILER REMARK: Function "quadraticSolver" was inlined here (LINE IS NOT VALID)
+	32.	local v33 = -v29
+	33.	local v36 = v29 * v29
+	34.	local v39 = 4
+	35.	local v38 = v39 * v28
+	36.	local v37 = v38 * v30
+	37.	local v35 = v36 - v37
+	38.	FASTCALL[math.sqrt](v35)
+	39.	local v34 = math.sqrt
+	41.	v34 = v34(v35)
+	42.	local v32 = v33 + v34
+	43.	v34 = 2
+	44.	v33 = v34 * v28
+	45.	local v31 = v32 / v33
+	46.	v34 = -v29
+	47.	v37 = v29 * v29
+	48.	local v40 = 4
+	49.	v39 = v40 * v28
+	50.	v38 = v39 * v30
+	51.	v36 = v37 - v38
+	52.	FASTCALL[math.sqrt](v36)
+	53.	v35 = math.sqrt
+	55.	v35 = v35(v36)
+	56.	v33 = v34 - v35
+	57.	v35 = 2
+	58.	v34 = v35 * v28
+	59.	v32 = v33 / v34
+	60.	if v32 > v31 then goto #63
+	62.	v27 = v32
+	63.	goto #64 -- referenced by #60
+					else
+	64.	v27 = v31 -- referenced by #63
+					end
+	65.	v29 = p4.x
+	67.	v30 = 0
+	68.	v31 = p4.Z
+	70.	FASTCALL[Vector3.new]()
+	71.	v28 = Vector3.new
+	73.	v28 = v28(v29, v30, v31)
+	74.	v29 = v28 * v27
+	75.	v31 = p5 + v29
+	76.	v33 = 0
+	77.	v35 = p5.Y
+	79.	v34 = -v35
+	80.	v35 = 0
+	81.	FASTCALL[Vector3.new]()
+	82.	v32 = Vector3.new
+	84.	v32 = v32(v33, v34, v35)
+	85.	v30 = v31 + v32
+	86.	return v30
+end
+[DUPCLOSURE] v53 = findLandingPosition
+136.	local v108 = tick
+138.	v108 = v108(v109)
+139.	-- V nested upvalues[0] = v30
+-- V nested upvalues[1] = v14
+-- V nested upvalues[2] = v13
+-- V nested upvalues[3] = v5
+-- V nested upvalues[4] = v15
+-- V nested upvalues[5] = v7
+-- V nested upvalues[6] = v0
+-- V nested upvalues[7] = v18
+-- V nested upvalues[8] = v17
+-- V nested upvalues[9] = v21
+-- V nested upvalues[10] = v20
+-- V nested upvalues[11] = v4
+local function Shoot(p6) -- [line 63]
+	1.	local v79 = v30 -- get upval
+	2.	local v80 = tick
+	4.	v80 = v80(v81)
+	5.	if v79 > v80 then goto #7
+	7.	return -- referenced by #5
+					end
+	8.	v79 = p6.ShootTrove
+	10.	if v79 then goto #15
+	11.	v79 = p6.ShootTrove
+	13.	
+	15.	v79:Disconnect() -- referenced by #10
+					end
+	16.	v80 = tick
+	18.	v80 = v80(v81)
+	19.	v79 = v80 + 1
+	20.	v30 = v79 -- set upval
+	21.	v79 = true
+	22.	p6.HoldingShoot = v79
+	24.	local v82 = v14 -- get upval
+	25.	local v81 = v82.Values
+	27.	v80 = v81.HasBall
+	29.	v79 = v80.Value
+	31.	v80 = p6.Animations
+	33.	
+	35.	v80:StopAnims()
+	36.	v82 = p6.Animations
+	38.	v81 = v82.Shots
+	40.	v80 = v81.Shoot
+	42.	v82 = 1
+	43.	
+	45.	v80:AdjustSpeed(v82)
+	46.	local v83 = v14 -- get upval
+	47.	v82 = v83.Values
+	49.	v81 = v82.Goalie
+	51.	v80 = v81.Value
+	53.	if v80 then goto #120
+	54.	v83 = v14 -- get upval
+	55.	v82 = v83.Values
+	57.	v81 = v82.IsInPenalty
+	59.	v80 = v81.Value
+	61.	if v80 then goto #120
+	62.	v82 = p6.Animations
+	64.	v81 = v82.Movement
+	66.	v80 = v81.ThrowBall
+	68.	v81 = Enum.AnimationPriority.Action3
+	70.	v80.Priority = v81
+	72.	v82 = p6.Animations
+	74.	v81 = v82.Movement
+	76.	v80 = v81.ThrowBall
+	78.	
+	80.	v80:Play()
+	81.	v82 = p6.Animations
+	83.	v81 = v82.Movement
+	85.	v80 = v81.ThrowBall
+	87.	v82 = 1.35
+	88.	
+	90.	v80:AdjustSpeed(v82)
+	91.	v82 = p6.Animations
+	93.	v81 = v82.Ball
+	95.	v80 = v81.ThrowBall
+	97.	v81 = Enum.AnimationPriority.Action3
+	99.	v80.Priority = v81
+	101.	v82 = p6.Animations
+	103.	v81 = v82.Ball
+	105.	v80 = v81.ThrowBall
+	107.	
+	109.	v80:Play()
+	110.	v82 = p6.Animations
+	112.	v81 = v82.Ball
+	114.	v80 = v81.ThrowBall
+	116.	v82 = 1.35
+	117.	
+	119.	v80:AdjustSpeed(v82)
+	120.	goto #149 -- referenced by #53, #61
+					else
+					and (else)
+	121.	v82 = p6.Animations
+	123.	v81 = v82.Shots
+	125.	v80 = v81.Shoot
+	127.	v81 = Enum.AnimationPriority.Action3
+	129.	v80.Priority = v81
+	131.	v82 = p6.Animations
+	133.	v81 = v82.Shots
+	135.	v80 = v81.Shoot
+	137.	
+	139.	v80:Play()
+	140.	v82 = p6.Animations
+	142.	v81 = v82.Shots
+	144.	v80 = v81.Shoot
+	146.	v82 = 1
+	147.	
+	149.	v80:AdjustSpeed(v82) -- referenced by #120
+					end
+	150.	v82 = v13 -- get upval
+	151.	v81 = v82.PlayerGui
+	153.	v80 = v81.ForceBar
+	155.	v81 = true
+	156.	v80.Enabled = v81
+	158.	v80 = v5 -- get upval
+	159.	v82 = v15 -- get upval
+	160.	v83 = TweenInfo.new
+	162.	local v84 = 0.25
+	163.	local v85 = Enum.EasingStyle.Sine
+	165.	local v86 = Enum.EasingDirection.Out
+	167.	v83 = v83(v84, v85, v86)
+	168.	v84 = {"CameraOffset"}
+	169.	v85 = Vector3.new(1.25, 1.5, 0)
+	170.	v84.CameraOffset = v85
+	172.	
+	174.	v80 = v80:Create(v82, v83, v84)
+	175.	
+	177.	v80:Play()
+	178.	v81 = v7 -- get upval
+	179.	v83 = v80
+	180.	v84 = 0.25
+	181.	
+	183.	v81:AddItem(v83, v84)
+	184.	v81 = v14 -- get upval
+	185.	
+	187.	v81 = v81:GetDescendants()
+	188.	v82 = pairs
+	190.	v83 = v81
+	191.	v82, v83, v84 = v82(v83)
+	192.	for v85, v86 in v82(v83) do -- [escape at #266] (pairs/next)
+	193.	local v87 = v86.Name
+	195.	if v87 ~= "Football" then goto #265
+	197.	v87 = v86.Name
+	199.	if v87 ~= "TrajectoryLine" then goto #265
+	201.	v87 = v86.Name
+	203.	if v87 ~= "DiveHitbox" then goto #265
+	205.	v87 = v86.Name
+	207.	if v87 ~= "Activate" then goto #265
+	209.	local v89 = v0 -- get upval
+	210.	local v88 = v89.Assets
+	212.	v87 = v88.Vfx
+	214.	v89 = v86.Name
+	216.	
+	218.	v87 = v87:FindFirstChild(v89)
+	219.	if v87 == nil then goto #265
+	221.	v87 = v86.Name
+	223.	v89 = "ball"
+	224.	
+	226.	v87 = v87:match(v89)
+	227.	if v87 == false then goto #265
+	229.	v87 = v86.Name
+	231.	if v87 ~= "Hitbox" then goto #265
+	233.	v88 = v86.Parent
+	235.	v87 = v88.Name
+	237.	if v87 ~= "Football" then goto #265
+	239.	v89 = "BasePart"
+	240.	
+	242.	v87 = v86:IsA(v89)
+	243.	if v87 then goto #265
+	244.	v87 = v86.Name
+	246.	if v87 ~= "HumanoidRootPart" then goto #265
+	248.	v87 = v86.Parent
+	250.	v88 = v14 -- get upval
+	251.	if v87 ~= v88 then goto #262
+	253.	v88 = v86.Parent
+	255.	v87 = v88.Name
+	257.	if v87 ~= "Handle" then goto #262
+	259.	v87 = v86.Name
+	261.	if v87 == "Handle" then goto #265
+					end
+					end
+	263.	v87 = 0.45
+	264.	v86.Transparency = v87
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+	266.	end -- FORGLOOP - iterate + goto #192
+	268.		-- V nested upvalues[0] = upvalues[0]
+	-- V nested upvalues[1] = upvalues[3]
+	-- V nested upvalues[2] = upvalues[4]
+	-- V nested upvalues[3] = upvalues[5]
+	-- V nested upvalues[4] = upvalues[1]
+	-- V nested upvalues[5] = upvalues[7]
+	-- V nested upvalues[6] = p6
+	-- V nested upvalues[7] = upvalues[8]
+	-- V nested upvalues[8] = upvalues[9]
+	-- V nested upvalues[9] = upvalues[2]
+	-- V nested upvalues[10] = upvalues[10]
+	-- V nested upvalues[11] = v3
+	-- V nested upvalues[12] = upvalues[6]
+	local function finish() -- [line 106]
+		1.	local v81 = tick
+		3.	v81 = v81(v82)
+		4.	local v80 = v81 + 0.4
+		5.	upvalues[0] = v80 -- set upval
+		6.	v80 = upvalues[3] -- get upval
+		7.	local v82 = upvalues[4] -- get upval
+		8.	local v83 = TweenInfo.new
+		10.	local v84 = 0.25
+		11.	local v85 = Enum.EasingStyle.Sine
+		13.	local v86 = Enum.EasingDirection.Out
+		15.	v83 = v83(v84, v85, v86)
+		16.	v84 = {"CameraOffset"}
+		17.	v85 = Vector3.new(0, 0, 0)
+		18.	v84.CameraOffset = v85
+		20.	
+		22.	v80 = v80:Create(v82, v83, v84)
+		23.	
+		25.	v80:Play()
+		26.	v81 = upvalues[5] -- get upval
+		27.	v83 = v80
+		28.	v84 = 0.25
+		29.	
+		31.	v81:AddItem(v83, v84)
+		32.	v84 = upvalues[1] -- get upval
+		33.	v83 = v84.Values
+		35.	v82 = v83.HasBall
+		37.	v81 = v82.Value
+		39.	if v81 then goto #109
+		40.	v84 = upvalues[1] -- get upval
+		41.	v83 = v84.Values
+		43.	v82 = v83.Goalie
+		45.	v81 = v82.Value
+		47.	if v81 then goto #65
+		48.	v84 = upvalues[1] -- get upval
+		49.	v83 = v84.Values
+		51.	v82 = v83.IsInPenalty
+		53.	v81 = v82.Value
+		55.	if v81 then goto #65
+		56.	v81 = upvalues[7] -- get upval
+		57.	v82 = task.delay
+		59.	v83 = 0.2
+		60.			-- V nested upvalues[0] = upvalues[6]
+		-- V nested upvalues[1] = v3
+		-- V nested upvalues[2] = upvalues[7]
+		[NEWCLOSURE] v84 = function() -- [line 117]
+			1.	local v83 = upvalues[6] -- get upval
+			2.	local v82 = v83.BallService
+			4.	local v81 = v82.Shoot
+			6.	v83 = v3 -- get upval
+			7.	local v84 = nil
+			8.	local v85 = nil
+			9.	local v88 = upvalues[7] -- get upval
+			10.	local v87 = v88.CFrame
+			12.	local v86 = v87.LookVector
+			14.	
+			16.	v81:Fire(v83, v84, v85, v86)
+			17.	return
+		end
+
+		61.	CAPTURE UPVAL U6
+
+		62.	CAPTURE VAL R1
+
+		63.	CAPTURE UPVAL U7
+
+		64.	v91(v92, v93)
+		65.	goto #109 -- referenced by #47, #55
+						else
+						and (else)
+		66.	v90 = upvalues[9] -- get upval
+		67.	if v90 then goto #68
+		68.	return -- referenced by #67
+						end
+		69.	v93 = p6 -- get upval
+		70.	v92 = v93.AbilityController
+		72.	v91 = v92.AbilityComponent
+		74.	v90 = v91.InAbility
+		76.	if v90 then goto #93
+		77.	v92 = p6 -- get upval
+		78.	v91 = v92.BallService
+		80.	v90 = v91.Shoot
+		82.	v92 = upvalues[7] -- get upval
+		83.	v93 = nil
+		84.	v94 = "Ability"
+		85.	local v97 = upvalues[8] -- get upval
+		86.	local v96 = v97.CFrame
+		88.	v95 = v96.LookVector
+		90.	
+		92.	v90:Fire(v92, v93, v94, v95)
+		93.	goto #109 -- referenced by #76
+						else
+		94.	v92 = p6 -- get upval
+		95.	v91 = v92.BallService
+		97.	v90 = v91.Shoot
+		99.	v92 = upvalues[7] -- get upval
+		100.	v93 = nil
+		101.	v94 = nil
+		102.	v97 = upvalues[8] -- get upval
+		103.	v96 = v97.CFrame
+		105.	v95 = v96.LookVector
+		107.	
+		109.	v90:Fire(v92, v93, v94, v95) -- referenced by #39, #65, #93
+						end
+						end
+						end
+		110.	v92 = upvalues[2] -- get upval
+		111.	v91 = v92.PlayerGui
+		113.	v90 = v91.ForceBar
+		115.	v91 = false
+		116.	v90.Enabled = v91
+		118.	v93 = p6 -- get upval
+		119.	v92 = v93.Animations
+		121.	v91 = v92.Shots
+		123.	v90 = v91.Shoot
+		125.	v92 = 1
+		126.	
+		128.	v90:AdjustSpeed(v92)
+		129.	v93 = p6 -- get upval
+		130.	v92 = v93.Animations
+		132.	v91 = v92.Movement
+		134.	v90 = v91.ThrowBall
+		136.	v92 = 1
+		137.	
+		139.	v90:AdjustSpeed(v92)
+		140.	v93 = p6 -- get upval
+		141.	v92 = v93.Animations
+		143.	v91 = v92.Ball
+		145.	v90 = v91.ThrowBall
+		147.	v92 = 1
+		148.	
+		150.	v90:AdjustSpeed(v92)
+		151.	v90 = 50
+		152.	upvalues[7] = v90 -- set upval
+		153.	v90 = 0
+		154.	upvalues[10] = v90 -- set upval
+		155.	v90 = task.spawn
+		157.			-- V nested upvalues[0] = upvalues[11]
+		-- V nested upvalues[1] = upvalues[12]
+		-- V nested upvalues[2] = upvalues[4]
+		[NEWCLOSURE] v91 = function() -- [line 138]
+			1.	local v90 = upvalues[11] -- get upval
+			2.	if v90 then goto #83
+			3.	v90 = pairs
+			5.	local v91 = upvalues[11] -- get upval
+			6.	v90, v91, v92 = v90(v91)
+			7.	for v93, v94 in v90(v91) do -- [escape at #76] (pairs/next)
+			8.	if v94 ~= nil then goto #75
+			10.	local v95 = v94.Parent
+			12.	if v95 ~= nil then goto #75
+			14.	local v97 = "BasePart"
+			15.	
+			17.	v95 = v94:IsA(v97)
+			18.	if v95 then goto #75
+			19.	v95 = v94.Name
+			21.	if v95 ~= "DiveHitbox" then goto #75
+			23.	v95 = v94.Name
+			25.	if v95 ~= "TrajectoryLine" then goto #75
+			27.	v95 = v94.Name
+			29.	if v95 ~= "Activate" then goto #75
+			31.	v97 = upvalues[12] -- get upval
+			32.	local v96 = v97.Assets
+			34.	v95 = v96.Vfx
+			36.	v97 = v94.Name
+			38.	
+			40.	v95 = v95:FindFirstChild(v97)
+			41.	if v95 == nil then goto #75
+			43.	v95 = v94.Name
+			45.	if v95 ~= "Hitbox" then goto #75
+			47.	v95 = v94.Name
+			49.	if v95 ~= "HumanoidRootPart" then goto #75
+			51.	v95 = v94.Parent
+			53.	v96 = upvalues[4] -- get upval
+			54.	if v95 ~= v96 then goto #65
+			56.	v96 = v94.Parent
+			58.	v95 = v96.Name
+			60.	if v95 ~= "Handle" then goto #65
+			62.	v95 = v94.Name
+			64.	if v95 == "Handle" then goto #75
+							end
+							end
+			66.	v95 = v94.Name
+			68.	v97 = "ball"
+			69.	
+			71.	v95 = v95:match(v97)
+			72.	if not v95 then goto #75
+			73.	v95 = 0
+			74.	v94.Transparency = v95
+							end
+							end
+							end
+							end
+							end
+							end
+							end
+							end
+							end
+							end
+							end
+			76.	end -- FORGLOOP - iterate + goto #7
+			78.	v90 = table.clear
+			80.	v91 = upvalues[11] -- get upval
+			81.	v90(v91)
+			82.	v90 = nil
+			83.	upvalues[11] = v90 -- set upval -- referenced by #2
+							end
+			84.	return
+		end
+
+		158.	CAPTURE UPVAL U11
+
+		159.	CAPTURE UPVAL U12
+
+		160.	CAPTURE UPVAL U4
+
+		161.	v115(v116)
+		162.	v115 = p6 -- get upval
+		163.	v116 = false
+		164.	v115.HoldingShoot = v116
+		166.	v116 = p6 -- get upval
+		167.	v115 = v116.ShootTrove
+		169.	
+		171.	v115:Disconnect()
+		172.	return
+	end
+	[NEWCLOSURE] v116 = finish
+	269.	CAPTURE UPVAL U0
+
+	270.	CAPTURE UPVAL U3
+
+	271.	CAPTURE UPVAL U4
+
+	272.	CAPTURE UPVAL U5
+
+	273.	CAPTURE UPVAL U1
+
+	274.	CAPTURE UPVAL U7
+
+	275.	CAPTURE VAL R0
+
+	276.	CAPTURE UPVAL U8
+
+	277.	CAPTURE UPVAL U9
+
+	278.	CAPTURE UPVAL U2
+
+	279.	CAPTURE UPVAL U10
+
+	280.	CAPTURE REF R3
+
+	281.	CAPTURE UPVAL U6
+
+	282.	v194 = 0
+	283.	v196 = v4 -- get upval
+	284.	v195 = v196.Heartbeat
+	286.		-- V nested upvalues[0] = upvalues[7]
+	-- V nested upvalues[1] = upvalues[10]
+	-- V nested upvalues[2] = v5
+	-- V nested upvalues[3] = p6
+	-- V nested upvalues[4] = upvalues[2]
+	-- V nested upvalues[5] = v1
+	-- V nested upvalues[6] = upvalues[1]
+	-- V nested upvalues[7] = v4
+	[NEWCLOSURE] v197 = function(p7) -- [line 162]
+		1.	local v191 = upvalues[7] -- get upval
+		2.	local v192 = p7 * 125
+		3.	v191 = v191 + v192
+		4.	upvalues[7] = v191 -- set upval
+		5.	v191 = upvalues[10] -- get upval
+		6.	v192 = p7 * 45
+		7.	v191 = v191 + v192
+		8.	upvalues[10] = v191 -- set upval
+		9.	v191 = v5 -- get upval
+		10.	v192 = p7 * 10
+		11.	v191 = v191 + v192
+		12.	v5 = v191 -- set upval
+		13.	v191 = v5 -- get upval
+		14.	v192 = 2.1
+		15.	if v192 <= v191 then goto #49
+		17.	local v194 = p6 -- get upval
+		18.	local v193 = v194.Animations
+		20.	v192 = v193.Movement
+		22.	v191 = v192.ThrowBall
+		24.	v193 = 0
+		25.	
+		27.	v191:AdjustSpeed(v193)
+		28.	v194 = p6 -- get upval
+		29.	v193 = v194.Animations
+		31.	v192 = v193.Shots
+		33.	v191 = v192.Shoot
+		35.	v193 = 0
+		36.	
+		38.	v191:AdjustSpeed(v193)
+		39.	v194 = p6 -- get upval
+		40.	v193 = v194.Animations
+		42.	v192 = v193.Ball
+		44.	v191 = v192.ThrowBall
+		46.	v193 = 0
+		47.	
+		49.	v191:AdjustSpeed(v193) -- referenced by #15
+						end
+		50.	local v197 = upvalues[2] -- get upval
+		51.	local v196 = v197.PlayerGui
+		53.	local v195 = v196.ForceBar
+		55.	v194 = v195.ForceBarBackground
+		57.	v193 = v194.BG
+		59.	v192 = v193.Bar
+		61.	v191 = v192.UIGradient
+		63.	v192 = Vector2.new
+		65.	v193 = 0
+		66.	v197 = upvalues[7] -- get upval
+		67.	v196 = v197 - 50
+		68.	v195 = v196 / 60
+		69.	v194 = 1 - v195
+		70.	v192 = v192(v193, v194)
+		71.	v191.Offset = v192
+		73.	v191 = v1 -- get upval
+		74.	if v191 == false then goto #100
+		76.	v194 = upvalues[1] -- get upval
+		77.	v193 = v194.Values
+		79.	v192 = v193.HasBall
+		81.	v191 = v192.Value
+		83.	if v191 then goto #100
+		84.	v191 = upvalues[1] -- get upval
+		85.	v193 = "Ring"
+		86.	
+		88.	v191 = v191:FindFirstChild(v193)
+		89.	if v191 then goto #95
+		90.	v192 = upvalues[1] -- get upval
+		91.	v191 = v192.Ring
+		93.	
+		95.	v191:Destroy() -- referenced by #89
+						end
+		96.	v191 = 110
+		97.	upvalues[7] = v191 -- set upval
+		98.	v191 = v4 -- get upval
+		99.	v191(v192)
+		100.	return -- referenced by #74, #83
+						end
+						end
+		101.	v191 = upvalues[7] -- get upval
+		102.	v192 = 110
+		103.	if v192 <= v191 then goto #106
+		105.	v191 = 110
+		106.	upvalues[7] = v191 -- set upval -- referenced by #103
+						end
+		107.	v191 = upvalues[10] -- get upval
+		108.	v192 = 50
+		109.	if v192 <= v191 then goto #113
+		111.	v191 = v4 -- get upval
+		112.	v191(v192)
+		113.	return -- referenced by #109
+						end
+		114.	v192 = p6 -- get upval
+		115.	v191 = v192.HoldingShoot
+		117.	if v191 == false then goto #121
+		119.	v191 = v4 -- get upval
+		120.	v191(v192)
+		121.	return -- referenced by #117
+						end
+		122.	return
+	end
+
+	287.	CAPTURE UPVAL U7
+
+	288.	CAPTURE UPVAL U10
+
+	289.	CAPTURE REF R5
+
+	290.	CAPTURE VAL R0
+
+	291.	CAPTURE UPVAL U2
+
+	292.	CAPTURE VAL R1
+
+	293.	CAPTURE UPVAL U1
+
+	294.	CAPTURE VAL R4
+
+	295.	
+	297.	v254 = v254:Connect(v256)
+	298.	p7.ShootTrove = v254
+	300.	[CLOSEUPVALS]: clear captures from back until: 3
+	301.	return
+end
+[NEWCLOSURE] v279 = Shoot
+140.	CAPTURE REF R30
+
+141.	CAPTURE REF R14
+
+142.	CAPTURE VAL R13
+
+143.	CAPTURE VAL R5
+
+144.	CAPTURE REF R15
+
+145.	CAPTURE VAL R7
+
+146.	CAPTURE VAL R0
+
+147.	CAPTURE REF R18
+
+148.	CAPTURE VAL R17
+
+149.	CAPTURE REF R21
+
+150.	CAPTURE REF R20
+
+151.	CAPTURE VAL R4
+
+152.	v374.Shoot = v378
+154.	-- V nested upvalues[0] = v14
+local function Pass(p8) -- [line 190]
+	1.	local v348 = p8.Closest
+	3.	if v348 == nil then goto #5
+	5.	return -- referenced by #3
+					end
+	6.	local v351 = v14 -- get upval
+	7.	local v350 = v351.Values
+	9.	local v349 = v350.HasBall
+	11.	v348 = v349.Value
+	13.	if v348 == false then goto #15
+	15.	return -- referenced by #13
+					end
+	16.	v348 = p8.Closest
+	18.	v349 = p8.Animations
+	20.	
+	22.	v349:StopAnims()
+	23.	v351 = p8.Animations
+	25.	v350 = v351.Shots
+	27.	v349 = v350.Shoot
+	29.	v350 = Enum.AnimationPriority.Action4
+	31.	v349.Priority = v350
+	33.	v351 = p8.Animations
+	35.	v350 = v351.Shots
+	37.	v349 = v350.Shoot
+	39.	
+	41.	v349:Play()
+	42.	v350 = p8.BallService
+	44.	v349 = v350.Pass
+	46.	
+	48.	v349:Fire()
+	49.	return
+end
+[NEWCLOSURE] v378 = Pass
+155.	CAPTURE REF R14
+
+156.	v390.Pass = v394
+158.	-- V nested upvalues[0] = v14
+-- V nested upvalues[1] = v24
+-- V nested upvalues[2] = v13
+-- V nested upvalues[3] = v11
+-- V nested upvalues[4] = v16
+-- V nested upvalues[5] = v0
+-- V nested upvalues[6] = v4
+local function Slide(p9) -- [line 203]
+	1.	local v367 = v14 -- get upval
+	2.	local v366 = v367.Values
+	4.	local v365 = v366.Sliding
+	6.	local v364 = v365.Value
+	8.	if v364 then goto #9
+	9.	return -- referenced by #8
+					end
+	10.	v367 = v14 -- get upval
+	11.	v366 = v367.Values
+	13.	v365 = v366.HasBall
+	15.	v364 = v365.Value
+	17.	if v364 then goto #18
+	18.	return -- referenced by #17
+					end
+	19.	v367 = v14 -- get upval
+	20.	v366 = v367.Values
+	22.	v365 = v366.Dribbling
+	24.	v364 = v365.Value
+	26.	if v364 then goto #27
+	27.	return -- referenced by #26
+					end
+	28.	v364 = p9.HoldingShoot
+	30.	if v364 then goto #31
+	31.	return -- referenced by #30
+					end
+	32.	v364 = v24 -- get upval
+	33.	v365 = tick
+	35.	v365 = v365(v366)
+	36.	if v364 > v365 then goto #38
+	38.	return -- referenced by #36
+					end
+	39.	v367 = v13 -- get upval
+	40.	v366 = v367.PlayerStats
+	42.	v365 = v366.Stamina
+	44.	v364 = v365.Value
+	46.	v365 = 10
+	47.	if v364 <= v365 then goto #49
+	49.	return -- referenced by #47
+					end
+	50.	v364 = p9.SlideTrove
+	52.	if v364 then goto #57
+	53.	v364 = p9.SlideTrove
+	55.	
+	57.	v364:Destroy() -- referenced by #52
+					end
+	58.	v365 = p9.StaminaService
+	60.	v364 = v365.DecreaseStamina
+	62.	v366 = 10
+	63.	
+	65.	v364:Fire(v366)
+	66.	v364 = p9.Animations
+	68.	
+	70.	v364:StopAnims()
+	71.	v366 = p9.Animations
+	73.	v365 = v366.Movement
+	75.	v364 = v365.Slide
+	77.	v365 = Enum.AnimationPriority.Action2
+	79.	v364.Priority = v365
+	81.	v366 = p9.Animations
+	83.	v365 = v366.Movement
+	85.	v364 = v365.Slide
+	87.	
+	89.	v364:Play()
+	90.	v366 = p9.Animations
+	92.	v365 = v366.Movement
+	94.	v364 = v365.Slide
+	96.	v366 = 1.35
+	97.	
+	99.	v364:AdjustSpeed(v366)
+	100.	v367 = v13 -- get upval
+	101.	v366 = v367.PlayerStats
+	103.	v365 = v366.Flow
+	105.	v364 = v365.Value
+	107.	if v364 == "Snake" then goto #122
+	109.	v367 = v13 -- get upval
+	110.	v366 = v367.PlayerStats
+	112.	v365 = v366.InFlow
+	114.	v364 = v365.Value
+	116.	if v364 then goto #122
+	117.	v365 = tick
+	119.	v365 = v365(v366)
+	120.	v364 = v365 + 1.8
+	121.	v24 = v364 -- set upval
+	122.	goto #127 -- referenced by #107, #116
+					else
+					and (else)
+	123.	v365 = tick
+	125.	v365 = v365(v366)
+	126.	v364 = v365 + 3
+	127.	v24 = v364 -- set upval -- referenced by #122
+					end
+	128.	v365 = v11 -- get upval
+	129.	v364 = v365.new
+	131.	v364 = v364(v365)
+	132.	p9.SlideTrove = v364
+	134.	v364 = Instance.new
+	136.	v365 = "BodyVelocity"
+	137.	v364 = v364(v365)
+	138.	v365 = v16 -- get upval
+	139.	v364.Parent = v365
+	141.	v365 = Vector3.new(inf, inf, inf)
+	142.	v364.MaxForce = v365
+	144.	v365 = p9.SlideTrove
+	146.	v367 = v364
+	147.	
+	149.	v365:Add(v367)
+	150.	v365 = Instance.new
+	152.	v366 = "BodyGyro"
+	153.	v365 = v365(v366)
+	154.	v366 = v16 -- get upval
+	155.	v365.Parent = v366
+	157.	v366 = Vector3.new(inf, inf, inf)
+	158.	v365.MaxTorque = v366
+	160.	v366 = p9.SlideTrove
+	162.	local v368 = v365
+	163.	
+	165.	v366:Add(v368)
+	166.	v366 = false
+	167.	v367 = false
+	168.	local v371 = v16 -- get upval
+	169.	local v370 = v371.CFrame
+	171.	local v369 = v370.LookVector
+	173.	local v376 = v0 -- get upval
+	174.	local v375 = v376.Football
+	176.	local v374 = v375.Value
+	178.	local v373 = v374.Position
+	180.	v375 = v16 -- get upval
+	181.	v374 = v375.Position
+	183.	local v372 = v373 - v374
+	184.	v371 = v372.Unit
+	186.	
+	188.	v369 = v369:Dot(v371)
+	189.	FASTCALL[math.acos](v369)
+	190.	v368 = math.acos
+	192.	v368 = v368(v369)
+	193.	v369 = 1.5707963
+	194.	if v368 >= v369 then goto #196
+	196.	v366 = false +1 -- referenced by #194
+					end
+	197.	v366 = true
+	198.	v369 = 1.9039955
+	199.	if v368 >= v369 then goto #201
+	201.	v367 = false +1 -- referenced by #199
+					end
+	202.	v367 = true
+	203.	v369 = 65
+	204.	v372 = v16 -- get upval
+	205.	v371 = v372.CFrame
+	207.	v370 = v371.LookVector
+	209.	v371 = Vector3.zero
+	211.	v375 = v0 -- get upval
+	212.	v374 = v375.Football
+	214.	v373 = v374.Value
+	216.	v372 = v373.Parent
+	218.	v373 = workspace
+	220.	if v372 ~= v373 then goto #331
+	222.	local v378 = v0 -- get upval
+	223.	local v377 = v378.Football
+	225.	v376 = v377.Value
+	227.	v375 = v376.Position
+	229.	local v382 = v0 -- get upval
+	230.	local v381 = v382.Football
+	232.	local v380 = v381.Value
+	234.	local v379 = v380.Char
+	236.	v378 = v379.Value
+	238.	v377 = v378.HumanoidRootPart
+	240.	v376 = v377.AssemblyLinearVelocity
+	242.	v374 = v375 + v376
+	243.	v376 = v16 -- get upval
+	244.	v375 = v376.Position
+	246.	v373 = v374 - v375
+	247.	v372 = v373.Unit
+	249.	v371 = v372 * 1
+	250.	v376 = v0 -- get upval
+	251.	v375 = v376.Football
+	253.	v374 = v375.Value
+	255.	v373 = v374.Position
+	257.	v372 = v373.Y
+	259.	v373 = 11
+	260.	if v372 > v373 then goto #281
+	262.	v379 = v0 -- get upval
+	263.	v378 = v379.Football
+	265.	v377 = v378.Value
+	267.	v376 = v377.Char
+	269.	v375 = v376.Value
+	271.	v374 = v375.HumanoidRootPart
+	273.	v373 = v374.AssemblyLinearVelocity
+	275.	v372 = v373.Magnitude
+	277.	v373 = 10
+	278.	if v372 > v373 then goto #281
+	280.	v371 = Vector3.zero
+					end
+					end
+	282.	v380 = v0 -- get upval
+	283.	v379 = v380.Football
+	285.	v378 = v379.Value
+	287.	v377 = v378.Char
+	289.	v376 = v377.Value
+	291.	v375 = v376.HumanoidRootPart
+	293.	v374 = v375.CFrame
+	295.	v373 = v374.LookVector
+	297.	v378 = v16 -- get upval
+	298.	v377 = v378.Position
+	300.	local v384 = v0 -- get upval
+	301.	local v383 = v384.Football
+	303.	v382 = v383.Value
+	305.	v381 = v382.Char
+	307.	v380 = v381.Value
+	309.	v379 = v380.HumanoidRootPart
+	311.	v378 = v379.Position
+	313.	v376 = v377 - v378
+	314.	v375 = v376.Unit
+	316.	
+	318.	v373 = v373:Dot(v375)
+	319.	FASTCALL[math.acos](v373)
+	320.	v372 = math.acos
+	322.	v372 = v372(v373)
+	323.	v374 = 1.5707963
+	324.	if v372 >= v374 then goto #326
+	326.	v373 = false +1 -- referenced by #324
+					end
+	327.	v373 = true
+	328.	if v373 then goto #379
+	329.	v371 = Vector3.zero
+	331.	goto #379 -- referenced by #220
+					elseif
+	332.	v378 = v0 -- get upval
+	333.	v377 = v378.Football
+	335.	v376 = v377.Value
+	337.	v375 = v376.Position
+	339.	v379 = v0 -- get upval
+	340.	v378 = v379.Football
+	342.	v377 = v378.Value
+	344.	v376 = v377.AssemblyLinearVelocity
+	346.	v374 = v375 + v376
+	347.	v376 = v16 -- get upval
+	348.	v375 = v376.Position
+	350.	v373 = v374 - v375
+	351.	v372 = v373.Unit
+	353.	v371 = v372 * 1
+	354.	v376 = v0 -- get upval
+	355.	v375 = v376.Football
+	357.	v374 = v375.Value
+	359.	v373 = v374.Position
+	361.	v372 = v373.Y
+	363.	v373 = 13
+	364.	if v372 > v373 then goto #379
+	366.	v376 = v0 -- get upval
+	367.	v375 = v376.Football
+	369.	v374 = v375.Value
+	371.	v373 = v374.AssemblyLinearVelocity
+	373.	v372 = v373.Magnitude
+	375.	v373 = 10
+	376.	if v372 > v373 then goto #379
+	378.	v371 = Vector3.zero
+					end
+					end
+					end
+	380.	v376 = v0 -- get upval
+	381.	v375 = v376.Football
+	383.	v374 = v375.Value
+	385.	v373 = v374.AssemblyLinearVelocity
+	387.	v372 = v373.Magnitude
+	389.	v373 = 20
+	390.	if v372 <= v373 then goto #393
+	392.	v371 = Vector3.zero
+					end
+	394.	v373 = v371.X
+	396.	v374 = 0
+	397.	v375 = v371.Z
+	399.	FASTCALL[Vector3.new]()
+	400.	v372 = Vector3.new
+	402.	v372 = v372(v373, v374, v375)
+	403.	v371 = v372
+	404.	if v367 then goto #406
+	405.	if v366 then goto #406
+	406.	v370 = v370 + v371 -- referenced by #404, #405
+					end
+					end
+	407.	v370 = v370.Unit
+	409.	v373 = p9.BallService
+	411.	v372 = v373.Slide
+	413.	
+	415.	v372:Fire()
+	416.	v372 = p9.SlideTrove
+	418.	v375 = v4 -- get upval
+	419.	v374 = v375.Heartbeat
+	421.		-- V nested upvalues[0] = v1
+	-- V nested upvalues[1] = v7
+	-- V nested upvalues[2] = v6
+	-- V nested upvalues[3] = upvalues[0]
+	-- V nested upvalues[4] = p9
+	[NEWCLOSURE] v375 = function(p10) -- [line 278]
+		1.	local v365 = v1 -- get upval
+		2.	local v367 = v7 -- get upval
+		3.	local v368 = v6 -- get upval
+		4.	local v366 = v367 * v368
+		5.	v365.Velocity = v366
+		7.	v365 = v6 -- get upval
+		8.	v366 = p10 * 60
+		9.	v365 = v365 - v366
+		10.	v6 = v365 -- set upval
+		11.	v365 = v6 -- get upval
+		12.	v366 = 10
+		13.	if v365 > v366 then goto #20
+		15.	v367 = upvalues[0] -- get upval
+		16.	v366 = v367.IsRagdoll
+		18.	v365 = v366.Value
+		20.	if v365 then goto #34 -- referenced by #13
+						end
+		21.	v366 = p9 -- get upval
+		22.	v365 = v366.SlideTrove
+		24.	
+		26.	v365:Destroy()
+		27.	v367 = p9 -- get upval
+		28.	v366 = v367.StatesController
+		30.	v365 = v366.States
+		32.	v366 = true
+		33.	v365.Running = v366
+						end
+		35.	return
+	end
+
+	422.	CAPTURE VAL R1
+
+	423.	CAPTURE REF R7
+
+	424.	CAPTURE REF R6
+
+	425.	CAPTURE UPVAL U0
+
+	426.	CAPTURE VAL R0
+
+	427.	
+	429.	v390:Connect(v392, v393)
+	430.	[CLOSEUPVALS]: clear captures from back until: 6
+	431.	return
+end
+[NEWCLOSURE] v412 = Slide
+159.	CAPTURE REF R14
+
+160.	CAPTURE REF R24
+
+161.	CAPTURE VAL R13
+
+162.	CAPTURE VAL R11
+
+163.	CAPTURE REF R16
+
+164.	CAPTURE VAL R0
+
+165.	CAPTURE VAL R4
+
+166.	v604.Slide = v608
+168.	-- V nested upvalues[0] = v14
+-- V nested upvalues[1] = v25
+-- V nested upvalues[2] = v13
+-- V nested upvalues[3] = v19
+local function Dribble(p11) -- [line 286]
+	1.	local v581 = v14 -- get upval
+	2.	local v580 = v581.Values
+	4.	local v579 = v580.Sliding
+	6.	local v578 = v579.Value
+	8.	if v578 then goto #9
+	9.	return -- referenced by #8
+					end
+	10.	v581 = v14 -- get upval
+	11.	v580 = v581.Values
+	13.	v579 = v580.Dribbling
+	15.	v578 = v579.Value
+	17.	if v578 then goto #18
+	18.	return -- referenced by #17
+					end
+	19.	v581 = v14 -- get upval
+	20.	v580 = v581.Values
+	22.	v579 = v580.HasBall
+	24.	v578 = v579.Value
+	26.	if v578 == false then goto #28
+	28.	return -- referenced by #26
+					end
+	29.	v578 = v25 -- get upval
+	30.	v579 = tick
+	32.	v579 = v579(v580)
+	33.	if v578 > v579 then goto #35
+	35.	return -- referenced by #33
+					end
+	36.	v581 = v13 -- get upval
+	37.	v580 = v581.PlayerStats
+	39.	v579 = v580.Stamina
+	41.	v578 = v579.Value
+	43.	v579 = 10
+	44.	if v578 <= v579 then goto #46
+	46.	return -- referenced by #44
+					end
+	47.	v578 = p11.SlideTrove
+	49.	if v578 then goto #54
+	50.	v578 = p11.SlideTrove
+	52.	
+	54.	v578:Destroy() -- referenced by #49
+					end
+	55.	v579 = p11.StaminaService
+	57.	v578 = v579.DecreaseStamina
+	59.	v580 = 10
+	60.	
+	62.	v578:Fire(v580)
+	63.	v578 = p11.Animations
+	65.	
+	67.	v578:StopAnims()
+	68.	v580 = p11.Animations
+	70.	v579 = v580.Dribbles
+	72.	local v583 = v13 -- get upval
+	73.	local v582 = v583.PlayerStats
+	75.	v581 = v582.Style
+	77.	v580 = v581.Value
+	79.	v578 = v579[v580]
+	80.	v579 = Enum.AnimationPriority.Action3
+	82.	v578.Priority = v579
+	84.	v580 = p11.Animations
+	86.	v579 = v580.Dribbles
+	88.	v583 = v13 -- get upval
+	89.	v582 = v583.PlayerStats
+	91.	v581 = v582.Style
+	93.	v580 = v581.Value
+	95.	v578 = v579[v580]
+	96.	
+	98.	v578:Play()
+	99.	v580 = p11.Animations
+	101.	v579 = v580.Ball
+	103.	local v585 = v13 -- get upval
+	104.	local v584 = v585.PlayerStats
+	106.	v583 = v584.Style
+	108.	v581 = v583.Value
+	110.	v582 = "Dribble"
+	111.	v580 = v581 .. v582
+	112.	v578 = v579[v580]
+	113.	v579 = Enum.AnimationPriority.Action3
+	115.	v578.Priority = v579
+	117.	v580 = p11.Animations
+	119.	v579 = v580.Ball
+	121.	v585 = v13 -- get upval
+	122.	v584 = v585.PlayerStats
+	124.	v583 = v584.Style
+	126.	v581 = v583.Value
+	128.	v582 = "Dribble"
+	129.	v580 = v581 .. v582
+	130.	v578 = v579[v580]
+	131.	
+	133.	v578:Play()
+	134.	v578 = 3
+	135.	v582 = v13 -- get upval
+	136.	v581 = v582.PlayerStats
+	138.	v580 = v581.Style
+	140.	v579 = v580.Value
+	142.	if v579 == "Bachira" then goto #153
+	144.	v582 = v13 -- get upval
+	145.	v581 = v582.PlayerStats
+	147.	v580 = v581.InAwakening
+	149.	v579 = v580.Value
+	151.	if v579 then goto #153
+	152.	v578 = 2
+	153.	goto #154 -- referenced by #142, #151
+					else
+					and (else)
+	154.	v578 = 3 -- referenced by #153
+					end
+	155.	v582 = v13 -- get upval
+	156.	v581 = v582.PlayerStats
+	158.	v580 = v581.Flow
+	160.	v579 = v580.Value
+	162.	if v579 == "Monster" then goto #172
+	164.	v582 = v13 -- get upval
+	165.	v581 = v582.PlayerStats
+	167.	v580 = v581.InFlow
+	169.	v579 = v580.Value
+	171.	if v579 then goto #172
+	172.	v578 = v578 / 1.25 -- referenced by #162, #171
+					end
+					end
+	173.	v579 = v19 -- get upval
+	174.	v579 = v579 - 1
+	175.	v19 = v579 -- set upval
+	176.	v579 = v19 -- get upval
+	177.	v580 = 0
+	178.	if v579 <= v580 then goto #202
+	180.	v579 = 1
+	181.	v19 = v579 -- set upval
+	182.	v582 = v13 -- get upval
+	183.	v581 = v582.PlayerStats
+	185.	v580 = v581.Flow
+	187.	v579 = v580.Value
+	189.	if v579 == "Awakened Genius" then goto #200
+	191.	v582 = v13 -- get upval
+	192.	v581 = v582.PlayerStats
+	194.	v580 = v581.InFlow
+	196.	v579 = v580.Value
+	198.	if v579 then goto #200
+	199.	v579 = 2
+	200.	v19 = v579 -- set upval -- referenced by #189, #198
+					end
+					end
+	201.	v578 = 3
+	202.	goto #220 -- referenced by #178
+					elseif
+	203.	v582 = v13 -- get upval
+	204.	v581 = v582.PlayerStats
+	206.	v580 = v581.Flow
+	208.	v579 = v580.Value
+	210.	if v579 == "Awakened Genius" then goto #220
+	212.	v582 = v13 -- get upval
+	213.	v581 = v582.PlayerStats
+	215.	v580 = v581.InFlow
+	217.	v579 = v580.Value
+	219.	if v579 then goto #220
+	220.	v578 = 1 -- referenced by #202, #210, #219
+					end
+					end
+	221.	v580 = tick
+	223.	v580 = v580(v581)
+	224.	v579 = v580 + v578
+	225.	v25 = v579 -- set upval
+	226.	v580 = p11.BallService
+	228.	v579 = v580.Dribble
+	230.	
+	232.	v579:Fire()
+	233.	return
+end
+[NEWCLOSURE] v608 = Dribble
+169.	CAPTURE REF R14
+
+170.	CAPTURE REF R25
+
+171.	CAPTURE VAL R13
+
+172.	CAPTURE REF R19
+
+173.	v711.Dribble = v715
+175.	-- V nested upvalues[0] = v13
+-- V nested upvalues[1] = v21
+-- V nested upvalues[2] = v23
+local function Flick(p12) -- [line 335]
+	1.	local v689 = v13 -- get upval
+	2.	local v688 = v689.Character
+	4.	local v687 = v688.Values
+	6.	local v686 = v687.HasBall
+	8.	local v685 = v686.Value
+	10.	if v685 == false then goto #12
+	12.	return -- referenced by #10
+					end
+	13.	v688 = v13 -- get upval
+	14.	v687 = v688.PlayerStats
+	16.	v686 = v687.Stamina
+	18.	v685 = v686.Value
+	20.	v686 = 20
+	21.	if v685 <= v686 then goto #23
+	23.	return -- referenced by #21
+					end
+	24.	v685 = true
+	25.	v21 = v685 -- set upval
+	26.	v685 = tick
+	28.	v685 = v685(v686)
+	29.	v23 = v685 -- set upval
+	30.	v685 = p12.Animations
+	32.	
+	34.	v685:StopAnims()
+	35.	v687 = p12.Animations
+	37.	v686 = v687.Flicks
+	39.	v685 = v686.Flick
+	41.	v686 = Enum.AnimationPriority.Action3
+	43.	v685.Priority = v686
+	45.	v687 = p12.Animations
+	47.	v686 = v687.Flicks
+	49.	v685 = v686.Flick
+	51.	
+	53.	v685:Play()
+	54.	v687 = p12.Animations
+	56.	v686 = v687.Ball
+	58.	v685 = v686.Flick
+	60.	v686 = Enum.AnimationPriority.Action3
+	62.	v685.Priority = v686
+	64.	v687 = p12.Animations
+	66.	v686 = v687.Ball
+	68.	v685 = v686.Flick
+	70.	
+	72.	v685:Play()
+	73.	v689 = v13 -- get upval
+	74.	v688 = v689.Character
+	76.	v687 = v688.Values
+	78.	v686 = v687.HasBall
+	80.	v685 = v686.Value
+	82.	if v685 then goto #92
+	83.	v686 = p12.BallService
+	85.	v685 = v686.Shoot
+	87.	v687 = 50
+	88.	v688 = 25
+	89.	v689 = "Flick"
+	90.	
+	92.	v685:Fire(v687, v688, v689) -- referenced by #82
+					end
+	93.	v685 = task.delay
+	95.	v686 = 0.35
+	96.		-- V nested upvalues[0] = upvalues[0]
+	-- V nested upvalues[1] = p12
+	-- V nested upvalues[2] = upvalues[1]
+	[NEWCLOSURE] v687 = function() -- [line 350]
+		1.	local v690 = upvalues[0] -- get upval
+		2.	local v689 = v690.Character
+		4.	local v688 = v689.Values
+		6.	local v687 = v688.HasBall
+		8.	local v686 = v687.Value
+		10.	if v686 then goto #22
+		11.	v688 = p12 -- get upval
+		12.	v687 = v688.BallService
+		14.	v686 = v687.Shoot
+		16.	v688 = 50
+		17.	v689 = 25
+		18.	v690 = "FlickKick"
+		19.	
+		21.	v686:Fire(v688, v689, v690)
+		22.	return -- referenced by #10
+						end
+		23.	v686 = false
+		24.	upvalues[1] = v686 -- set upval
+		25.	return
+	end
+
+	97.	CAPTURE UPVAL U0
+
+	98.	CAPTURE VAL R0
+
+	99.	CAPTURE UPVAL U1
+
+	100.	v697(v698, v699)
+	101.	return
+end
+[NEWCLOSURE] v727 = Flick
+176.	CAPTURE VAL R13
+
+177.	CAPTURE REF R21
+
+178.	CAPTURE REF R23
+
+179.	v762.Flick = v766
+181.	-- V nested upvalues[0] = v26
+-- V nested upvalues[1] = v13
+-- V nested upvalues[2] = v22
+-- V nested upvalues[3] = v14
+local function Bicycle(p13) -- [line 357]
+	1.	local v736 = v26 -- get upval
+	2.	local v737 = tick
+	4.	v737 = v737(v738)
+	5.	if v736 > v737 then goto #7
+	7.	return -- referenced by #5
+					end
+	8.	local v739 = v13 -- get upval
+	9.	local v738 = v739.PlayerStats
+	11.	v737 = v738.Stamina
+	13.	v736 = v737.Value
+	15.	v737 = 30
+	16.	if v736 <= v737 then goto #18
+	18.	return -- referenced by #16
+					end
+	19.	v737 = tick
+	21.	v737 = v737(v738)
+	22.	v736 = v737 + 5
+	23.	v26 = v736 -- set upval
+	24.	v736 = true
+	25.	v22 = v736 -- set upval
+	26.	v737 = p13.BallService
+	28.	v736 = v737.Dribble
+	30.	
+	32.	v736:Fire()
+	33.	v737 = p13.StatesController
+	35.	v736 = v737.States
+	37.	v737 = true
+	38.	v736.Bicycle = v737
+	40.	v736 = p13.Animations
+	42.	
+	44.	v736:StopAnims()
+	45.	v738 = p13.Animations
+	47.	v737 = v738.Bicycles
+	49.	v736 = v737.Bicycle
+	51.	v737 = Enum.AnimationPriority.Action3
+	53.	v736.Priority = v737
+	55.	v738 = p13.Animations
+	57.	v737 = v738.Bicycles
+	59.	v736 = v737.Bicycle
+	61.	
+	63.	v736:Play()
+	64.	v738 = p13.Animations
+	66.	v737 = v738.Ball
+	68.	v736 = v737.Bicycle
+	70.	v737 = Enum.AnimationPriority.Action3
+	72.	v736.Priority = v737
+	74.	v738 = p13.Animations
+	76.	v737 = v738.Ball
+	78.	v736 = v737.Bicycle
+	80.	
+	82.	v736:Play()
+	83.	v737 = p13.BallService
+	85.	v736 = v737.Shoot
+	87.	v738 = 170
+	88.	v739 = nil
+	89.	local v740 = "BicycleState"
+	90.	
+	92.	v736:Fire(v738, v739, v740)
+	93.	v736 = task.delay
+	95.	v737 = 0.65
+	96.		-- V nested upvalues[0] = upvalues[3]
+	-- V nested upvalues[1] = p13
+	-- V nested upvalues[2] = upvalues[2]
+	[NEWCLOSURE] v738 = function() -- [line 377]
+		1.	local v740 = upvalues[3] -- get upval
+		2.	local v739 = v740.Values
+		4.	local v738 = v739.HasBall
+		6.	local v737 = v738.Value
+		8.	if v737 then goto #20
+		9.	v739 = p13 -- get upval
+		10.	v738 = v739.BallService
+		12.	v737 = v738.Shoot
+		14.	v739 = 170
+		15.	v740 = 30
+		16.	local v741 = "Bicycle"
+		17.	
+		19.	v737:Fire(v739, v740, v741)
+		20.	return -- referenced by #8
+						end
+		21.	v737 = false
+		22.	upvalues[2] = v737 -- set upval
+		23.	return
+	end
+
+	97.	CAPTURE UPVAL U3
+
+	98.	CAPTURE VAL R0
+
+	99.	CAPTURE UPVAL U2
+
+	100.	v747(v748, v749)
+	101.	v747 = task.delay
+	103.	v748 = 0.85
+	104.		-- V nested upvalues[0] = p13
+	[NEWCLOSURE] v749 = function() -- [line 383]
+		1.	local v750 = p13 -- get upval
+		2.	local v749 = v750.StatesController
+		4.	local v748 = v749.States
+		6.	v749 = false
+		7.	v748.Bicycle = v749
+		9.	return
+	end
+
+	105.	CAPTURE VAL R0
+
+	106.	v751(v752, v753)
+	107.	return
+end
+[NEWCLOSURE] v781 = Bicycle
+182.	CAPTURE REF R26
+
+183.	CAPTURE VAL R13
+
+184.	CAPTURE REF R22
+
+185.	CAPTURE REF R14
+
+186.	v816.Bicycle = v820
+188.	-- V nested upvalues[0] = v11
+-- V nested upvalues[1] = v13
+-- V nested upvalues[2] = v1
+-- V nested upvalues[3] = v15
+local function ResetChecks(p14) -- [line 388]
+	1.	local v790 = p14.NewTrove
+	3.	if v790 then goto #8
+	4.	v790 = p14.NewTrove
+	6.	
+	8.	v790:Destroy() -- referenced by #3
+					end
+	9.	local v791 = v11 -- get upval
+	10.	v790 = v791.new
+	12.	v790 = v790(v791)
+	13.	p14.NewTrove = v790
+	15.	v790 = p14.NewTrove
+	17.	local v794 = v13 -- get upval
+	18.	local v793 = v794.Character
+	20.	local v792 = v793.Values
+	22.	v794 = "IsInPenalty"
+	23.	
+	25.	v792 = v792:WaitForChild(v794)
+	26.	v794 = "Value"
+	27.	
+	29.	v792 = v792:GetPropertyChangedSignal(v794)
+	30.		-- V nested upvalues[0] = upvalues[1]
+	[DUPCLOSURE] v793 = function() -- [line 392]
+		1.	local v795 = upvalues[1] -- get upval
+		2.	local v794 = v795.PlayerGui
+		4.	local v793 = v794.Mobile
+		6.	local v792 = v793.NoBall
+		8.	local v791 = v792.Dive
+		10.	v792 = false
+		11.	v791.Visible = v792
+		13.	v795 = upvalues[1] -- get upval
+		14.	v794 = v795.Character
+		16.	v793 = v794.Values
+		18.	v792 = v793.IsInPenalty
+		20.	v791 = v792.Value
+		22.	if v791 then goto #44
+		23.	v795 = upvalues[1] -- get upval
+		24.	v794 = v795.Character
+		26.	v793 = v794.Values
+		28.	v792 = v793.Goalie
+		30.	v791 = v792.Value
+		32.	if v791 then goto #44
+		33.	v795 = upvalues[1] -- get upval
+		34.	v794 = v795.PlayerGui
+		36.	v793 = v794.Mobile
+		38.	v792 = v793.NoBall
+		40.	v791 = v792.Dive
+		42.	v792 = true
+		43.	v791.Visible = v792
+						end
+						end
+		45.	return
+	end
+
+	31.	CAPTURE UPVAL U1
+
+	32.	
+	34.	v812:Connect(v814, v815)
+	35.	v812 = p14.NewTrove
+	37.	local v817 = v13 -- get upval
+	38.	v816 = v817.Character
+	40.	v815 = v816.Values
+	42.	v814 = v815.HasBall
+	44.	v816 = "Value"
+	45.	
+	47.	v814 = v814:GetPropertyChangedSignal(v816)
+	48.		-- V nested upvalues[0] = upvalues[1]
+	-- V nested upvalues[1] = upvalues[2]
+	[DUPCLOSURE] v815 = function() -- [line 402]
+		1.	local v817 = upvalues[1] -- get upval
+		2.	local v816 = v817.Character
+		4.	local v815 = v816.Values
+		6.	local v814 = v815.HasBall
+		8.	local v813 = v814.Value
+		10.	if v813 then goto #43
+		11.	v814 = upvalues[2] -- get upval
+		12.	v813 = v814.TouchEnabled
+		14.	if v813 then goto #75
+		15.	v815 = upvalues[1] -- get upval
+		16.	v814 = v815.PlayerGui
+		18.	v813 = v814.Mobile
+		20.	v814 = true
+		21.	v813.Enabled = v814
+		23.	v816 = upvalues[1] -- get upval
+		24.	v815 = v816.PlayerGui
+		26.	v814 = v815.Mobile
+		28.	v813 = v814.NoBall
+		30.	v814 = false
+		31.	v813.Visible = v814
+		33.	v816 = upvalues[1] -- get upval
+		34.	v815 = v816.PlayerGui
+		36.	v814 = v815.Mobile
+		38.	v813 = v814.Ball
+		40.	v814 = true
+		41.	v813.Visible = v814
+		43.	return -- referenced by #10
+						end
+		44.	v814 = upvalues[2] -- get upval
+		45.	v813 = v814.TouchEnabled
+		47.	if v813 then goto #75
+		48.	v815 = upvalues[1] -- get upval
+		49.	v814 = v815.PlayerGui
+		51.	v813 = v814.Mobile
+		53.	v814 = true
+		54.	v813.Enabled = v814
+		56.	v816 = upvalues[1] -- get upval
+		57.	v815 = v816.PlayerGui
+		59.	v814 = v815.Mobile
+		61.	v813 = v814.NoBall
+		63.	v814 = true
+		64.	v813.Visible = v814
+		66.	v816 = upvalues[1] -- get upval
+		67.	v815 = v816.PlayerGui
+		69.	v814 = v815.Mobile
+		71.	v813 = v814.Ball
+		73.	v814 = false
+		74.	v813.Visible = v814
+						end
+						end
+		76.	return
+	end
+
+	49.	CAPTURE UPVAL U1
+
+	50.	CAPTURE UPVAL U2
+
+	51.	
+	53.	v849:Connect(v851, v852)
+	54.	v849 = p14.NewTrove
+	56.	v852 = v15 -- get upval
+	57.	v851 = v852.StateChanged
+	59.		-- V nested upvalues[0] = p14
+	[NEWCLOSURE] v852 = function(p15, p16) -- [line 418]
+		1.	local v850 = Enum.HumanoidStateType.Jumping
+		3.	if p16 == v850 then goto #8
+		5.	v850 = p14 -- get upval
+		6.	
+		8.	v850:Flick() -- referenced by #3
+						end
+		9.	return
+	end
+
+	60.	CAPTURE VAL R0
+
+	61.	
+	63.	v851:Connect(v853, v854)
+	64.	return
+end
+[NEWCLOSURE] v881 = ResetChecks
+189.	CAPTURE VAL R11
+
+190.	CAPTURE VAL R13
+
+191.	CAPTURE VAL R1
+
+192.	CAPTURE REF R15
+
+193.	v896.ResetChecks = v900
+195.	-- V nested upvalues[0] = v873
+-- V nested upvalues[1] = v869
+local function DragBall(p17, p18) -- [line 425]
+	1.	local v870 = p17.Drag
+	3.	if v870 then goto #8
+	4.	v870 = p17.Drag
+	6.	
+	8.	v870:Disconnect() -- referenced by #3
+					end
+	9.	v870 = 0.999
+	10.	local v872 = v873 -- get upval
+	11.	local v871 = v872.Heartbeat
+	13.		-- V nested upvalues[0] = upvalues[1]
+	-- V nested upvalues[1] = p17
+	-- V nested upvalues[2] = p18
+	-- V nested upvalues[3] = v1
+	[NEWCLOSURE] v873 = function(p19) -- [line 429]
+		1.	local v874 = upvalues[1] -- get upval
+		2.	local v873 = v874.Football
+		4.	local v872 = v873.Value
+		6.	local v871 = v872.Parent
+		8.	v872 = workspace
+		10.	if v871 ~= v872 then goto #18
+		12.	v872 = p17 -- get upval
+		13.	v871 = v872.Drag
+		15.	
+		17.	v871:Disconnect()
+		18.	return -- referenced by #10
+						end
+		19.	local v875 = upvalues[1] -- get upval
+		20.	v874 = v875.Football
+		22.	v873 = v874.Value
+		24.	v872 = v873.OnPlayer
+		26.	v871 = v872.Value
+		28.	if v871 then goto #35
+		29.	v872 = p17 -- get upval
+		30.	v871 = v872.Drag
+		32.	
+		34.	v871:Disconnect()
+		35.	return -- referenced by #28
+						end
+		36.	v873 = p18 -- get upval
+		37.	v872 = v873.Position
+		39.	v871 = v872.Y
+		41.	v872 = 18
+		42.	if v871 <= v872 then goto #76
+		44.	v872 = p18 -- get upval
+		45.	v871 = v872.AssemblyLinearVelocity
+		47.	v872 = v1 -- get upval
+		48.	v873 = p19 / 50
+		49.	v872 = v872 - v873
+		50.	v1 = v872 -- set upval
+		51.	v872 = p18 -- get upval
+		52.	local v877 = p18 -- get upval
+		53.	local v876 = v877.AssemblyLinearVelocity
+		55.	v875 = v876.X
+		57.	v876 = v1 -- get upval
+		58.	v874 = v875 * v876
+		59.	v877 = p18 -- get upval
+		60.	v876 = v877.AssemblyLinearVelocity
+		62.	v875 = v876.Y
+		64.	local v879 = p18 -- get upval
+		65.	local v878 = v879.AssemblyLinearVelocity
+		67.	v877 = v878.Z
+		69.	v878 = v1 -- get upval
+		70.	v876 = v877 * v878
+		71.	FASTCALL[Vector3.new]()
+		72.	v873 = Vector3.new
+		74.	v873 = v873(v874, v875, v876)
+		75.	v872.AssemblyLinearVelocity = v873
+						end
+		77.	v873 = p18 -- get upval
+		78.	v872 = v873.Position
+		80.	v871 = v872.Y
+		82.	v872 = 27
+		83.	if v872 > v871 then goto #106
+		85.	v873 = p18 -- get upval
+		86.	v872 = v873.Position
+		88.	v871 = v872.Y
+		90.	v872 = 8
+		91.	if v871 > v872 then goto #106
+		93.	v871 = p18 -- get upval
+		94.	v872 = v871.AssemblyLinearVelocity
+		96.	v874 = 0
+		97.	v876 = 82
+		98.	v875 = v876 * p19
+		99.	v876 = 0
+		100.	FASTCALL[Vector3.new]()
+		101.	v873 = Vector3.new
+		103.	v873 = v873(v874, v875, v876)
+		104.	v872 = v872 + v873
+		105.	v871.AssemblyLinearVelocity = v872
+						end
+						end
+		107.	v873 = p18 -- get upval
+		108.	v872 = v873.AssemblyLinearVelocity
+		110.	v871 = v872.Magnitude
+		112.	v872 = 10
+		113.	if v871 <= v872 then goto #120
+		115.	v872 = p17 -- get upval
+		116.	v871 = v872.Drag
+		118.	
+		120.	v871:Disconnect() -- referenced by #113
+						end
+		121.	return
+	end
+
+	14.	CAPTURE UPVAL U1
+
+	15.	CAPTURE VAL R0
+
+	16.	CAPTURE VAL R1
+
+	17.	CAPTURE REF R2
+
+	18.	
+	20.	v931 = v931:Connect(v933)
+	21.	p18.Drag = v931
+	23.	[CLOSEUPVALS]: clear captures from back until: 2
+	24.	return
+end
+[DUPCLOSURE] v960 = DragBall
+196.	CAPTURE VAL R4
+
+197.	CAPTURE VAL R0
+
+198.	v961.DragBall = v965
+200.	-- V nested upvalues[0] = v945
+-- V nested upvalues[1] = v938
+-- V nested upvalues[2] = v934
+local function LocalDragBall(p20, p21) -- [line 447]
+	1.	local v935 = p20.LocalDrag
+	3.	if v935 then goto #8
+	4.	v935 = p20.LocalDrag
+	6.	
+	8.	v935:Destroy() -- referenced by #3
+					end
+	9.	local v936 = v945 -- get upval
+	10.	v935 = v936.new
+	12.	v935 = v935(v936)
+	13.	p20.LocalDrag = v935
+	15.	v935 = 0.999
+	16.	v936 = p20.LocalDrag
+	18.	local v939 = v938 -- get upval
+	19.	local v938 = v939.Heartbeat
+	21.		-- V nested upvalues[0] = upvalues[2]
+	-- V nested upvalues[1] = p20
+	-- V nested upvalues[2] = p21
+	-- V nested upvalues[3] = v1
+	[NEWCLOSURE] v939 = function(p22) -- [line 452]
+		1.	local v939 = upvalues[2] -- get upval
+		2.	local v938 = v939.Football
+		4.	local v937 = v938.Value
+		6.	local v936 = v937.Parent
+		8.	v937 = workspace
+		10.	if v936 ~= v937 then goto #18
+		12.	v937 = p20 -- get upval
+		13.	v936 = v937.LocalDrag
+		15.	
+		17.	v936:Destroy()
+		18.	return -- referenced by #10
+						end
+		19.	local v940 = upvalues[2] -- get upval
+		20.	v939 = v940.Football
+		22.	v938 = v939.Value
+		24.	v937 = v938.OnPlayer
+		26.	v936 = v937.Value
+		28.	if v936 then goto #35
+		29.	v937 = p20 -- get upval
+		30.	v936 = v937.LocalDrag
+		32.	
+		34.	v936:Destroy()
+		35.	return -- referenced by #28
+						end
+		36.	v938 = p21 -- get upval
+		37.	v937 = v938.Position
+		39.	v936 = v937.Y
+		41.	v937 = 20
+		42.	if v936 <= v937 then goto #58
+		44.	v937 = p21 -- get upval
+		45.	v936 = v937.AssemblyLinearVelocity
+		47.	v937 = v1 -- get upval
+		48.	v938 = p22 / 40
+		49.	v937 = v937 - v938
+		50.	v1 = v937 -- set upval
+		51.	v937 = p21 -- get upval
+		52.	v938 = v937.AssemblyLinearVelocity
+		54.	v939 = v1 -- get upval
+		55.	v938 = v938 * v939
+		56.	v937.AssemblyLinearVelocity = v938
+		58.	goto #80 -- referenced by #42
+						elseif
+		59.	v938 = p21 -- get upval
+		60.	v937 = v938.Position
+		62.	v936 = v937.Y
+		64.	v937 = 33
+		65.	if v937 <= v936 then goto #80
+		67.	v936 = p21 -- get upval
+		68.	v937 = v936.AssemblyLinearVelocity
+		70.	v939 = 0
+		71.	local v941 = 5
+		72.	v940 = v941 * p22
+		73.	v941 = 0
+		74.	FASTCALL[Vector3.new]()
+		75.	v938 = Vector3.new
+		77.	v938 = v938(v939, v940, v941)
+		78.	v937 = v937 + v938
+		79.	v936.AssemblyLinearVelocity = v937
+						end
+		81.	v938 = p21 -- get upval
+		82.	v937 = v938.AssemblyLinearVelocity
+		84.	v936 = v937.Magnitude
+		86.	v937 = 10
+		87.	if v936 <= v937 then goto #94
+		89.	v937 = p20 -- get upval
+		90.	v936 = v937.LocalDrag
+		92.	
+		94.	v936:Destroy() -- referenced by #87
+						end
+		95.	return
+	end
+
+	22.	CAPTURE UPVAL U2
+
+	23.	CAPTURE VAL R0
+
+	24.	CAPTURE VAL R1
+
+	25.	CAPTURE REF R2
+
+	26.	
+	28.	v981:Connect(v983, v984)
+	29.	[CLOSEUPVALS]: clear captures from back until: 2
+	30.	return
+end
+[DUPCLOSURE] v1010 = LocalDragBall
+201.	CAPTURE VAL R11
+
+202.	CAPTURE VAL R4
+
+203.	CAPTURE VAL R0
+
+204.	v1014.LocalDragBall = v1018
+206.	-- V nested upvalues[0] = v9
+-- V nested upvalues[1] = v1
+-- V nested upvalues[2] = v13
+-- V nested upvalues[3] = v14
+-- V nested upvalues[4] = v0
+local function CheckInput(p23) -- [line 468]
+	1.	local v988 = tick
+	3.	v988 = v988(v989)
+	4.	local v990 = v9 -- get upval
+	5.	local v989 = v990.GetController
+	7.	v990 = "AwakeningController"
+	8.	v989 = v989(v990)
+	9.	p23.Awakening = v989
+	11.	v990 = v9 -- get upval
+	12.	v989 = v990.GetService
+	14.	v990 = "EffectsService"
+	15.	v989 = v989(v990)
+	16.	p23.Effects = v989
+	18.	v990 = v9 -- get upval
+	19.	v989 = v990.GetController
+	21.	v990 = "Settings"
+	22.	v989 = v989(v990)
+	23.	p23.Settings = v989
+	25.	v990 = v1 -- get upval
+	26.	v989 = v990.TouchEnabled
+	28.	if v989 then goto #90
+	29.	v990 = v13 -- get upval
+	30.	v989 = v990.PlayerGui
+	32.	local v991 = "Mobile"
+	33.	
+	35.	v989 = v989:WaitForChild(v991)
+	36.	
+	38.	v989 = v989:GetDescendants()
+	39.	v990 = pairs
+	41.	v991 = v989
+	42.	v990, v991, v992 = v990(v991)
+	43.	for v993, v994 in v990(v991) do -- [escape at #89] (pairs/next)
+	44.	local v997 = "ImageButton"
+	45.	
+	47.	v995 = v994:IsA(v997)
+	48.	if v995 ~= false then goto #88
+	50.	local v995 = p23.BaseTrove
+	52.	v997 = v994.MouseButton1Down
+	54.		-- V nested upvalues[0] = p23
+	-- V nested upvalues[1] = upvalues[2]
+	-- V nested upvalues[2] = upvalues[3]
+	-- V nested upvalues[3] = v7
+	[NEWCLOSURE] v998 = function() -- [line 479]
+		1.	local v992 = p23 -- get upval
+		2.	local v991 = v992.StatesController
+		4.	local v990 = v991.Camera
+		6.	local v989 = v990.Cutscene
+		8.	if v989 then goto #9
+		9.	return -- referenced by #8
+						end
+		10.	v990 = upvalues[2] -- get upval
+		11.	v989 = v990.Team
+		13.	v992 = game
+		15.	v991 = v992.Teams
+		17.	v990 = v991.Visitor
+		19.	if v989 == v990 then goto #21
+		21.	return -- referenced by #19
+						end
+		22.	v991 = upvalues[3] -- get upval
+		23.	v990 = v991.IsRagdoll
+		25.	v989 = v990.Value
+		27.	if v989 then goto #28
+		28.	return -- referenced by #27
+						end
+		29.	v992 = p23 -- get upval
+		30.	v991 = v992.StatesController
+		32.	v990 = v991.States
+		34.	v989 = v990.Ability
+		36.	if v989 then goto #37
+		37.	return -- referenced by #36
+						end
+		38.	v990 = v7 -- get upval
+		39.	v989 = v990.Name
+		41.	if v989 == "Shoot" then goto #46
+		43.	v989 = p23 -- get upval
+		44.	
+		46.	v989:Shoot() -- referenced by #41
+						end
+		47.	return
+	end
+
+	55.	CAPTURE VAL R0
+
+	56.	CAPTURE UPVAL U2
+
+	57.	CAPTURE UPVAL U3
+
+	58.	CAPTURE VAL R7
+
+	59.	
+	61.	v1014:Connect(v1016, v1017)
+	62.	v1014 = p23.BaseTrove
+	64.	v1016 = v1013.MouseButton1Click
+	66.		-- V nested upvalues[0] = p23
+	-- V nested upvalues[1] = upvalues[2]
+	-- V nested upvalues[2] = upvalues[3]
+	-- V nested upvalues[3] = v7
+	-- V nested upvalues[4] = v1
+	-- V nested upvalues[5] = upvalues[4]
+	[NEWCLOSURE] v1017 = function() -- [line 491]
+		1.	local v1011 = p23 -- get upval
+		2.	local v1010 = v1011.StatesController
+		4.	local v1009 = v1010.Camera
+		6.	local v1008 = v1009.Cutscene
+		8.	if v1008 then goto #9
+		9.	return -- referenced by #8
+						end
+		10.	v1009 = upvalues[2] -- get upval
+		11.	v1008 = v1009.Team
+		13.	v1011 = game
+		15.	v1010 = v1011.Teams
+		17.	v1009 = v1010.Visitor
+		19.	if v1008 == v1009 then goto #21
+		21.	return -- referenced by #19
+						end
+		22.	v1010 = upvalues[3] -- get upval
+		23.	v1009 = v1010.IsRagdoll
+		25.	v1008 = v1009.Value
+		27.	if v1008 then goto #28
+		28.	return -- referenced by #27
+						end
+		29.	v1011 = p23 -- get upval
+		30.	v1010 = v1011.StatesController
+		32.	v1009 = v1010.States
+		34.	v1008 = v1009.Ability
+		36.	if v1008 then goto #37
+		37.	return -- referenced by #36
+						end
+		38.	v1011 = upvalues[3] -- get upval
+		39.	v1010 = v1011.Values
+		41.	v1009 = v1010.Goalie
+		43.	v1008 = v1009.Value
+		45.	if v1008 then goto #52
+		46.	v1011 = upvalues[3] -- get upval
+		47.	v1010 = v1011.Values
+		49.	v1009 = v1010.IsInPenalty
+		51.	v1008 = v1009.Value
+						end
+		53.	v1010 = v7 -- get upval
+		54.	v1009 = v1010.Name
+		56.	if v1009 == "Run" then goto #73
+		58.	v1011 = p23 -- get upval
+		59.	v1010 = v1011.StatesController
+		61.	v1009 = v1010.States
+		63.	local v1014 = p23 -- get upval
+		64.	local v1013 = v1014.StatesController
+		66.	local v1012 = v1013.States
+		68.	v1011 = v1012.Running
+		70.	v1010 = not v1011
+		71.	v1009.Running = v1010
+		73.	return -- referenced by #56
+						end
+		74.	v1010 = v7 -- get upval
+		75.	v1009 = v1010.Name
+		77.	if v1009 == "Bicycle" then goto #83
+		79.	v1009 = p23 -- get upval
+		80.	
+		82.	v1009:Bicycle()
+		83.	return -- referenced by #77
+						end
+		84.	v1010 = v7 -- get upval
+		85.	v1009 = v1010.Name
+		87.	if v1009 == "Pass" then goto #93
+		89.	v1009 = p23 -- get upval
+		90.	
+		92.	v1009:Pass()
+		93.	return -- referenced by #87
+						end
+		94.	v1010 = v7 -- get upval
+		95.	v1009 = v1010.Name
+		97.	if v1009 == "Dribble" then goto #104
+		99.	if not v1008 then goto #104
+		100.	v1009 = p23 -- get upval
+		101.	
+		103.	v1009:Dribble()
+		104.	return -- referenced by #97, #99
+						end
+						end
+		105.	v1010 = v7 -- get upval
+		106.	v1009 = v1010.Name
+		108.	if v1009 == "Slide" then goto #114
+		110.	v1009 = p23 -- get upval
+		111.	
+		113.	v1009:Slide()
+		114.	return -- referenced by #108
+						end
+		115.	v1010 = v7 -- get upval
+		116.	v1009 = v1010.Name
+		118.	if v1009 == "Awaken" then goto #126
+		120.	v1010 = p23 -- get upval
+		121.	v1009 = v1010.Awakening
+		123.	
+		125.	v1009:Awakening()
+		126.	return -- referenced by #118
+						end
+		127.	v1010 = v7 -- get upval
+		128.	v1009 = v1010.Name
+		130.	if v1009 == "Shoot" then goto #136
+		132.	v1009 = p23 -- get upval
+		133.	v1010 = false
+		134.	v1009.HoldingShoot = v1010
+		136.	return -- referenced by #130
+						end
+		137.	v1010 = v7 -- get upval
+		138.	v1009 = v1010.Name
+		140.	if v1009 == "Request" then goto #197
+		142.	v1009 = v1 -- get upval
+		143.	v1010 = tick
+		145.	v1010 = v1010(v1011)
+		146.	if v1009 > v1010 then goto #148
+		148.	return -- referenced by #146
+						end
+		149.	v1010 = tick
+		151.	v1010 = v1010(v1011)
+		152.	v1009 = v1010 + 3
+		153.	v1 = v1009 -- set upval
+		154.	v1011 = p23 -- get upval
+		155.	v1010 = v1011.Effects
+		157.	v1009 = v1010.Vfx
+		159.	v1013 = upvalues[4] -- get upval
+		160.	v1012 = v1013.Effects
+		162.	v1011 = v1012.Pass
+		164.	v1012 = {"Char"}
+		165.	v1013 = "as"
+		166.	v1012.Char = v1013
+		168.	
+		170.	v1009:Fire(v1011, v1012)
+		171.	v1010 = p23 -- get upval
+		172.	v1009 = v1010.Animations
+		174.	
+		176.	v1009:StopAnims()
+		177.	v1012 = p23 -- get upval
+		178.	v1011 = v1012.Animations
+		180.	v1010 = v1011.Movement
+		182.	v1009 = v1010.Request
+		184.	v1010 = Enum.AnimationPriority.Action2
+		186.	v1009.Priority = v1010
+		188.	v1012 = p23 -- get upval
+		189.	v1011 = v1012.Animations
+		191.	v1010 = v1011.Movement
+		193.	v1009 = v1010.Request
+		195.	
+		197.	v1009:Play() -- referenced by #140
+						end
+		198.	return
+	end
+
+	67.	CAPTURE VAL R0
+
+	68.	CAPTURE UPVAL U2
+
+	69.	CAPTURE UPVAL U3
+
+	70.	CAPTURE VAL R7
+
+	71.	CAPTURE REF R1
+
+	72.	CAPTURE UPVAL U4
+
+	73.	
+	75.	v1093:Connect(v1095, v1096)
+	76.	v1093 = v1092.Name
+	78.	if v1093 == "Shoot" then goto #88
+	80.	v1093 = p23.BaseTrove
+	82.	v1095 = v1092.MouseButton1Up
+	84.		-- V nested upvalues[0] = p23
+	[NEWCLOSURE] v1096 = function() -- [line 527]
+		1.	local v1087 = p23 -- get upval
+		2.	local v1088 = false
+		3.	v1087.HoldingShoot = v1088
+		5.	return
+	end
+
+	85.	CAPTURE VAL R0
+
+	86.	
+	88.	v1095:Connect(v1097, v1098) -- referenced by #48, #78
+					end
+					end
+	89.	end -- FORGLOOP - iterate + goto #43
+					end
+	91.	v1089 = p23.BaseTrove
+	93.	local v1092 = v1 -- get upval
+	94.	v1091 = v1092.InputBegan
+	96.		-- V nested upvalues[0] = p23
+	-- V nested upvalues[1] = upvalues[2]
+	-- V nested upvalues[2] = upvalues[3]
+	-- V nested upvalues[3] = v1
+	-- V nested upvalues[4] = upvalues[4]
+	[NEWCLOSURE] v1092 = function(p24, p25) -- [line 534]
+		1.	if p25 then goto #2
+		2.	return -- referenced by #1
+						end
+		3.	local v1092 = p23 -- get upval
+		4.	local v1091 = v1092.StatesController
+		6.	local v1090 = v1091.Camera
+		8.	local v1089 = v1090.Cutscene
+		10.	if v1089 then goto #11
+		11.	return -- referenced by #10
+						end
+		12.	v1090 = upvalues[2] -- get upval
+		13.	v1089 = v1090.Team
+		15.	v1092 = game
+		17.	v1091 = v1092.Teams
+		19.	v1090 = v1091.Visitor
+		21.	if v1089 == v1090 then goto #23
+		23.	return -- referenced by #21
+						end
+		24.	v1091 = upvalues[3] -- get upval
+		25.	v1090 = v1091.IsRagdoll
+		27.	v1089 = v1090.Value
+		29.	if v1089 then goto #30
+		30.	return -- referenced by #29
+						end
+		31.	v1092 = p23 -- get upval
+		32.	v1091 = v1092.StatesController
+		34.	v1090 = v1091.States
+		36.	v1089 = v1090.Ability
+		38.	if v1089 then goto #39
+		39.	return -- referenced by #38
+						end
+		40.	v1089 = p24.KeyCode
+		42.	v1090 = Enum.KeyCode.LeftShift
+		44.	if v1089 ~= v1090 then goto #51
+		46.	v1089 = p24.KeyCode
+		48.	v1090 = Enum.KeyCode.ButtonL2
+		50.	if v1089 == v1090 then goto #84
+						end
+		52.	v1092 = p23 -- get upval
+		53.	v1091 = v1092.Settings
+		55.	v1090 = v1091.SettingsData
+		57.	v1089 = v1090.RunLock
+		59.	if v1089 == true then goto #76
+		61.	v1091 = p23 -- get upval
+		62.	v1090 = v1091.StatesController
+		64.	v1089 = v1090.States
+		66.	local v1094 = p23 -- get upval
+		67.	local v1093 = v1094.StatesController
+		69.	v1092 = v1093.States
+		71.	v1091 = v1092.Running
+		73.	v1090 = not v1091
+		74.	v1089.Running = v1090
+		76.	goto #84 -- referenced by #59
+						else
+		77.	v1091 = p23 -- get upval
+		78.	v1090 = v1091.StatesController
+		80.	v1089 = v1090.States
+		82.	v1090 = true
+		83.	v1089.Running = v1090
+						end
+						end
+		85.	v1092 = upvalues[3] -- get upval
+		86.	v1091 = v1092.Values
+		88.	v1090 = v1091.Goalie
+		90.	v1089 = v1090.Value
+		92.	if v1089 then goto #99
+		93.	v1092 = upvalues[3] -- get upval
+		94.	v1091 = v1092.Values
+		96.	v1090 = v1091.IsInPenalty
+		98.	v1089 = v1090.Value
+						end
+		100.	v1090 = p24.UserInputType
+		102.	v1091 = Enum.UserInputType.MouseButton1
+		104.	if v1090 ~= v1091 then goto #111
+		106.	v1090 = p24.KeyCode
+		108.	v1091 = Enum.KeyCode.ButtonR2
+		110.	if v1090 == v1091 then goto #116
+						end
+		112.	v1090 = p23 -- get upval
+		113.	
+		115.	v1090:Shoot()
+		116.	goto #149 -- referenced by #110
+						else
+		117.	v1090 = p24.UserInputType
+		119.	v1091 = Enum.UserInputType.MouseButton2
+		121.	if v1090 ~= v1091 then goto #128
+		123.	v1090 = p24.KeyCode
+		125.	v1091 = Enum.KeyCode.ButtonL1
+		127.	if v1090 == v1091 then goto #133
+						end
+		129.	v1090 = p23 -- get upval
+		130.	
+		132.	v1090:Pass()
+		133.	goto #149 -- referenced by #127
+						else
+		134.	v1090 = p24.KeyCode
+		136.	v1091 = Enum.KeyCode.E
+		138.	if v1090 ~= v1091 then goto #145
+		140.	v1090 = p24.KeyCode
+		142.	v1091 = Enum.KeyCode.ButtonR1
+		144.	if v1090 == v1091 then goto #149
+						end
+		146.	v1090 = p23 -- get upval
+		147.	
+		149.	v1090:Slide() -- referenced by #116, #133, #144
+						end
+						end
+						end
+		150.	v1090 = p24.KeyCode
+		152.	v1091 = Enum.KeyCode.Q
+		154.	if v1090 ~= v1091 then goto #161
+		156.	v1090 = p24.KeyCode
+		158.	v1091 = Enum.KeyCode.ButtonR1
+		160.	if v1090 == v1091 then goto #167
+						end
+		162.	if not v1089 then goto #167
+		163.	v1090 = p23 -- get upval
+		164.	
+		166.	v1090:Dribble()
+		167.	goto #179 -- referenced by #160, #162
+						elseif
+						elseif
+		168.	v1090 = p24.KeyCode
+		170.	v1091 = Enum.KeyCode.F
+		172.	if v1090 ~= v1091 then goto #179
+		174.	v1090 = p24.KeyCode
+		176.	v1091 = Enum.KeyCode.ButtonL1
+		178.	if v1090 == v1091 then goto #179
+						end
+						end
+		180.	v1090 = p24.KeyCode
+		182.	v1091 = Enum.KeyCode.R
+		184.	if v1090 ~= v1091 then goto #191
+		186.	v1090 = p24.KeyCode
+		188.	v1091 = Enum.KeyCode.ButtonL1
+		190.	if v1090 == v1091 then goto #247
+						end
+		192.	v1090 = v1 -- get upval
+		193.	v1091 = tick
+		195.	v1091 = v1091(v1092)
+		196.	if v1090 > v1091 then goto #198
+		198.	return -- referenced by #196
+						end
+		199.	v1091 = tick
+		201.	v1091 = v1091(v1092)
+		202.	v1090 = v1091 + 3
+		203.	v1 = v1090 -- set upval
+		204.	v1092 = p23 -- get upval
+		205.	v1091 = v1092.Effects
+		207.	v1090 = v1091.Vfx
+		209.	v1094 = upvalues[4] -- get upval
+		210.	v1093 = v1094.Effects
+		212.	v1092 = v1093.Pass
+		214.	v1093 = {"Char"}
+		215.	v1094 = "as"
+		216.	v1093.Char = v1094
+		218.	
+		220.	v1090:Fire(v1092, v1093)
+		221.	v1091 = p23 -- get upval
+		222.	v1090 = v1091.Animations
+		224.	
+		226.	v1090:StopAnims()
+		227.	v1093 = p23 -- get upval
+		228.	v1092 = v1093.Animations
+		230.	v1091 = v1092.Movement
+		232.	v1090 = v1091.Request
+		234.	v1091 = Enum.AnimationPriority.Action2
+		236.	v1090.Priority = v1091
+		238.	v1093 = p23 -- get upval
+		239.	v1092 = v1093.Animations
+		241.	v1091 = v1092.Movement
+		243.	v1090 = v1091.Request
+		245.	
+		247.	v1090:Play() -- referenced by #190
+						end
+		248.	return
+	end
+
+	97.	CAPTURE VAL R0
+
+	98.	CAPTURE UPVAL U2
+
+	99.	CAPTURE UPVAL U3
+
+	100.	CAPTURE REF R1
+
+	101.	CAPTURE UPVAL U4
+
+	102.	
+	104.	v1184:Connect(v1186, v1187)
+	105.	v1184 = p25.BaseTrove
+	107.	v1187 = v1 -- get upval
+	108.	v1186 = v1187.InputEnded
+	110.		-- V nested upvalues[0] = p25
+	[NEWCLOSURE] v1187 = function(p26, p27) -- [line 578]
+		1.	if p27 then goto #2
+		2.	return -- referenced by #1
+						end
+		3.	local v1184 = p26.UserInputType
+		5.	local v1185 = Enum.UserInputType.MouseButton1
+		7.	if v1184 ~= v1185 then goto #14
+		9.	v1184 = p26.KeyCode
+		11.	v1185 = Enum.KeyCode.ButtonR2
+		13.	if v1184 == v1185 then goto #18
+						end
+		15.	v1184 = p25 -- get upval
+		16.	v1185 = false
+		17.	v1184.HoldingShoot = v1185
+						end
+		19.	v1184 = p26.KeyCode
+		21.	v1185 = Enum.KeyCode.LeftShift
+		23.	if v1184 ~= v1185 then goto #30
+		25.	v1184 = p26.KeyCode
+		27.	v1185 = Enum.KeyCode.ButtonL2
+		29.	if v1184 == v1185 then goto #47
+						end
+		31.	local v1187 = p25 -- get upval
+		32.	local v1186 = v1187.Settings
+		34.	v1185 = v1186.SettingsData
+		36.	v1184 = v1185.RunLock
+		38.	if v1184 == false then goto #47
+		40.	v1186 = p25 -- get upval
+		41.	v1185 = v1186.StatesController
+		43.	v1184 = v1185.States
+		45.	v1185 = false
+		46.	v1184.Running = v1185
+						end
+						end
+		48.	return
+	end
+
+	111.	CAPTURE VAL R0
+
+	112.	
+	114.	v1202:Connect(v1204, v1205)
+	115.	[CLOSEUPVALS]: clear captures from back until: 1
+	116.	return
+end
+[NEWCLOSURE] v1231 = CheckInput
+207.	CAPTURE VAL R9
+
+208.	CAPTURE VAL R1
+
+209.	CAPTURE VAL R13
+
+210.	CAPTURE REF R14
+
+211.	CAPTURE VAL R0
+
+212.	v1258.CheckInput = v1262
+214.	-- V nested upvalues[0] = v14
+-- V nested upvalues[1] = v0
+-- V nested upvalues[2] = v29
+-- V nested upvalues[3] = v4
+local function Predict(p28, p29, p30) -- [line 593]
+	1.	local v1232 = p28.PredictOBJ
+	3.	if v1232 then goto #8
+	4.	v1232 = p28.PredictOBJ
+	6.	
+	8.	v1232:Destroy() -- referenced by #3
+					end
+	9.	v1232 = p28.PredictionTrove
+	11.	if v1232 then goto #16
+	12.	v1232 = p28.PredictionTrove
+	14.	
+	16.	v1232:Disconnect() -- referenced by #11
+					end
+	17.	local v1235 = v14 -- get upval
+	18.	local v1234 = v1235.Values
+	20.	local v1233 = v1234.Goalie
+	22.	v1232 = v1233.Value
+	24.	if v1232 then goto #137
+	25.	v1235 = v14 -- get upval
+	26.	v1234 = v1235.Values
+	28.	v1233 = v1234.IsInPenalty
+	30.	v1232 = v1233.Value
+	32.	if v1232 then goto #137
+	33.	v1235 = v0 -- get upval
+	34.	v1234 = v1235.Assets
+	36.	v1233 = v1234.Misc
+	38.	v1232 = v1233.GkPredict
+	40.	
+	42.	v1232 = v1232:Clone()
+	43.	p28.PredictOBJ = v1232
+	45.	v1232 = p28.PredictOBJ
+	47.	v1233 = workspace
+	49.	v1232.Parent = v1233
+	51.	v1232 = p28.PredictOBJ
+	53.	v1235 = v29 -- get upval
+	54.	local v1236 = p29
+	55.	local v1237 = p30
+	56.	v1235 = v1235(v1236, v1237)
+	57.	v1234 = v1235.X
+	59.	v1235 = 10
+	60.	v1237 = v29 -- get upval
+	61.	local v1238 = p29
+	62.	local v1239 = p30
+	63.	v1237 = v1237(v1238, v1239)
+	64.	v1236 = v1237.Z
+	66.	FASTCALL[Vector3.new]()
+	67.	v1233 = Vector3.new
+	69.	v1233 = v1233(v1234, v1235, v1236)
+	70.	v1232.Position = v1233
+	72.	v1234 = p28.PredictOBJ
+	74.	v1233 = v1234.Position
+	76.	v1232 = v1233.X
+	78.	v1233 = -226
+	79.	if v1233 > v1232 then goto #96
+	81.	v1232 = p28.PredictOBJ
+	83.	v1234 = -226
+	84.	v1235 = 10
+	85.	v1238 = p28.PredictOBJ
+	87.	v1237 = v1238.Position
+	89.	v1236 = v1237.Z
+	91.	FASTCALL[Vector3.new]()
+	92.	v1233 = Vector3.new
+	94.	v1233 = v1233(v1234, v1235, v1236)
+	95.	v1232.Position = v1233
+					end
+	97.	v1234 = p28.PredictOBJ
+	99.	v1233 = v1234.Position
+	101.	v1232 = v1233.X
+	103.	v1233 = 306
+	104.	if v1232 > v1233 then goto #121
+	106.	v1232 = p28.PredictOBJ
+	108.	v1234 = 306
+	109.	v1235 = 10
+	110.	v1238 = p28.PredictOBJ
+	112.	v1237 = v1238.Position
+	114.	v1236 = v1237.Z
+	116.	FASTCALL[Vector3.new]()
+	117.	v1233 = Vector3.new
+	119.	v1233 = v1233(v1234, v1235, v1236)
+	120.	v1232.Position = v1233
+					end
+	122.	v1233 = tick
+	124.	v1233 = v1233(v1234)
+	125.	v1232 = v1233 + 1
+	126.	v1234 = v4 -- get upval
+	127.	v1233 = v1234.Heartbeat
+	129.		-- V nested upvalues[0] = p28
+	-- V nested upvalues[1] = v1
+	[NEWCLOSURE] v1235 = function(p31) -- [line 616]
+		1.	local v1233 = workspace
+		3.	local v1235 = "Football"
+		4.	
+		6.	v1233 = v1233:FindFirstChild(v1235)
+		7.	if v1233 == nil then goto #21
+		9.	v1235 = p28 -- get upval
+		10.	local v1234 = v1235.PredictOBJ
+		12.	
+		14.	v1234:Destroy()
+		15.	v1235 = p28 -- get upval
+		16.	v1234 = v1235.PredictionTrove
+		18.	
+		20.	v1234:Disconnect()
+		21.	return -- referenced by #7
+						end
+		22.	v1235 = v1233.Position
+		24.	v1234 = v1235.Y
+		26.	v1235 = 10
+		27.	if v1234 <= v1235 then goto #47
+		29.	v1234 = v1 -- get upval
+		30.	v1235 = tick
+		32.	v1235 = v1235(v1236)
+		33.	if v1235 > v1234 then goto #47
+		35.	v1235 = p28 -- get upval
+		36.	v1234 = v1235.PredictOBJ
+		38.	
+		40.	v1234:Destroy()
+		41.	v1235 = p28 -- get upval
+		42.	v1234 = v1235.PredictionTrove
+		44.	
+		46.	v1234:Disconnect()
+		47.	return -- referenced by #27, #33
+						end
+						end
+		48.	return
+	end
+
+	130.	CAPTURE VAL R0
+
+	131.	CAPTURE VAL R3
+
+	132.	
+	134.	v1248 = v1248:Connect(v1250)
+	135.	p29.PredictionTrove = v1248
+	137.	return -- referenced by #24, #32
+					end
+					end
+	138.	v1250 = v0 -- get upval
+	139.	v1249 = v1250.Assets
+	141.	v1248 = v1249.Misc
+	143.	v1247 = v1248.Prediction
+	145.	
+	147.	v1247 = v1247:Clone()
+	148.	p29.PredictOBJ = v1247
+	150.	v1247 = p29.PredictOBJ
+	152.	v1248 = workspace
+	154.	v1247.Parent = v1248
+	156.	v1247 = p29.PredictOBJ
+	158.	v1248 = Vector3.new(0, 8, 0)
+	159.	v1247.Position = v1248
+	161.	v1248 = tick
+	163.	v1248 = v1248(v1249)
+	164.	v1247 = v1248 + 1
+	165.	v1249 = v4 -- get upval
+	166.	v1248 = v1249.Heartbeat
+	168.		-- V nested upvalues[0] = p29
+	-- V nested upvalues[1] = v1
+	[NEWCLOSURE] v1250 = function(p32) -- [line 629]
+		1.	local v1248 = workspace
+		3.	local v1250 = "Football"
+		4.	
+		6.	v1248 = v1248:FindFirstChild(v1250)
+		7.	if v1248 == nil then goto #21
+		9.	v1250 = p29 -- get upval
+		10.	local v1249 = v1250.PredictOBJ
+		12.	
+		14.	v1249:Destroy()
+		15.	v1250 = p29 -- get upval
+		16.	v1249 = v1250.PredictionTrove
+		18.	
+		20.	v1249:Disconnect()
+		21.	return -- referenced by #7
+						end
+		22.	local v1252 = v1248.Position
+		24.	local v1251 = v1252.Y
+		26.	v1250 = v1251 - 8.5
+		27.	v1249 = v1250 / 3
+		28.	v1252 = 1
+		29.	local v1253 = 15
+		30.	FASTCALL[math.clamp](v1249, v1252, p32)
+		32.	v1251 = v1249
+		33.	v1250 = math.clamp
+		35.	v1250 = v1250(v1251, v1252, v1253)
+		36.	v1249 = v1250
+		37.	v1251 = p29 -- get upval
+		38.	v1250 = v1251.PredictOBJ
+		40.	v1252 = 0.1
+		41.	FASTCALL[Vector3.new](v1252, v1249, p32)
+		43.	v1253 = v1249
+		44.	local v1254 = v1249
+		45.	v1251 = Vector3.new
+		47.	v1251 = v1251(v1252, v1253, v1254)
+		48.	v1250.Size = v1251
+		50.	v1251 = p29 -- get upval
+		51.	v1250 = v1251.PredictOBJ
+		53.	v1253 = v1248.Position
+		55.	v1252 = v1253.X
+		57.	v1253 = 8.5
+		58.	local v1255 = v1248.Position
+		60.	v1254 = v1255.Z
+		62.	FASTCALL[Vector3.new]()
+		63.	v1251 = Vector3.new
+		65.	v1251 = v1251(v1252, v1253, v1254)
+		66.	v1250.Position = v1251
+		68.	v1251 = v1248.Position
+		70.	v1250 = v1251.Y
+		72.	v1251 = 10
+		73.	if v1250 <= v1251 then goto #93
+		75.	v1250 = v1 -- get upval
+		76.	v1251 = tick
+		78.	v1251 = v1251(v1252)
+		79.	if v1251 > v1250 then goto #93
+		81.	v1251 = p29 -- get upval
+		82.	v1250 = v1251.PredictOBJ
+		84.	
+		86.	v1250:Destroy()
+		87.	v1251 = p29 -- get upval
+		88.	v1250 = v1251.PredictionTrove
+		90.	
+		92.	v1250:Disconnect()
+		93.	return -- referenced by #73, #79
+						end
+						end
+		94.	return
+	end
+
+	169.	CAPTURE VAL R0
+
+	170.	CAPTURE VAL R3
+
+	171.	
+	173.	v1286 = v1286:Connect(v1288)
+	174.	p30.PredictionTrove = v1286
+	176.	return
+end
+[NEWCLOSURE] v1315 = Predict
+215.	CAPTURE REF R14
+
+216.	CAPTURE VAL R0
+
+217.	CAPTURE VAL R29
+
+218.	CAPTURE VAL R4
+
+219.	v1378.Predict = v1382
+221.	-- V nested upvalues[0] = v9
+-- V nested upvalues[1] = v16
+-- V nested upvalues[2] = v11
+-- V nested upvalues[3] = v4
+-- V nested upvalues[4] = v13
+-- V nested upvalues[5] = v21
+-- V nested upvalues[6] = v22
+-- V nested upvalues[7] = v17
+-- V nested upvalues[8] = v15
+-- V nested upvalues[9] = v0
+-- V nested upvalues[10] = v18
+-- V nested upvalues[11] = v19
+-- V nested upvalues[12] = v14
+-- V nested upvalues[13] = v3
+-- V nested upvalues[14] = v6
+-- V nested upvalues[15] = v10
+local function KnitStart(p33) -- [line 644]
+	1.	local v1353 = v9 -- get upval
+	2.	local v1352 = v1353.GetService
+	4.	v1353 = "BallService"
+	5.	v1352 = v1352(v1353)
+	6.	p33.BallService = v1352
+	8.	v1352 = require
+	10.	local v1355 = script
+	12.	local v1354 = v1355.Parent
+	14.	v1353 = v1354.AnimatonController
+	16.	v1352 = v1352(v1353)
+	17.	p33.Animations = v1352
+	19.	v1352 = require
+	21.	v1355 = script
+	23.	v1354 = v1355.Parent
+	25.	v1353 = v1354.StatesController
+	27.	v1352 = v1352(v1353)
+	28.	p33.StatesController = v1352
+	30.	v1353 = v9 -- get upval
+	31.	v1352 = v1353.GetController
+	33.	v1353 = "AbilityController"
+	34.	v1352 = v1352(v1353)
+	35.	p33.AbilityController = v1352
+	37.	v1353 = v9 -- get upval
+	38.	v1352 = v1353.GetService
+	40.	v1353 = "StaminaService"
+	41.	v1352 = v1352(v1353)
+	42.	p33.StaminaService = v1352
+	44.	v1352 = false
+	45.	p33.Running = v1352
+	47.	v1352 = nil
+	48.	p33.Closest = v1352
+	50.	v1352 = Instance.new
+	52.	v1353 = "Attachment"
+	53.	v1352 = v1352(v1353)
+	54.	p33.Attach0 = v1352
+	56.	v1352 = p33.Attach0
+	58.	v1354 = workspace
+	60.	v1353 = v1354.Terrain
+	62.	v1352.Parent = v1353
+	64.	v1352 = Instance.new
+	66.	v1353 = "Attachment"
+	67.	v1352 = v1352(v1353)
+	68.	p33.Attach1 = v1352
+	70.	v1352 = p33.Attach1
+	72.	v1354 = workspace
+	74.	v1353 = v1354.Terrain
+	76.	v1352.Parent = v1353
+	78.	v1352 = Instance.new
+	80.	v1353 = "Beam"
+	81.	v1352 = v1352(v1353)
+	82.	p33.Beam = v1352
+	84.	v1352 = p33.Beam
+	86.	v1354 = workspace
+	88.	v1353 = v1354.Terrain
+	90.	v1352.Parent = v1353
+	92.	v1352 = p33.Beam
+	94.	v1353 = p33.Attach0
+	96.	v1352.Attachment0 = v1353
+	98.	v1352 = p33.Beam
+	100.	v1353 = p33.Attach1
+	102.	v1352.Attachment1 = v1353
+	104.	v1352 = p33.BaseTrove
+	106.	v1355 = p33.BallService
+	108.	v1354 = v1355.Pass
+	110.		-- V nested upvalues[0] = p33
+	-- V nested upvalues[1] = upvalues[1]
+	-- V nested upvalues[2] = upvalues[2]
+	-- V nested upvalues[3] = upvalues[3]
+	[NEWCLOSURE] v1355 = function(p34) -- [line 664]
+		1.	local v1354 = p33 -- get upval
+		2.	local v1353 = v1354.Closest
+		4.	local v1357 = v1353.HumanoidRootPart
+		6.	local v1356 = v1357.AssemblyLinearVelocity
+		8.	local v1355 = v1356.X
+		10.	v1356 = 0
+		11.	local v1359 = v1353.HumanoidRootPart
+		13.	local v1358 = v1359.AssemblyLinearVelocity
+		15.	v1357 = v1358.Z
+		17.	FASTCALL[Vector3.new]()
+		18.	v1354 = Vector3.new
+		20.	v1354 = v1354(v1355, v1356, v1357)
+		21.	local v1360 = v1353.HumanoidRootPart
+		23.	v1359 = v1360.Position
+		25.	v1358 = v1359 + v1354
+		26.	v1360 = upvalues[1] -- get upval
+		27.	v1359 = v1360.Position
+		29.	v1357 = v1358 - v1359
+		30.	v1356 = v1357.Unit
+		32.	v1357 = Vector3.new(0, 0.1, 0)
+		33.	v1355 = v1356 + v1357
+		34.	v1360 = v1353.HumanoidRootPart
+		36.	v1359 = v1360.Position
+		38.	local v1361 = upvalues[1] -- get upval
+		39.	v1360 = v1361.Position
+		41.	v1358 = v1359 - v1360
+		42.	v1357 = v1358.Magnitude
+		44.	v1356 = v1357 * 2.25
+		45.	v1359 = 30
+		46.	v1360 = 120
+		47.	FASTCALL[math.clamp](v1356, v1359, p34)
+		49.	v1358 = v1356
+		50.	v1357 = math.clamp
+		52.	v1357 = v1357(v1358, v1359, v1360)
+		53.	v1356 = v1357
+		54.	v1357 = v1355 * v1356
+		55.	p34.AssemblyLinearVelocity = v1357
+		57.	v1357 = p33 -- get upval
+		58.	v1359 = p34
+		59.	
+		61.	v1357:DragBall(v1359)
+		62.	v1357 = tick
+		64.	v1357 = v1357(v1358)
+		65.	v1359 = p33 -- get upval
+		66.	v1358 = v1359.PassTrove
+		68.	if v1358 then goto #74
+		69.	v1359 = p33 -- get upval
+		70.	v1358 = v1359.PassTrove
+		72.	
+		74.	v1358:Destroy() -- referenced by #68
+						end
+		75.	v1361 = v1353.HumanoidRootPart
+		77.	v1360 = v1361.Position
+		79.	local v1362 = upvalues[1] -- get upval
+		80.	v1361 = v1362.Position
+		82.	v1359 = v1360 - v1361
+		83.	v1358 = v1359.Magnitude
+		85.	v1359 = 40
+		86.	if v1359 <= v1358 then goto #112
+		88.	v1358 = p33 -- get upval
+		89.	v1360 = upvalues[2] -- get upval
+		90.	v1359 = v1360.new
+		92.	v1359 = v1359(v1360)
+		93.	v1358.PassTrove = v1359
+		95.	v1359 = p33 -- get upval
+		96.	v1358 = v1359.PassTrove
+		98.	v1361 = upvalues[3] -- get upval
+		99.	v1360 = v1361.Heartbeat
+		101.			-- V nested upvalues[0] = p34
+		-- V nested upvalues[1] = upvalues[0]
+		-- V nested upvalues[2] = v6
+		-- V nested upvalues[3] = v3
+		-- V nested upvalues[4] = v2
+		-- V nested upvalues[5] = v4
+		-- V nested upvalues[6] = v5
+		-- V nested upvalues[7] = upvalues[1]
+		[NEWCLOSURE] v1361 = function() -- [line 683]
+			1.	local v1356 = p34 -- get upval
+			2.	local v1355 = v1356.OnPlayer
+			4.	local v1354 = v1355.Value
+			6.	if v1354 then goto #17
+			7.	v1355 = upvalues[0] -- get upval
+			8.	v1354 = v1355.PassTrove
+			10.	if v1354 then goto #16
+			11.	v1355 = upvalues[0] -- get upval
+			12.	v1354 = v1355.PassTrove
+			14.	
+			16.	v1354:Destroy() -- referenced by #10
+							end
+			17.	return -- referenced by #6
+							end
+			18.	v1354 = tick
+			20.	v1354 = v1354(v1355)
+			21.	v1356 = v6 -- get upval
+			22.	v1355 = v1356 + 0.15
+			23.	if v1354 > v1355 then goto #35
+			25.	v1355 = upvalues[0] -- get upval
+			26.	v1354 = v1355.PassTrove
+			28.	if v1354 then goto #34
+			29.	v1355 = upvalues[0] -- get upval
+			30.	v1354 = v1355.PassTrove
+			32.	
+			34.	v1354:Destroy() -- referenced by #28
+							end
+			35.	return -- referenced by #23
+							end
+			36.	local v1358 = v2 -- get upval
+			37.	local v1357 = v1358.HumanoidRootPart
+			39.	v1356 = v1357.AssemblyLinearVelocity
+			41.	v1355 = v1356.X
+			43.	v1356 = 0
+			44.	local v1360 = v2 -- get upval
+			45.	local v1359 = v1360.HumanoidRootPart
+			47.	v1358 = v1359.AssemblyLinearVelocity
+			49.	v1357 = v1358.Z
+			51.	FASTCALL[Vector3.new]()
+			52.	v1354 = Vector3.new
+			54.	v1354 = v1354(v1355, v1356, v1357)
+			55.	v3 = v1354 -- set upval
+			56.	v1354 = v4 -- get upval
+			57.	local v1362 = v2 -- get upval
+			58.	local v1361 = v1362.HumanoidRootPart
+			60.	v1360 = v1361.Position
+			62.	v1361 = v3 -- get upval
+			63.	v1359 = v1360 + v1361
+			64.	v1361 = p34 -- get upval
+			65.	v1360 = v1361.Position
+			67.	v1358 = v1359 - v1360
+			68.	v1357 = v1358.Unit
+			70.	v1358 = Vector3.new(0, 0.22, 0)
+			71.	v1356 = v1357 + v1358
+			72.	v1357 = 1.5
+			73.	
+			75.	v1354 = v1354:Lerp(v1356, v1357)
+			76.	v4 = v1354 -- set upval
+			77.	v1359 = v2 -- get upval
+			78.	v1358 = v1359.HumanoidRootPart
+			80.	v1357 = v1358.Position
+			82.	v1359 = upvalues[1] -- get upval
+			83.	v1358 = v1359.Position
+			85.	v1356 = v1357 - v1358
+			86.	v1355 = v1356.Magnitude
+			88.	v1354 = v1355 * 1.5
+			89.	v5 = v1354 -- set upval
+			90.	v1355 = v5 -- get upval
+			91.	v1356 = 0
+			92.	v1357 = 120
+			93.	FASTCALL[math.clamp]()
+			94.	v1354 = math.clamp
+			96.	v1354 = v1354(v1355, v1356, v1357)
+			97.	v5 = v1354 -- set upval
+			98.	v1354 = p34 -- get upval
+			99.	v1356 = p34 -- get upval
+			100.	v1355 = v1356.AssemblyLinearVelocity
+			102.	v1358 = v4 -- get upval
+			103.	v1359 = v5 -- get upval
+			104.	v1357 = v1358 * v1359
+			105.	v1358 = 1
+			106.	
+			108.	v1355 = v1355:Lerp(v1357, v1358)
+			109.	v1354.AssemblyLinearVelocity = v1355
+			111.	return
+		end
+
+		102.	CAPTURE VAL R0
+
+		103.	CAPTURE UPVAL U0
+
+		104.	CAPTURE VAL R5
+
+		105.	CAPTURE REF R2
+
+		106.	CAPTURE VAL R1
+
+		107.	CAPTURE REF R3
+
+		108.	CAPTURE REF R4
+
+		109.	CAPTURE UPVAL U1
+
+		110.	
+		112.	v1414:Connect(v1416, v1417) -- referenced by #86
+						end
+		113.	[CLOSEUPVALS]: clear captures from back until: 2
+		114.	return
+	end
+
+	111.	CAPTURE VAL R0
+
+	112.	CAPTURE UPVAL U1
+
+	113.	CAPTURE UPVAL U2
+
+	114.	CAPTURE UPVAL U3
+
+	115.	
+	117.	v1461:Connect(v1463, v1464)
+	118.	v1461 = p34.BaseTrove
+	120.	v1464 = p34.BallService
+	122.	v1463 = v1464.Shoot
+	124.		-- V nested upvalues[0] = p34
+	-- V nested upvalues[1] = upvalues[4]
+	-- V nested upvalues[2] = upvalues[5]
+	-- V nested upvalues[3] = upvalues[1]
+	-- V nested upvalues[4] = upvalues[6]
+	-- V nested upvalues[5] = upvalues[7]
+	-- V nested upvalues[6] = upvalues[8]
+	-- V nested upvalues[7] = upvalues[9]
+	-- V nested upvalues[8] = upvalues[10]
+	-- V nested upvalues[9] = upvalues[3]
+	[NEWCLOSURE] v1464 = function(p35, p36, p37) -- [line 696]
+		1.	local v1463 = p34 -- get upval
+		2.	local v1462 = v1463.CS
+		4.	if v1462 then goto #10
+		5.	v1463 = p34 -- get upval
+		6.	v1462 = v1463.CS
+		8.	
+		10.	v1462:Disconnect() -- referenced by #4
+						end
+		11.	if p37 == nil then goto #13
+		13.	p37 = 0.3 -- referenced by #11
+						end
+		14.	local v1465 = upvalues[4] -- get upval
+		15.	local v1464 = v1465.PlayerStats
+		17.	v1463 = v1464.InAwakening
+		19.	v1462 = v1463.Value
+		21.	if v1462 then goto #31
+		22.	v1465 = upvalues[4] -- get upval
+		23.	v1464 = v1465.PlayerStats
+		25.	v1463 = v1464.Style
+		27.	v1462 = v1463.Value
+		29.	if v1462 == "King" then goto #31
+		31.	p36 = p36 * 1.35 -- referenced by #21, #29
+						end
+						end
+		32.	v1462 = upvalues[5] -- get upval
+		33.	if v1462 then goto #44
+		34.	local v1466 = upvalues[1] -- get upval
+		35.	v1465 = v1466.CFrame
+		37.	v1464 = v1465.LookVector
+		39.	v1465 = Vector3.new(0, 0.5, 0)
+		40.	v1463 = v1464 + v1465
+		41.	v1462 = v1463 * p36
+		42.	p35.AssemblyLinearVelocity = v1462
+		44.	goto #563 -- referenced by #33
+						else
+		45.	v1462 = upvalues[6] -- get upval
+		46.	if v1462 then goto #78
+		47.	local v1468 = upvalues[1] -- get upval
+		48.	local v1467 = v1468.CFrame
+		50.	v1466 = v1467.LookVector
+		52.	v1465 = v1466.X
+		54.	v1464 = -v1465
+		55.	local v1469 = upvalues[1] -- get upval
+		56.	v1468 = v1469.CFrame
+		58.	v1467 = v1468.LookVector
+		60.	v1466 = v1467.Y
+		62.	v1465 = v1466 + 0.25
+		63.	local v1470 = upvalues[1] -- get upval
+		64.	v1469 = v1470.CFrame
+		66.	v1468 = v1469.LookVector
+		68.	v1467 = v1468.Z
+		70.	v1466 = -v1467
+		71.	FASTCALL[Vector3.new]()
+		72.	v1463 = Vector3.new
+		74.	v1463 = v1463(v1464, v1465, v1466)
+		75.	v1462 = v1463 * 120
+		76.	p35.AssemblyLinearVelocity = v1462
+		78.	goto #563 -- referenced by #46
+						else
+		79.	v1464 = upvalues[7] -- get upval
+		80.	v1463 = v1464.CFrame
+		82.	v1462 = v1463.LookVector
+		84.	v1466 = upvalues[7] -- get upval
+		85.	v1465 = v1466.CFrame
+		87.	v1464 = v1465.LookVector
+		89.	v1463 = v1464.Y
+		91.	v1464 = -0.05
+		92.	if v1464 > v1463 then goto #133
+		94.	v1466 = upvalues[7] -- get upval
+		95.	v1465 = v1466.CFrame
+		97.	v1464 = v1465.LookVector
+		99.	v1463 = v1464.Y
+		101.	v1464 = -0.5
+		102.	if v1463 <= v1464 then goto #113
+		104.	v1465 = p34 -- get upval
+		105.	v1464 = v1465.BallService
+		107.	v1463 = v1464.HasShot
+		109.	v1465 = true
+		110.	
+		112.	v1463:Fire(v1465)
+		113.	goto #122 -- referenced by #102
+						else
+		114.	v1465 = p34 -- get upval
+		115.	v1464 = v1465.BallService
+		117.	v1463 = v1464.HasShot
+		119.	v1465 = false
+		120.	
+		122.	v1463:Fire(v1465) -- referenced by #113
+						end
+		123.	v1464 = v1462.X
+		125.	v1465 = -0.05
+		126.	v1466 = v1462.Z
+		128.	FASTCALL[Vector3.new]()
+		129.	v1463 = Vector3.new
+		131.	v1463 = v1463(v1464, v1465, v1466)
+		132.	v1462 = v1463
+		133.	goto #142 -- referenced by #92
+						else
+		134.	v1465 = p34 -- get upval
+		135.	v1464 = v1465.BallService
+		137.	v1463 = v1464.HasShot
+		139.	v1465 = false
+		140.	
+		142.	v1463:Fire(v1465) -- referenced by #133
+						end
+		143.	v1463 = upvalues[8] -- get upval
+		144.	
+		146.	v1463 = v1463:GetState()
+		147.	v1464 = Enum.HumanoidStateType.Jumping
+		149.	if v1463 ~= v1464 then goto #158
+		151.	v1463 = upvalues[8] -- get upval
+		152.	
+		154.	v1463 = v1463:GetState()
+		155.	v1464 = Enum.HumanoidStateType.Freefall
+		157.	if v1463 == v1464 then goto #365
+						end
+		159.	v1464 = upvalues[1] -- get upval
+		160.	v1463 = v1464.Anchored
+		162.	if v1463 then goto #172
+		163.	v1466 = upvalues[4] -- get upval
+		164.	v1465 = v1466.PlayerStats
+		166.	v1464 = v1465.Style
+		168.	v1463 = v1464.Value
+		170.	if v1463 == "Shidou" then goto #172
+		172.	return -- referenced by #162, #170
+						end
+						end
+		173.	v1466 = p34 -- get upval
+		174.	v1465 = v1466.StatesController
+		176.	v1464 = v1465.States
+		178.	v1463 = v1464.Ability
+		180.	if v1463 == false then goto #246
+		182.	v1466 = p34 -- get upval
+		183.	v1465 = v1466.Animations
+		185.	v1464 = v1465.Movement
+		187.	v1463 = v1464.Header
+		189.	v1464 = Enum.AnimationPriority.Action3
+		191.	v1463.Priority = v1464
+		193.	v1466 = p34 -- get upval
+		194.	v1465 = v1466.Animations
+		196.	v1464 = v1465.Movement
+		198.	v1463 = v1464.Header
+		200.	
+		202.	v1463:Play()
+		203.	v1466 = upvalues[4] -- get upval
+		204.	v1465 = v1466.PlayerStats
+		206.	v1464 = v1465.InFlow
+		208.	v1463 = v1464.Value
+		210.	if v1463 then goto #233
+		211.	v1466 = upvalues[4] -- get upval
+		212.	v1465 = v1466.PlayerStats
+		214.	v1464 = v1465.Flow
+		216.	v1463 = v1464.Value
+		218.	if v1463 == "Demon Wings" then goto #233
+		220.	v1467 = 0
+		221.	v1469 = 0
+		222.	FASTCALL[Vector3.new](v1467, p37, p35)
+		224.	v1468 = p37
+		225.	v1466 = Vector3.new
+		227.	v1466 = v1466(v1467, v1468, v1469)
+		228.	v1465 = v1462 + v1466
+		229.	v1464 = v1465 * p36
+		230.	v1463 = v1464 * 1.2
+		231.	p35.AssemblyLinearVelocity = v1463
+		233.	goto #563 -- referenced by #210, #218
+						elseif
+						elseif
+		234.	v1466 = 0
+		235.	v1468 = 0
+		236.	FASTCALL[Vector3.new](v1466, p37, p35)
+		238.	v1467 = p37
+		239.	v1465 = Vector3.new
+		241.	v1465 = v1465(v1466, v1467, v1468)
+		242.	v1464 = v1462 + v1465
+		243.	v1463 = v1464 * p36
+		244.	p35.AssemblyLinearVelocity = v1463
+		246.	goto #563 -- referenced by #180
+						else
+		247.	v1466 = upvalues[4] -- get upval
+		248.	v1465 = v1466.PlayerStats
+		250.	v1464 = v1465.Style
+		252.	v1463 = v1464.Value
+		254.	if v1463 == "Gagamaru" then goto #286
+		256.	v1464 = upvalues[9] -- get upval
+		257.	v1463 = v1464.VfxSpawn
+		259.	v1467 = upvalues[9] -- get upval
+		260.	v1466 = v1467.Effects
+		262.	v1465 = v1466.SpawnVFX
+		264.	v1466 = {"Vfx", "Pos"}
+		265.	v1470 = upvalues[9] -- get upval
+		266.	v1469 = v1470.Assets
+		268.	v1468 = v1469.Vfx
+		270.	v1467 = v1468["Gagamaru header"]
+		272.	v1466.Vfx = v1467
+		274.	v1470 = upvalues[9] -- get upval
+		275.	v1469 = v1470.Football
+		277.	v1468 = v1469.Value
+		279.	v1467 = v1468.CFrame
+		281.	v1466.Pos = v1467
+		283.	
+		285.	v1463:FireServer(v1465, v1466)
+		286.	goto #316 -- referenced by #254
+						else
+		287.	v1464 = upvalues[9] -- get upval
+		288.	v1463 = v1464.VfxSpawn
+		290.	v1467 = upvalues[9] -- get upval
+		291.	v1466 = v1467.Effects
+		293.	v1465 = v1466.SpawnVFX
+		295.	v1466 = {"Vfx", "Pos"}
+		296.	v1470 = upvalues[9] -- get upval
+		297.	v1469 = v1470.Assets
+		299.	v1468 = v1469.Vfx
+		301.	v1467 = v1468.ShidouHeader
+		303.	v1466.Vfx = v1467
+		305.	v1470 = upvalues[9] -- get upval
+		306.	v1469 = v1470.Football
+		308.	v1468 = v1469.Value
+		310.	v1467 = v1468.CFrame
+		312.	v1466.Pos = v1467
+		314.	
+		316.	v1463:FireServer(v1465, v1466) -- referenced by #286
+						end
+		317.	v1463 = print
+		319.	v1464 = "yea here"
+		320.	v1463(v1464)
+		321.	v1466 = upvalues[4] -- get upval
+		322.	v1465 = v1466.PlayerStats
+		324.	v1464 = v1465.InFlow
+		326.	v1463 = v1464.Value
+		328.	if v1463 then goto #351
+		329.	v1466 = upvalues[4] -- get upval
+		330.	v1465 = v1466.PlayerStats
+		332.	v1464 = v1465.Flow
+		334.	v1463 = v1464.Value
+		336.	if v1463 == "Demon Wings" then goto #351
+		338.	v1467 = 0
+		339.	v1469 = 0
+		340.	FASTCALL[Vector3.new](v1467, p37, p35)
+		342.	v1468 = p37
+		343.	v1466 = Vector3.new
+		345.	v1466 = v1466(v1467, v1468, v1469)
+		346.	v1465 = v1462 + v1466
+		347.	v1464 = v1465 * p36
+		348.	v1463 = v1464 * 1.4
+		349.	p35.AssemblyLinearVelocity = v1463
+		351.	goto #563 -- referenced by #328, #336
+						elseif
+						elseif
+		352.	v1467 = 0
+		353.	v1469 = 0
+		354.	FASTCALL[Vector3.new](v1467, p37, p35)
+		356.	v1468 = p37
+		357.	v1466 = Vector3.new
+		359.	v1466 = v1466(v1467, v1468, v1469)
+		360.	v1465 = v1462 + v1466
+		361.	v1464 = v1465 * p36
+		362.	v1463 = v1464 * 1.2
+		363.	p35.AssemblyLinearVelocity = v1463
+		365.	goto #563 -- referenced by #157
+						else
+		366.	v1466 = upvalues[4] -- get upval
+		367.	v1465 = v1466.PlayerStats
+		369.	v1464 = v1465.InFlow
+		371.	v1463 = v1464.Value
+		373.	if v1463 then goto #404
+		374.	v1466 = upvalues[4] -- get upval
+		375.	v1465 = v1466.PlayerStats
+		377.	v1464 = v1465.Flow
+		379.	v1463 = v1464.Value
+		381.	if v1463 == "Gale Burst" then goto #404
+		383.	v1466 = p34 -- get upval
+		384.	v1465 = v1466.StatesController
+		386.	v1464 = v1465.States
+		388.	v1463 = v1464.Running
+		390.	if v1463 then goto #404
+		391.	v1467 = 0
+		392.	v1469 = 0
+		393.	FASTCALL[Vector3.new](v1467, p37, p35)
+		395.	v1468 = p37
+		396.	v1466 = Vector3.new
+		398.	v1466 = v1466(v1467, v1468, v1469)
+		399.	v1465 = v1462 + v1466
+		400.	v1464 = v1465 * p36
+		401.	v1463 = v1464 * 1.25
+		402.	p35.AssemblyLinearVelocity = v1463
+		404.	goto #563 -- referenced by #373, #381, #390
+						else
+						and (else)
+						and (else)
+		405.	v1466 = upvalues[4] -- get upval
+		406.	v1465 = v1466.PlayerStats
+		408.	v1464 = v1465.InFlow
+		410.	v1463 = v1464.Value
+		412.	if v1463 then goto #551
+		413.	v1466 = upvalues[4] -- get upval
+		414.	v1465 = v1466.PlayerStats
+		416.	v1464 = v1465.Flow
+		418.	v1463 = v1464.Value
+		420.	if v1463 == "Prodigy" then goto #551
+		422.	v1463 = nil
+		423.	v1466 = upvalues[10] -- get upval
+		424.	v1465 = v1466 / 2.75
+		425.	v1464 = -v1465
+		426.	v1466 = upvalues[4] -- get upval
+		427.	v1465 = v1466.Team
+		429.	v1468 = game
+		431.	v1467 = v1468.Teams
+		433.	v1466 = v1467.Home
+		435.	if v1465 == v1466 then goto #478
+		437.	v1469 = upvalues[4] -- get upval
+		438.	v1468 = v1469.Character
+		440.	v1467 = v1468.HumanoidRootPart
+		442.	v1466 = v1467.Position
+		444.	v1465 = v1466.Z
+		446.	v1470 = workspace
+		448.	v1469 = v1470.Goals
+		450.	v1468 = v1469.Home
+		452.	v1467 = v1468.Position
+		454.	v1466 = v1467.Z
+		456.	if v1465 > v1466 then goto #467
+		458.	v1468 = upvalues[4] -- get upval
+		459.	v1467 = v1468.Character
+		461.	v1466 = v1467.HumanoidRootPart
+		463.	v1465 = v1466.CFrame
+		465.	v1463 = v1465.RightVector
+		467.	goto #519 -- referenced by #456
+						elseif
+		468.	v1469 = upvalues[4] -- get upval
+		469.	v1468 = v1469.Character
+		471.	v1467 = v1468.HumanoidRootPart
+		473.	v1466 = v1467.CFrame
+		475.	v1465 = v1466.RightVector
+		477.	v1463 = -v1465
+		478.	goto #519 -- referenced by #435
+						else
+		479.	v1469 = upvalues[4] -- get upval
+		480.	v1468 = v1469.Character
+		482.	v1467 = v1468.HumanoidRootPart
+		484.	v1466 = v1467.Position
+		486.	v1465 = v1466.Z
+		488.	v1470 = workspace
+		490.	v1469 = v1470.Goals
+		492.	v1468 = v1469.Home
+		494.	v1467 = v1468.Position
+		496.	v1466 = v1467.Z
+		498.	if v1465 > v1466 then goto #510
+		500.	v1469 = upvalues[4] -- get upval
+		501.	v1468 = v1469.Character
+		503.	v1467 = v1468.HumanoidRootPart
+		505.	v1466 = v1467.CFrame
+		507.	v1465 = v1466.RightVector
+		509.	v1463 = -v1465
+		510.	goto #519 -- referenced by #498
+						else
+		511.	v1468 = upvalues[4] -- get upval
+		512.	v1467 = v1468.Character
+		514.	v1466 = v1467.HumanoidRootPart
+		516.	v1465 = v1466.CFrame
+		518.	v1463 = v1465.RightVector
+						end
+						end
+		520.	v1469 = 0
+		521.	local v1471 = 0
+		522.	FASTCALL[Vector3.new](v1469, p37, p35)
+		524.	v1470 = p37
+		525.	v1468 = Vector3.new
+		527.	v1468 = v1468(v1469, v1470, v1471)
+		528.	v1467 = v1462 + v1468
+		529.	v1468 = v1463 / 2
+		530.	v1466 = v1467 + v1468
+		531.	v1465 = v1466 * p36
+		532.	p35.AssemblyLinearVelocity = v1465
+		534.	v1465 = p34 -- get upval
+		535.	v1467 = upvalues[3] -- get upval
+		536.	v1466 = v1467.Heartbeat
+		538.			-- V nested upvalues[0] = upvalues[7]
+		-- V nested upvalues[1] = upvalues[0]
+		-- V nested upvalues[2] = v4
+		-- V nested upvalues[3] = upvalues[8]
+		-- V nested upvalues[4] = p35
+		-- V nested upvalues[5] = v3
+		[NEWCLOSURE] v1468 = function(p38) -- [line 772]
+			1.	local v1467 = upvalues[7] -- get upval
+			2.	local v1466 = v1467.Football
+			4.	local v1465 = v1466.Value
+			6.	local v1464 = v1465.OnPlayer
+			8.	local v1463 = v1464.Value
+			10.	if v1463 then goto #16
+			11.	v1464 = upvalues[0] -- get upval
+			12.	v1463 = v1464.CS
+			14.	
+			16.	v1463:Disconnect() -- referenced by #10
+							end
+			17.	v1463 = v4 -- get upval
+			18.	v1466 = upvalues[8] -- get upval
+			19.	v1465 = v1466 / 6
+			20.	v1464 = v1465 * p38
+			21.	v1463 = v1463 + v1464
+			22.	v4 = v1463 -- set upval
+			23.	v1463 = v4 -- get upval
+			24.	v1466 = upvalues[8] -- get upval
+			25.	v1465 = v1466 / 8
+			26.	v1464 = -v1465
+			27.	if v1464 <= v1463 then goto #34
+			29.	v1464 = upvalues[0] -- get upval
+			30.	v1463 = v1464.CS
+			32.	
+			34.	v1463:Disconnect() -- referenced by #27
+							end
+			35.	v1463 = p35 -- get upval
+			36.	v1465 = p35 -- get upval
+			37.	v1464 = v1465.AssemblyLinearVelocity
+			39.	local v1468 = p35 -- get upval
+			40.	v1467 = v1468.AssemblyLinearVelocity
+			42.	local v1469 = v3 -- get upval
+			43.	local v1470 = v4 -- get upval
+			44.	v1468 = v1469 * v1470
+			45.	v1466 = v1467 + v1468
+			46.	v1468 = 6.5
+			47.	v1467 = v1468 * p38
+			48.	
+			50.	v1464 = v1464:Lerp(v1466, v1467)
+			51.	v1463.AssemblyLinearVelocity = v1464
+			53.	return
+		end
+
+		539.	CAPTURE UPVAL U7
+
+		540.	CAPTURE UPVAL U0
+
+		541.	CAPTURE REF R5
+
+		542.	CAPTURE UPVAL U8
+
+		543.	CAPTURE VAL R0
+
+		544.	CAPTURE REF R4
+
+		545.	
+		547.	v1495 = v1495:Connect(v1497)
+		548.	v1494.CS = v1495
+		550.	[CLOSEUPVALS]: clear captures from back until: 4
+		551.	goto #563 -- referenced by #412, #420
+						else
+						and (else)
+		552.	v1495 = 0
+		553.	v1497 = 0
+		554.	FASTCALL[Vector3.new](v1495, p38, p36)
+		556.	v1496 = p38
+		557.	v1494 = Vector3.new
+		559.	v1494 = v1494(v1495, v1496, v1497)
+		560.	v1493 = v1491 + v1494
+		561.	v1492 = v1493 * p37
+		562.	p36.AssemblyLinearVelocity = v1492
+						end
+						end
+						end
+						end
+						end
+						end
+		564.	v1491 = false
+		565.	upvalues[5] = v1491 -- set upval
+		566.	v1491 = false
+		567.	upvalues[6] = v1491 -- set upval
+		568.	v1491 = p34 -- get upval
+		569.	v1493 = p36
+		570.	
+		572.	v1491:DragBall(v1493)
+		573.	return
+	end
+
+	125.	CAPTURE VAL R0
+
+	126.	CAPTURE UPVAL U4
+
+	127.	CAPTURE UPVAL U5
+
+	128.	CAPTURE UPVAL U1
+
+	129.	CAPTURE UPVAL U6
+
+	130.	CAPTURE UPVAL U7
+
+	131.	CAPTURE UPVAL U8
+
+	132.	CAPTURE UPVAL U9
+
+	133.	CAPTURE UPVAL U10
+
+	134.	CAPTURE UPVAL U3
+
+	135.	
+	137.	v1758:Connect(v1760, v1761)
+	138.	v1758 = p38.BaseTrove
+	140.	v1761 = p38.BallService
+	142.	v1760 = v1761.Prediction
+	144.		-- V nested upvalues[0] = p38
+	[NEWCLOSURE] v1761 = function(p39, p40) -- [line 792]
+		1.	local v1759 = p38 -- get upval
+		2.	local v1761 = p39
+		3.	local v1762 = p40
+		4.	
+		6.	v1759:Predict(v1761, v1762)
+		7.	return
+	end
+
+	145.	CAPTURE VAL R0
+
+	146.	
+	148.	v1761:Connect(v1763, v1764)
+	149.	v1761 = p40.BaseTrove
+	151.	local v1765 = v13 -- get upval
+	152.	v1764 = v1765.PlayerStats
+	154.	v1763 = v1764.InFlow
+	156.	v1765 = "Value"
+	157.	
+	159.	v1763 = v1763:GetPropertyChangedSignal(v1765)
+	160.		-- V nested upvalues[0] = upvalues[4]
+	-- V nested upvalues[1] = upvalues[11]
+	[NEWCLOSURE] v1764 = function() -- [line 796]
+		1.	local v1765 = upvalues[4] -- get upval
+		2.	local v1764 = v1765.PlayerStats
+		4.	local v1763 = v1764.Flow
+		6.	local v1762 = v1763.Value
+		8.	if v1762 == "Awakened Genius" then goto #19
+		10.	v1765 = upvalues[4] -- get upval
+		11.	v1764 = v1765.PlayerStats
+		13.	v1763 = v1764.InFlow
+		15.	v1762 = v1763.Value
+		17.	if v1762 then goto #19
+		18.	v1762 = 2
+		19.	upvalues[11] = v1762 -- set upval -- referenced by #8, #17
+						end
+						end
+		20.	return
+	end
+
+	161.	CAPTURE UPVAL U4
+
+	162.	CAPTURE UPVAL U11
+
+	163.	
+	165.	v1770:Connect(v1772, v1773)
+	166.	v1770 = p40.BaseTrove
+	168.	v1773 = v4 -- get upval
+	169.	v1772 = v1773.Heartbeat
+	171.		-- V nested upvalues[0] = upvalues[12]
+	-- V nested upvalues[1] = upvalues[4]
+	-- V nested upvalues[2] = p40
+	-- V nested upvalues[3] = upvalues[13]
+	-- V nested upvalues[4] = upvalues[14]
+	-- V nested upvalues[5] = upvalues[15]
+	[NEWCLOSURE] v1773 = function(p41) -- [line 802]
+		1.	local v1771 = upvalues[12] -- get upval
+		2.	local v1773 = "Values"
+		3.	
+		5.	v1771 = v1771:WaitForChild(v1773)
+		6.	if v1771 == nil then goto #8
+		8.	return -- referenced by #6
+						end
+		9.	v1771 = upvalues[12] -- get upval
+		10.	v1773 = "Football"
+		11.	
+		13.	v1771 = v1771:FindFirstChild(v1773)
+		14.	if v1771 then goto #35
+		15.	local v1774 = upvalues[4] -- get upval
+		16.	v1773 = v1774.PlayerGui
+		18.	local v1772 = v1773.Mobile
+		20.	v1771 = v1772.NoBall
+		22.	v1772 = false
+		23.	v1771.Visible = v1772
+		25.	v1774 = upvalues[4] -- get upval
+		26.	v1773 = v1774.PlayerGui
+		28.	v1772 = v1773.Mobile
+		30.	v1771 = v1772.Ball
+		32.	v1772 = true
+		33.	v1771.Visible = v1772
+		35.	goto #55 -- referenced by #14
+						else
+		36.	v1774 = upvalues[4] -- get upval
+		37.	v1773 = v1774.PlayerGui
+		39.	v1772 = v1773.Mobile
+		41.	v1771 = v1772.NoBall
+		43.	v1772 = true
+		44.	v1771.Visible = v1772
+		46.	v1774 = upvalues[4] -- get upval
+		47.	v1773 = v1774.PlayerGui
+		49.	v1772 = v1773.Mobile
+		51.	v1771 = v1772.Ball
+		53.	v1772 = false
+		54.	v1771.Visible = v1772
+						end
+		56.	v1774 = upvalues[12] -- get upval
+		57.	v1773 = v1774.Values
+		59.	v1772 = v1773.HasBall
+		61.	v1771 = v1772.Value
+		63.	if v1771 == false then goto #92
+		65.	v1772 = p40 -- get upval
+		66.	v1771 = v1772.Closest
+		68.	if v1771 ~= nil then goto #91
+		70.	v1772 = p40 -- get upval
+		71.	v1771 = v1772.Closest
+		73.	v1773 = "Highlight"
+		74.	
+		76.	v1771 = v1771:FindFirstChild(v1773)
+		77.	if v1771 then goto #87
+		78.	v1772 = p40 -- get upval
+		79.	v1771 = v1772.Closest
+		81.	v1773 = "Highlight"
+		82.	
+		84.	v1771 = v1771:FindFirstChild(v1773)
+		85.	
+		87.	v1771:Destroy() -- referenced by #77
+						end
+		88.	v1771 = p40 -- get upval
+		89.	v1772 = nil
+		90.	v1771.Closest = v1772
+						end
+		92.	return -- referenced by #63
+						end
+		93.	v1773 = upvalues[12] -- get upval
+		94.	v1772 = v1773.IsRagdoll
+		96.	v1771 = v1772.Value
+		98.	if v1771 then goto #99
+		99.	return -- referenced by #98
+						end
+		100.	v1771 = {} -- this array is empty
+		102.	v1772 = upvalues[13] -- get upval
+		103.	
+		105.	v1772 = v1772:GetPlayers()
+		106.	v1773 = pairs
+		108.	v1774 = v1772
+		109.	v1773, v1774, v1775 = v1773(v1774)
+		110.	for v1776, v1777 in v1773(v1774) do -- [escape at #133] (pairs/next)
+		111.	local v1778 = v1777.Character
+		113.	if v1778 ~= nil then goto #132
+		115.	v1778 = v1777.Team
+		117.	local v1780 = upvalues[4] -- get upval
+		118.	local v1779 = v1780.Team
+		120.	if v1778 == v1779 then goto #132
+		122.	v1778 = upvalues[4] -- get upval
+		123.	if v1777 ~= v1778 then goto #132
+		125.	v1780 = v1777.Character
+		127.	FASTCALL[table.insert](v1771, v1780)
+		129.	v1779 = v1771
+		130.	v1778 = table.insert
+		132.	v1778(v1779, v1780) -- referenced by #113, #120, #123
+						end
+						end
+						end
+		133.	end -- FORGLOOP - iterate + goto #110
+		135.	v1773 = nil
+		136.	v1774 = 9999
+		137.	local v1775 = pairs
+		139.	local v1776 = v1771
+		140.	v1775, v1776, v1777 = v1775(v1776)
+		141.	for v1778, v1779 in v1775(v1776) do -- [escape at #206] (pairs/next)
+		142.	v1780 = v1779.HumanoidRootPart
+		144.	if v1780 ~= nil then goto #205
+		146.	local v1781 = workspace
+		148.	v1780 = v1781.CurrentCamera
+		150.	local v1783 = v1779.HumanoidRootPart
+		152.	local v1782 = v1783.Position
+		154.	
+		156.	v1780, v1781 = v1780:WorldToScreenPoint(v1782)
+		157.	if v1781 then goto #205
+		158.	v1782 = Vector2.new
+		160.	v1783 = v1780.X
+		162.	local v1784 = v1780.Y
+		164.	v1782 = v1782(v1783, v1784)
+		165.	v1783 = Vector2.new
+		167.	local v1788 = workspace
+		169.	local v1787 = v1788.CurrentCamera
+		171.	local v1786 = v1787.ViewportSize
+		173.	local v1785 = v1786.X
+		175.	v1784 = v1785 / 2
+		176.	local v1790 = workspace
+		178.	local v1789 = v1790.CurrentCamera
+		180.	v1788 = v1789.ViewportSize
+		182.	v1787 = v1788.Y
+		184.	v1786 = v1787 / 2
+		185.	v1789 = upvalues[14] -- get upval
+		186.	
+		188.	v1789 = v1789:GetGuiInset()
+		189.	v1788 = v1789.Y
+		191.	v1787 = v1788 / 2
+		192.	v1785 = v1786 - v1787
+		193.	v1783 = v1783(v1784, v1785)
+		194.	v1785 = v1782 - v1783
+		195.	v1784 = v1785.Magnitude
+		197.	if v1773 == nil then goto #201
+		199.	v1773 = v1779
+		200.	v1774 = v1784
+		201.	goto #205 -- referenced by #197
+						elseif
+		202.	if v1774 > v1784 then goto #205
+		204.	v1774 = v1784
+		205.	v1773 = v1779 -- referenced by #144, #157, #201, #202
+						end
+						end
+						end
+		206.	end -- FORGLOOP - iterate + goto #141
+		208.	v1776 = p40 -- get upval
+		209.	v1775 = v1776.Closest
+		211.	if v1775 ~= nil then goto #262
+		213.	v1776 = p40 -- get upval
+		214.	v1775 = v1776.Closest
+		216.	local v1777 = "Highlight"
+		217.	
+		219.	v1775 = v1775:FindFirstChild(v1777)
+		220.	if v1775 == nil then goto #239
+		222.	v1775 = upvalues[15] -- get upval
+		223.	v1778 = p40 -- get upval
+		224.	v1777 = v1778.Closest
+		226.	
+		228.	v1775 = v1775:Highlight(v1777)
+		229.	v1777 = p40 -- get upval
+		230.	v1776 = v1777.Closest
+		232.	v1775.Parent = v1776
+		234.	v1776 = 0.5
+		235.	v1775.OutlineTransparency = v1776
+		237.	v1776 = 0.5
+		238.	v1775.FillTransparency = v1776
+						end
+		240.	v1776 = p40 -- get upval
+		241.	v1775 = v1776.Closest
+		243.	if v1775 ~= v1773 then goto #262
+		245.	v1776 = p40 -- get upval
+		246.	v1775 = v1776.Closest
+		248.	v1777 = "Highlight"
+		249.	
+		251.	v1775 = v1775:FindFirstChild(v1777)
+		252.	if v1775 then goto #262
+		253.	v1776 = p40 -- get upval
+		254.	v1775 = v1776.Closest
+		256.	v1777 = "Highlight"
+		257.	
+		259.	v1775 = v1775:FindFirstChild(v1777)
+		260.	
+		262.	v1775:Destroy() -- referenced by #211, #243, #252
+						end
+						end
+						end
+		263.	v1775 = p40 -- get upval
+		264.	v1775.Closest = v1773
+		266.	v1775 = table.clear
+		268.	v1776 = v1771
+		269.	v1775(v1776)
+		270.	v1775 = table.clear
+		272.	v1776 = v1772
+		273.	v1775(v1776)
+		274.	v1771 = nil
+		275.	v1772 = nil
+		276.	return
+	end
+
+	172.	CAPTURE UPVAL U12
+
+	173.	CAPTURE UPVAL U4
+
+	174.	CAPTURE VAL R0
+
+	175.	CAPTURE UPVAL U13
+
+	176.	CAPTURE UPVAL U14
+
+	177.	CAPTURE UPVAL U15
+
+	178.	
+	180.	v1883:Connect(v1885, v1886)
+	181.	return
+end
+[NEWCLOSURE] v1913 = KnitStart
+222.	CAPTURE VAL R9
+
+223.	CAPTURE REF R16
+
+224.	CAPTURE VAL R11
+
+225.	CAPTURE VAL R4
+
+226.	CAPTURE VAL R13
+
+227.	CAPTURE REF R21
+
+228.	CAPTURE REF R22
+
+229.	CAPTURE VAL R17
+
+230.	CAPTURE REF R15
+
+231.	CAPTURE VAL R0
+
+232.	CAPTURE REF R18
+
+233.	CAPTURE REF R19
+
+234.	CAPTURE REF R14
+
+235.	CAPTURE VAL R3
+
+236.	CAPTURE VAL R6
+
+237.	CAPTURE VAL R10
+
+238.	v1964.KnitStart = v1968
+240.	-- V nested upvalues[0] = v11
+-- V nested upvalues[1] = v18
+-- V nested upvalues[2] = v13
+-- V nested upvalues[3] = v16
+-- V nested upvalues[4] = v14
+-- V nested upvalues[5] = v15
+-- V nested upvalues[6] = v17
+local function KnitInit(p42) -- [line 885]
+	1.	local v1939 = v11 -- get upval
+	2.	local v1938 = v1939.new
+	4.	v1938 = v1938(v1939)
+	5.	p42.BaseTrove = v1938
+	7.	v1939 = v11 -- get upval
+	8.	v1938 = v1939.new
+	10.	v1938 = v1938(v1939)
+	11.	p42.NewTrove = v1938
+	13.	v1938 = 50
+	14.	v18 = v1938 -- set upval
+	15.	v1938 = false
+	16.	p42.HoldingShoot = v1938
+	18.	local v1940 = v13 -- get upval
+	19.	v1939 = v1940.PlayerGui
+	21.	v1938 = v1939.ForceBar
+	23.	v1939 = v16 -- get upval
+	24.	v1938.Adornee = v1939
+	26.	v1938 = v16 -- get upval
+	27.	v1940 = "Running"
+	28.	
+	30.	v1938 = v1938:WaitForChild(v1940)
+	31.	v1939 = 0
+	32.	v1938.Volume = v1939
+	34.	v1938 = p42.BaseTrove
+	36.	local v1941 = v13 -- get upval
+	37.	v1940 = v1941.CharacterAdded
+	39.		-- V nested upvalues[0] = upvalues[4]
+	-- V nested upvalues[1] = upvalues[5]
+	-- V nested upvalues[2] = upvalues[3]
+	-- V nested upvalues[3] = upvalues[2]
+	-- V nested upvalues[4] = upvalues[6]
+	-- V nested upvalues[5] = p42
+	[NEWCLOSURE] v1941 = function(p43) -- [line 896]
+		1.	upvalues[4] = p43 -- set upval
+		2.	local v1939 = upvalues[4] -- get upval
+		3.	local v1941 = "Humanoid"
+		4.	
+		6.	v1939 = v1939:WaitForChild(v1941)
+		7.	upvalues[5] = v1939 -- set upval
+		8.	v1939 = upvalues[4] -- get upval
+		9.	v1941 = "HumanoidRootPart"
+		10.	
+		12.	v1939 = v1939:WaitForChild(v1941)
+		13.	upvalues[3] = v1939 -- set upval
+		14.	v1941 = upvalues[2] -- get upval
+		15.	local v1940 = v1941.PlayerGui
+		17.	v1939 = v1940.ForceBar
+		19.	v1940 = upvalues[3] -- get upval
+		20.	v1939.Adornee = v1940
+		22.	v1939 = upvalues[6] -- get upval
+		23.	v1940 = Enum.CameraType.Custom
+		25.	v1939.CameraType = v1940
+		27.	v1939 = upvalues[6] -- get upval
+		28.	v1940 = upvalues[5] -- get upval
+		29.	v1939.CameraSubject = v1940
+		31.	v1939 = p42 -- get upval
+		32.	
+		34.	v1939:ResetChecks()
+		35.	v1939 = upvalues[3] -- get upval
+		36.	v1941 = "Running"
+		37.	
+		39.	v1939 = v1939:WaitForChild(v1941)
+		40.	v1940 = 0
+		41.	v1939.Volume = v1940
+		43.	return
+	end
+
+	40.	CAPTURE UPVAL U4
+
+	41.	CAPTURE UPVAL U5
+
+	42.	CAPTURE UPVAL U3
+
+	43.	CAPTURE UPVAL U2
+
+	44.	CAPTURE UPVAL U6
+
+	45.	CAPTURE VAL R0
+
+	46.	
+	48.	v1954:Connect(v1956, v1957)
+	49.	v1954 = p43.BaseTrove
+	51.	local v1958 = game
+	53.	v1957 = v1958.Players
+	55.	v1956 = v1957.PlayerRemoving
+	57.		-- V nested upvalues[0] = upvalues[2]
+	-- V nested upvalues[1] = upvalues[4]
+	-- V nested upvalues[2] = upvalues[3]
+	-- V nested upvalues[3] = upvalues[5]
+	-- V nested upvalues[4] = p43
+	[NEWCLOSURE] v1957 = function(p44) -- [line 911]
+		1.	local v1955 = upvalues[2] -- get upval
+		2.	if p44 == v1955 then goto #15
+		4.	v1955 = nil
+		5.	upvalues[4] = v1955 -- set upval
+		6.	v1955 = nil
+		7.	upvalues[3] = v1955 -- set upval
+		8.	v1955 = nil
+		9.	upvalues[5] = v1955 -- set upval
+		10.	local v1956 = p43 -- get upval
+		11.	v1955 = v1956.BaseTrove
+		13.	
+		15.	v1955:Destroy() -- referenced by #2
+						end
+		16.	return
+	end
+
+	58.	CAPTURE UPVAL U2
+
+	59.	CAPTURE UPVAL U4
+
+	60.	CAPTURE UPVAL U3
+
+	61.	CAPTURE UPVAL U5
+
+	62.	CAPTURE VAL R0
+
+	63.	
+	65.	v1960:Connect(v1962, v1963)
+	66.	
+	68.	p44:CheckInput()
+	69.	
+	71.	p44:ResetChecks()
+	72.	return
+end
+[NEWCLOSURE] v1990 = KnitInit
+241.	CAPTURE VAL R11
+
+242.	CAPTURE REF R18
+
+243.	CAPTURE VAL R13
+
+244.	CAPTURE REF R16
+
+245.	CAPTURE REF R14
+
+246.	CAPTURE REF R15
+
+247.	CAPTURE VAL R17
+
+248.	v2006.KnitInit = v2010
+250.	[CLOSEUPVALS]: clear captures from back until: 14
+251.	return v2006

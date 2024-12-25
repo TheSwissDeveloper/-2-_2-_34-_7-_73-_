@@ -1,0 +1,2143 @@
+local script = game:GetService("Players").LocalPlayer:WaitForChild("JobController")
+
+-- USED GLOBALS: script, ClrEndFrame, UpdateDurationsText, StartUpdateing, OnVisibleTeleportToTrain, StopUpdating, AddValueByPriceType, AddLog, AddJobPaymentLog, AddBill, CloseMenu, OpenMenu, JobFrameElementsClr, InstallJobTemplate, InitReplicateJobDataChange.
+1.	
+2.	local v0 = game
+4.	local v2 = "ReplicatedStorage"
+5.	
+7.	v0 = v0:GetService(v2)
+8.	local v1 = require
+10.	local v4 = "ClientShared"
+11.	
+13.	v1 = v0:WaitForChild(v4)
+14.	v1 = v1()
+15.	v4 = v1.Classes
+17.	local v3 = v4.GUI
+19.	v2 = v3.new
+21.	v4 = script
+23.	v3 = v4.Parent
+25.	v2 = v2(v3)
+26.	v4 = script
+28.	v3 = v4.Parent
+30.	local v5 = "JobOffers"
+31.	
+33.	v3 = v3:WaitForChild(v5)
+34.	local v6 = "HeaderHolder"
+35.	
+37.	v4 = v3:WaitForChild(v6)
+38.	local v7 = "Header"
+39.	
+41.	v5 = v4:WaitForChild(v7)
+42.	local v8 = "XPFrame"
+43.	
+45.	v6 = v5:WaitForChild(v8)
+46.	local v9 = "Menus"
+47.	
+49.	v7 = v3:WaitForChild(v9)
+50.	local v10 = "JobHolder"
+51.	
+53.	v8 = v7:WaitForChild(v10)
+54.	local v11 = "ScrollingFrame"
+55.	
+57.	v9 = v8:WaitForChild(v11)
+58.	local v14 = "JobTemplate"
+59.	
+61.	v11 = v9:WaitForChild(v14)
+62.	
+64.	v10 = v2:SaveTemplate()
+65.	v11 = v1.JobsInfo
+67.	local v12 = game
+69.	v14 = "TweenService"
+70.	
+72.	v12 = v12:GetService(v14)
+73.	local v13 = TweenInfo.new
+75.	v14 = 0.3
+76.	local v15 = Enum.EasingStyle.Sine
+78.	local v16 = Enum.EasingDirection.InOut
+80.	v13 = v13(v14, v15, v16)
+81.	v16 = "StartShift"
+82.	
+84.	v14 = v7:WaitForChild(v16)
+85.	local v17 = "ButtonHolders"
+86.	
+88.	v15 = v14:WaitForChild(v17)
+89.	local v18 = "ButtonHolderStartShift"
+90.	
+92.	v16 = v15:WaitForChild(v18)
+93.	v18 = "TextButton"
+94.	
+96.	v16 = v16:FindFirstChildOfClass(v18)
+97.	local v19 = "ButtonHolderCancel"
+98.	
+100.	v17 = v15:WaitForChild(v19)
+101.	v19 = "TextButton"
+102.	
+104.	v17 = v17:FindFirstChildOfClass(v19)
+105.	local v20 = "Info"
+106.	
+108.	v18 = v14:WaitForChild(v20)
+109.	local v21 = "InfoFrame"
+110.	
+112.	v19 = v18:WaitForChild(v21)
+113.	local v22 = "ScrollingFrame"
+114.	
+116.	v20 = v19:WaitForChild(v22)
+117.	local v25 = "ListTemplate"
+118.	
+120.	v22 = v20:WaitForChild(v25)
+121.	
+123.	v21 = v2:SaveTemplate()
+124.	local v24 = "EndShift"
+125.	
+127.	v22 = v7:WaitForChild(v24)
+128.	v25 = "Earnings"
+129.	
+131.	v23 = v22:WaitForChild(v25)
+132.	local v26 = "EarningsHolder"
+133.	
+135.	v24 = v23:WaitForChild(v26)
+136.	local v27 = "StatsHolder"
+137.	
+139.	v25 = v24:WaitForChild(v27)
+140.	local v28 = "Duration"
+141.	
+143.	v26 = v25:WaitForChild(v28)
+144.	v28 = "TEXT"
+145.	
+147.	v26 = v26:FindFirstChild(v28)
+148.	local v29 = "EarnedMoney"
+149.	
+151.	v27 = v25:WaitForChild(v29)
+152.	v29 = "TEXT"
+153.	
+155.	v27 = v27:FindFirstChild(v29)
+156.	local v30 = "EarnedXP"
+157.	
+159.	v28 = v25:WaitForChild(v30)
+160.	v30 = "TEXT"
+161.	
+163.	v28 = v28:FindFirstChild(v30)
+164.	local v31 = "JobPoints"
+165.	
+167.	v29 = v25:WaitForChild(v31)
+168.	v31 = "TEXT"
+169.	
+171.	v29 = v29:FindFirstChild(v31)
+172.	local v32 = "Info"
+173.	
+175.	v30 = v22:WaitForChild(v32)
+176.	local v33 = "InfoFrame"
+177.	
+179.	v31 = v30:WaitForChild(v33)
+180.	local v34 = "ScrollingFrame"
+181.	
+183.	v32 = v31:WaitForChild(v34)
+184.	local v37 = "ListTemplate"
+185.	
+187.	v34 = v32:WaitForChild(v37)
+188.	
+190.	v33 = v2:SaveTemplate()
+191.	local v36 = "ButtonHolders"
+192.	
+194.	v34 = v22:WaitForChild(v36)
+195.	v37 = "BtnEndShift"
+196.	
+198.	v35 = v34:WaitForChild(v37)
+199.	v37 = "btn"
+200.	
+202.	v35 = v35:WaitForChild(v37)
+203.	local v38 = "TeleportToTrain"
+204.	
+206.	v36 = v34:WaitForChild(v38)
+207.	local v39 = "btn"
+208.	
+210.	v37 = v36:WaitForChild(v39)
+211.	v38 = false
+212.	v36.Visible = v38
+214.	local v40 = v1.Classes
+216.	v39 = v40.Communication
+218.	v38 = v39.new
+220.	local v41 = v1.Enums
+222.	v40 = v41.Communication
+224.	v39 = v40.RemoteFunction
+226.	v40 = "SetJob"
+227.	v38 = v38(v39, v40)
+228.	v41 = v1.Classes
+230.	v40 = v41.Communication
+232.	v39 = v40.new
+234.	local v42 = v1.Enums
+236.	v41 = v42.Communication
+238.	v40 = v41.RemoteEvent
+240.	v41 = "EndShift"
+241.	v39 = v39(v40, v41)
+242.	v42 = v1.Classes
+244.	v41 = v42.Communication
+246.	v40 = v41.new
+248.	local v43 = v1.Enums
+250.	v42 = v43.Communication
+252.	v41 = v42.RemoteFunction
+254.	v42 = "GetJobXpFromServer"
+255.	v40 = v40(v41, v42)
+256.	v43 = v1.Classes
+258.	v42 = v43.Communication
+260.	v41 = v42.new
+262.	local v44 = v1.Enums
+264.	v43 = v44.Communication
+266.	v42 = v43.RemoteEvent
+268.	v43 = "TeleportToTrain"
+269.	v41 = v41(v42, v43)
+270.	v43 = v1.Lists
+272.	v42 = v43.JobList
+274.	v43 = nil
+275.	v44 = {} -- this array is empty
+277.	local v45 = {} -- this array is empty
+279.	local v47 = v1.Lists
+281.	local v46 = v47.JobCategorySettings
+283.	-- V nested upvalues[0] = v45
+local function clrJobLogs() -- [line 93]
+	1.	local v3 = 1
+	2.	local v4 = v45 -- get upval
+	3.	local v1 = #v4
+	4.	local v2 = 1
+	5.	for v3 = v3, v1, v2 do -- [escape at #11]
+	6.	local v5 = v45 -- get upval
+	7.	v4 = v5[v3]
+	8.	
+	10.	v4:Destroy()
+	11.	end -- FORNLOOP end - iterate + goto #5
+	12.	v1 = {} -- this array is empty
+	14.	v45 = v1 -- set upval
+	15.	return
+end
+[NEWCLOSURE] v47 = clrJobLogs
+284.	CAPTURE REF R45
+
+285.	local v55 = {} -- this array is empty
+287.	v55 = nil
+288.	-- V nested upvalues[0] = v26
+-- V nested upvalues[1] = v27
+-- V nested upvalues[2] = v29
+-- V nested upvalues[3] = v28
+-- V nested upvalues[4] = v47
+-- V nested upvalues[5] = v48
+local function ClrEndFrame() -- [line 113]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v8 = v26 -- get upval
+	2.	local v9 = "Shift Duration: N/A"
+	3.	v8.Text = v9
+	5.	v8 = v27 -- get upval
+	6.	v9 = "Earned Money: 0â‚¬"
+	7.	v8.Text = v9
+	9.	v8 = v29 -- get upval
+	10.	v9 = "Earned JP: 150"
+	11.	v8.Text = v9
+	13.	v8 = v28 -- get upval
+	14.	v9 = "Earned XP: 0"
+	15.	v8.Text = v9
+	17.	v8 = v47 -- get upval
+	18.	v8(v9)
+	19.	v8 = nil
+	20.	v48 = v8 -- set upval
+	21.	return
+end
+[NEWCLOSURE] v56 = ClrEndFrame
+289.	CAPTURE VAL R26
+
+290.	CAPTURE VAL R27
+
+291.	CAPTURE VAL R29
+
+292.	CAPTURE VAL R28
+
+293.	CAPTURE VAL R47
+
+294.	CAPTURE REF R48
+
+295.	ClrEndFrame = v66
+297.	-- V nested upvalues[0] = v48
+-- V nested upvalues[1] = v26
+-- V nested upvalues[2] = v1
+local function UpdateDurationsText() -- [line 125]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v18 = v48 -- get upval
+	2.	if v18 ~= nil then goto #30
+	4.	local v19 = v48 -- get upval
+	5.	v18 = v19.Start
+	7.	if v18 ~= nil then goto #30
+	9.	v19 = os.time
+	11.	v19 = v19(v20)
+	12.	local v21 = v48 -- get upval
+	13.	local v20 = v21.Start
+	15.	v18 = v19 - v20
+	16.	v19 = 0
+	17.	if v18 > v19 then goto #30
+	19.	v19 = v26 -- get upval
+	20.	v21 = "Shift Duration: "
+	21.	local v24 = v1 -- get upval
+	22.	local v23 = v24.Format
+	24.	local v22 = v23.Time
+	26.	v23 = v18
+	27.	v22 = v22(v23)
+	28.	v20 = v21 .. v22
+	29.	v19.Text = v20
+					end
+					end
+					end
+	31.	return
+end
+[NEWCLOSURE] v66 = UpdateDurationsText
+298.	CAPTURE REF R48
+
+299.	CAPTURE VAL R26
+
+300.	CAPTURE VAL R1
+
+301.	UpdateDurationsText = v81
+303.	local v81 = false
+304.	-- V nested upvalues[0] = v49
+local function StartUpdateing() -- [line 138]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v33 = v49 -- get upval
+	2.	if v33 == true then goto #4
+	4.	return -- referenced by #2
+					end
+	5.	v33 = true
+	6.	v49 = v33 -- set upval
+	7.	v33 = task.spawn
+	9.		-- V nested upvalues[0] = upvalues[0]
+	[NEWCLOSURE] v34 = function() -- [line 142]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v34 = upvalues[0] -- get upval
+		2.	if v34 then goto #10
+		3.	v34 = UpdateDurationsText
+		5.	v34(v35)
+		6.	v34 = wait
+		8.	local v35 = 1
+		9.	v34(v35)
+		10.	go back to #1 -- might be a repeating loop -- referenced by #2
+						end
+		11.	return
+	end
+
+	10.	CAPTURE UPVAL U0
+
+	11.	v37(v38)
+	12.	return
+end
+[NEWCLOSURE] v86 = StartUpdateing
+305.	CAPTURE REF R49
+
+306.	StartUpdateing = v89
+308.	-- V nested upvalues[0] = v75
+-- V nested upvalues[1] = v40
+local function OnVisibleTeleportToTrain() -- [line 151]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v40 = v75 -- get upval
+	2.	local v44 = v40 -- get upval
+	3.	local v43 = v44.LocalPlayer
+	5.	local v42 = v43.Job
+	7.	local v46 = v40 -- get upval
+	8.	local v45 = v46.Enums
+	10.	v44 = v45.JobType
+	12.	v43 = v44.TrainJob
+	14.	if v42 ~= v43 then goto #16
+	16.	local v41 = false +1 -- referenced by #14
+					end
+	17.	v41 = true
+	18.	v40.Visible = v41
+	20.	return
+end
+[DUPCLOSURE] v89 = OnVisibleTeleportToTrain
+309.	CAPTURE VAL R36
+
+310.	CAPTURE VAL R1
+
+311.	OnVisibleTeleportToTrain = v99
+313.	-- V nested upvalues[0] = v49
+local function StopUpdating() -- [line 157]
+	1.	local v50 = false
+	2.	v49 = v50 -- set upval
+	3.	return
+end
+[NEWCLOSURE] v99 = StopUpdating
+314.	CAPTURE REF R49
+
+315.	StopUpdating = v100
+317.	-- V nested upvalues[0] = v48
+-- V nested upvalues[1] = v1
+-- V nested upvalues[2] = v27
+-- V nested upvalues[3] = v29
+-- V nested upvalues[4] = v28
+local function AddValueByPriceType(p1, p2) -- [line 163]
+	1.	local v51 = v48 -- get upval
+	2.	if v51 == nil then goto #4
+	4.	return -- referenced by #2
+					end
+	5.	local v54 = v1 -- get upval
+	6.	local v53 = v54.Enums
+	8.	local v52 = v53.PriceTypes
+	10.	v51 = v52.Money
+	12.	if p1 == v51 then goto #49
+	14.	v51 = v48 -- get upval
+	15.	v54 = v48 -- get upval
+	16.	v53 = v54.EarnedMoney
+	18.	v52 = v53 or 0
+	19.	v51.EarnedMoney = v52
+	21.	v51 = v48 -- get upval
+	22.	v52 = v51.EarnedMoney
+	24.	v52 = v52 + p2
+	25.	v51.EarnedMoney = v52
+	27.	v51 = v27 -- get upval
+	28.	v53 = "Earned Money: "
+	29.	local v56 = v1 -- get upval
+	30.	local v55 = v56.Format
+	32.	v54 = v55.ColorText
+	34.	local v58 = v48 -- get upval
+	35.	v56 = v58.EarnedMoney
+	37.	local v57 = "â‚¬"
+	38.	v55 = v56 .. v57
+	39.	v56 = Color3.fromRGB
+	41.	v57 = 102
+	42.	v58 = 255
+	43.	local v59 = 0
+	44.	v55 = v56(v57, v58, v59)
+	45.	v54 = v54()
+	46.	v52 = v53 .. v54
+	47.	v51.Text = v52
+	49.	return -- referenced by #12
+					end
+	50.	v54 = v1 -- get upval
+	51.	v53 = v54.Enums
+	53.	v52 = v53.PriceTypes
+	55.	v51 = v52.JobPoints
+	57.	if p1 == v51 then goto #104
+	59.	v51 = v48 -- get upval
+	60.	v54 = v48 -- get upval
+	61.	v53 = v54.JobPoints
+	63.	v52 = v53 or 0
+	64.	v51.JobPoints = v52
+	66.	v51 = v48 -- get upval
+	67.	v52 = v51.JobPoints
+	69.	v52 = v52 + p2
+	70.	v51.JobPoints = v52
+	72.	v53 = v48 -- get upval
+	73.	v52 = v53.JobPoints
+	75.	v51 = v52 or 0
+	76.	v52 = v29 -- get upval
+	77.	v54 = "Job-Points: "
+	78.	v57 = v1 -- get upval
+	79.	v56 = v57.Format
+	81.	v55 = v56.ColorText
+	83.	v56 = v51
+	84.	v57 = Color3.fromRGB
+	86.	v58 = 255
+	87.	v59 = 0
+	88.	local v60 = 0
+	89.	v57 = v57(v58, v59, v60)
+	90.	v59 = Color3.fromRGB
+	92.	v60 = 0
+	93.	local v61 = 255
+	94.	local v62 = 38
+	95.	v59 = v59(v60, v61, v62)
+	96.	v60 = v51 / 150
+	97.	
+	99.	v56 = v57:Lerp(v59, v60)
+	100.	v55 = v55()
+	101.	v53 = v54 .. v55
+	102.	v52.Text = v53
+	104.	return -- referenced by #57
+					end
+	105.	v54 = v1 -- get upval
+	106.	v53 = v54.Enums
+	108.	v52 = v53.PriceTypes
+	110.	v51 = v52.JOBXP
+	112.	if p1 == v51 then goto #147
+	114.	v51 = v48 -- get upval
+	115.	v54 = v48 -- get upval
+	116.	v53 = v54.EarnedXP
+	118.	v52 = v53 or 0
+	119.	v51.EarnedXP = v52
+	121.	v51 = v48 -- get upval
+	122.	v52 = v51.EarnedXP
+	124.	v52 = v52 + p2
+	125.	v51.EarnedXP = v52
+	127.	v51 = v28 -- get upval
+	128.	v53 = "Earned XP: "
+	129.	v56 = v1 -- get upval
+	130.	v55 = v56.Format
+	132.	v54 = v55.ColorText
+	134.	v57 = v48 -- get upval
+	135.	v56 = v57.EarnedXP
+	137.	v55 = v56 or 0
+	138.	v56 = Color3.fromRGB
+	140.	v57 = 0
+	141.	v58 = 136
+	142.	v59 = 255
+	143.	v55 = v56(v57, v58, v59)
+	144.	v54 = v54()
+	145.	v52 = v53 .. v54
+	146.	v51.Text = v52
+					end
+	148.	return
+end
+[NEWCLOSURE] v100 = AddValueByPriceType
+318.	CAPTURE REF R48
+
+319.	CAPTURE VAL R1
+
+320.	CAPTURE VAL R27
+
+321.	CAPTURE VAL R29
+
+322.	CAPTURE VAL R28
+
+323.	AddValueByPriceType = v180
+325.	-- V nested upvalues[0] = v33
+-- V nested upvalues[1] = v32
+-- V nested upvalues[2] = v45
+local function AddLog(p3, p4, p5) -- [line 184]
+	1.	local v131 = v33 -- get upval
+	2.	
+	4.	v131 = v131:Clone()
+	5.	local v134 = "TextLable"
+	6.	
+	8.	v132 = v131:FindFirstChildOfClass(v134)
+	9.	local v133 = AddValueByPriceType
+	11.	v134 = p4
+	12.	local v135 = p5
+	13.	v133(v134, v135)
+	14.	v134 = p3 or ""
+	15.	v135 = ": "
+	16.	local v136 = p5
+	17.	v133 = v134 .. v135 .. v136
+	18.	v132.Text = v133
+	20.	v133 = v32 -- get upval
+	21.	v131.Parent = v133
+	23.	v134 = v45 -- get upval
+	24.	FASTCALL[table.insert](v134, v131)
+	26.	v135 = v131
+	27.	v133 = table.insert
+	29.	v133(v134, v135)
+	30.	return
+end
+[NEWCLOSURE] v180 = AddLog
+326.	CAPTURE VAL R33
+
+327.	CAPTURE VAL R32
+
+328.	CAPTURE REF R45
+
+329.	AddLog = v193
+331.	local function Repleace(p6, p7, p8) -- [line 198]
+	1.	p8 = p8 or 1
+	2.	local v144 = string.gsub
+	4.	local v145 = p6
+	5.	local v146 = "-"
+	6.	local v147 = ""
+	7.	v144 = v144(v145, v146, v147)
+	8.	p6 = v144 or ""
+	9.	v145 = '<font color="rgb(255,125,0)">'
+	10.	local v149 = p7.XP
+	12.	local v148 = v149 or 0
+	13.	v146 = v148 * p8
+	14.	v147 = " XP</font>)"
+	15.	v144 = v145 .. v146 .. v147
+	16.	v145 = 1
+	17.	if p8 > v145 then goto #25
+	19.	v145 = '<font color="rgb(0, 255, 0)">'
+	20.	v149 = p7.XP
+	22.	v148 = v149 or 0
+	23.	v146 = v148 * p8
+	24.	v147 = " XP</font>)"
+	25.	v144 = v145 .. v146 .. v147 -- referenced by #17
+					end
+	26.	v146 = '
+(<font color="rgb(0, 255, 38)">'
+	27.	local v150 = p7.Money
+	29.	v147 = v150 or 0
+	30.	v148 = " â‚¬</font> / "
+	31.	v149 = v144
+	32.	v145 = v146 .. v147 .. v148 .. v149
+	33.	v147 = string.gsub
+	35.	v148 = p6
+	36.	v149 = "#PAYMENT#"
+	37.	v150 = v145
+	38.	v147 = v147(v148, v149, v150)
+	39.	v146 = v147 or "N/A"
+	40.	return v146
+end
+[DUPCLOSURE] v193 = Repleace
+332.	local function RepleaceNill(p9, p10) -- [line 213]
+	1.	if p10 == nil then goto #3
+	3.	return -- referenced by #1
+					end
+	4.	local v175 = '(<font color="rgb(255, 0, 0)">'
+	5.	local v178 = p10.Money
+	7.	local v176 = v178 or 0
+	8.	local v177 = " â‚¬)"
+	9.	local v174 = v175 .. v176 .. v177
+	10.	v176 = string.gsub
+	12.	v177 = p9
+	13.	v178 = "#PAYMENT#"
+	14.	local v179 = v174
+	15.	v176 = v176(v177, v178, v179)
+	16.	v175 = v176 or "N/A"
+	17.	return v175
+end
+[DUPCLOSURE] v224 = RepleaceNill
+333.	local v235 = {} -- this array is empty
+335.	-- V nested upvalues[0] = v1
+-- V nested upvalues[1] = v42
+-- V nested upvalues[2] = v33
+-- V nested upvalues[3] = v50
+-- V nested upvalues[4] = v32
+-- V nested upvalues[5] = v45
+-- V nested upvalues[6] = v52
+local function AddJobPaymentLog(p11, p12) -- [line 227]
+	1.	p12 = p12 or 1
+	2.	local v186 = v1 -- get upval
+	3.	local v185 = v186.LocalPlayer
+	5.	local v184 = v185.Job
+	7.	if v184 then goto #147
+	8.	v185 = v42 -- get upval
+	9.	if v185 then goto #147
+	10.	v186 = v42 -- get upval
+	11.	v185 = v186[v184]
+	12.	if v185 then goto #147
+	13.	local v187 = v42 -- get upval
+	14.	v186 = v187[v184]
+	15.	v185 = v186.Data
+	17.	if v185 then goto #147
+	18.	local v188 = v42 -- get upval
+	19.	v187 = v188[v184]
+	20.	v186 = v187.Data
+	22.	v185 = v186.Payments
+	24.	if v185 then goto #147
+	25.	local v189 = v42 -- get upval
+	26.	v188 = v189[v184]
+	27.	v187 = v188.Data
+	29.	v186 = v187.Payments
+	31.	v185 = v186[p11]
+	32.	if v185 ~= nil then goto #147
+	34.	v186 = v185.Payment
+	36.	v187 = v186.XP
+	38.	if v187 ~= nil then goto #53
+	40.	v188 = 0
+	41.	if v187 > v188 then goto #53
+	43.	v188 = AddValueByPriceType
+	45.	local v192 = v1 -- get upval
+	46.	local v191 = v192.Enums
+	48.	local v190 = v191.PriceTypes
+	50.	v189 = v190.JOBXP
+	52.	v190 = v187 * p12
+	53.	v188(v189, v190) -- referenced by #38, #41
+					end
+					end
+	54.	v188 = v186.Money
+	56.	if v188 ~= nil then goto #71
+	58.	v189 = 0
+	59.	if v188 > v189 then goto #71
+	61.	v189 = AddValueByPriceType
+	63.	local v193 = v1 -- get upval
+	64.	v192 = v193.Enums
+	66.	v191 = v192.PriceTypes
+	68.	v190 = v191.Money
+	70.	v191 = v188
+	71.	v189(v190, v191) -- referenced by #56, #59
+					end
+					end
+	72.	v189 = v185.GuiData
+	74.	if v189 ~= nil then goto #104
+	76.	v190 = v189.UIName
+	78.	if v190 ~= nil then goto #104
+	80.	v191 = v33 -- get upval
+	81.	
+	83.	v191 = v191:Clone()
+	84.	local v194 = "TEXT"
+	85.	
+	87.	v192 = v191:FindFirstChild(v194)
+	88.	v193 = v50 -- get upval
+	89.	v194 = v190
+	90.	local v195 = v186
+	91.	local v196 = p12
+	92.	v193 = v193(v194, v195, v196)
+	93.	v192.Text = v193
+	95.	v193 = v32 -- get upval
+	96.	v191.Parent = v193
+	98.	v194 = v45 -- get upval
+	99.	FASTCALL[table.insert](v194, v191)
+	101.	v195 = v191
+	102.	v193 = table.insert
+	104.	v193(v194, v195) -- referenced by #74, #78
+					end
+					end
+	105.	v190 = 3
+	106.	if p11 then goto #120
+	107.	v192 = v52 -- get upval
+	108.	v191 = v192[p11]
+	109.	if v191 then goto #120
+	110.	v192 = tick
+	112.	v192 = v192(v193)
+	113.	v194 = v52 -- get upval
+	114.	v193 = v194[p11]
+	115.	v191 = v192 - v193
+	116.	v192 = 3
+	117.	if v192 > v191 then goto #120
+	119.	v190 = 0.5
+	120.	goto #125 -- referenced by #106, #109, #117
+					else
+					and (else)
+					and (else)
+	121.	v191 = v52 -- get upval
+	122.	v192 = tick
+	124.	v192 = v192(v193)
+	125.	v191[p11] = v192 -- referenced by #120
+					end
+	126.	v192 = v1 -- get upval
+	127.	v191 = v192.LocalPlayer
+	129.	v193 = "Job reward"
+	130.	v195 = "you received "
+	131.	local v200 = v187 or 0
+	132.	v196 = v200 * p12
+	133.	local v197 = " XP and "
+	134.	local v198 = v188 or 0
+	135.	local v199 = "â‚¬"
+	136.	v194 = v195 .. v196 .. v197 .. v198 .. v199
+	137.	v198 = v1 -- get upval
+	138.	v197 = v198.Enums
+	140.	v196 = v197.MessageTypes
+	142.	v195 = v196.Info
+	144.	v196 = v190
+	145.	
+	147.	v191:Message(v193, v194, v195, v196) -- referenced by #7, #9, #12, #17, #24, #32
+					end
+					end
+					end
+					end
+					end
+					end
+	148.	return
+end
+[NEWCLOSURE] v236 = AddJobPaymentLog
+336.	CAPTURE VAL R1
+
+337.	CAPTURE VAL R42
+
+338.	CAPTURE VAL R33
+
+339.	CAPTURE VAL R50
+
+340.	CAPTURE VAL R32
+
+341.	CAPTURE REF R45
+
+342.	CAPTURE VAL R52
+
+343.	AddJobPaymentLog = v310
+345.	-- V nested upvalues[0] = v1
+-- V nested upvalues[1] = v42
+-- V nested upvalues[2] = v33
+-- V nested upvalues[3] = v32
+-- V nested upvalues[4] = v45
+local function AddBill(p13) -- [line 278]
+	1.	local v260 = v1 -- get upval
+	2.	local v259 = v260.LocalPlayer
+	4.	local v258 = v259.Job
+	6.	if v258 then goto #96
+	7.	v259 = v42 -- get upval
+	8.	if v259 then goto #96
+	9.	v260 = v42 -- get upval
+	10.	v259 = v260[v258]
+	11.	if v259 then goto #96
+	12.	local v261 = v42 -- get upval
+	13.	v260 = v261[v258]
+	14.	v259 = v260.Data
+	16.	if v259 then goto #96
+	17.	local v262 = v42 -- get upval
+	18.	v261 = v262[v258]
+	19.	v260 = v261.Data
+	21.	v259 = v260.Bill
+	23.	if v259 then goto #96
+	24.	local v263 = v42 -- get upval
+	25.	v262 = v263[v258]
+	26.	v261 = v262.Data
+	28.	v260 = v261.Bill
+	30.	v259 = v260[p13]
+	31.	if v259 ~= nil then goto #96
+	33.	v260 = v259.Cost
+	35.	v261 = v260.Money
+	37.	v262 = v259.GuiData
+	39.	if v262 ~= nil then goto #77
+	41.	v263 = v262.UIName
+	43.	if v263 ~= nil then goto #77
+	45.	local v264 = v33 -- get upval
+	46.	
+	48.	v264 = v264:Clone()
+	-- DECOMPILER REMARK: Function "RepleaceNill" was inlined here (LINE IS NOT VALID)
+	49.	if v260 == nil then goto #52
+	51.	local v265 = nil
+	52.	goto #65 -- referenced by #49
+					else
+	53.	local v267 = '(<font color="rgb(255, 0, 0)">'
+	54.	local v270 = v260.Money
+	56.	local v268 = v270 or 0
+	57.	local v269 = " â‚¬)"
+	58.	local v266 = v267 .. v268 .. v269
+	59.	v267 = string.gsub
+	61.	v268 = v263
+	62.	v269 = "#PAYMENT#"
+	63.	v270 = v266
+	64.	v267 = v267(v268, v269, v270)
+	65.	v265 = v267 or "N/A" -- referenced by #52
+					end
+	66.	v264.Text = v265
+	68.	v265 = v32 -- get upval
+	69.	v264.Parent = v265
+	71.	v266 = v45 -- get upval
+	72.	FASTCALL[table.insert](v266, v264)
+	74.	v267 = v264
+	75.	v265 = table.insert
+	77.	v265(v266, v267) -- referenced by #39, #43
+					end
+					end
+	78.	v264 = v1 -- get upval
+	79.	v263 = v264.LocalPlayer
+	81.	v265 = "Invoice"
+	82.	v267 = "You have paid your bill: "
+	83.	v268 = v260 or 0
+	84.	v269 = " â‚¬"
+	85.	v266 = v267 .. v268 .. v269
+	86.	v270 = v1 -- get upval
+	87.	v269 = v270.Enums
+	89.	v268 = v269.MessageTypes
+	91.	v267 = v268.Warning
+	93.	v268 = 4
+	94.	
+	96.	v263:Message(v265, v266, v267, v268) -- referenced by #6, #8, #11, #16, #23, #31
+					end
+					end
+					end
+					end
+					end
+					end
+	97.	return
+end
+[NEWCLOSURE] v310 = AddBill
+346.	CAPTURE VAL R1
+
+347.	CAPTURE VAL R42
+
+348.	CAPTURE VAL R33
+
+349.	CAPTURE VAL R32
+
+350.	CAPTURE REF R45
+
+351.	AddBill = v360
+353.	local v360 = v342.Activated
+355.	-- V nested upvalues[0] = v346
+[DUPCLOSURE] v362 = function() -- [line 316]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v308 = v346 -- get upval
+	2.	
+	4.	v308:Fire()
+	5.	return
+end
+
+356.	CAPTURE VAL R39
+
+357.	
+359.	v361:Connect(v363)
+360.	v361 = v345.Activated
+362.	-- V nested upvalues[0] = v349
+-- V nested upvalues[1] = v309
+[DUPCLOSURE] v363 = function() -- [line 320]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v309 = v349 -- get upval
+	2.	
+	4.	v309:Fire()
+	5.	local v312 = v309 -- get upval
+	6.	local v311 = v312.Classes
+	8.	local v310 = v311.GUI
+	10.	v309 = v310.CloseMenu
+	12.	v310 = "JobOffers"
+	13.	v309(v310)
+	14.	return
+end
+
+363.	CAPTURE VAL R41
+
+364.	CAPTURE VAL R1
+
+365.	
+367.	v367:Connect(v369)
+368.	v367 = {} -- this array is empty
+370.	-- V nested upvalues[0] = v48
+-- V nested upvalues[1] = v1
+[NEWCLOSURE] v368 = function(p14) -- [line 327]
+	1.	local v315 = ClrEndFrame
+	3.	v315(v316)
+	4.	v48 = p14 -- set upval
+	5.	v315 = UpdateDurationsText
+	7.	v315(v316)
+	8.	v315 = AddValueByPriceType
+	10.	local v319 = v1 -- get upval
+	11.	local v318 = v319.Enums
+	13.	local v317 = v318.PriceTypes
+	15.	local v316 = v317.JobPoints
+	17.	v317 = 0
+	18.	v315(v316, v317)
+	19.	v315 = AddValueByPriceType
+	21.	v319 = v1 -- get upval
+	22.	v318 = v319.Enums
+	24.	v317 = v318.PriceTypes
+	26.	v316 = v317.Money
+	28.	v317 = 0
+	29.	v315(v316, v317)
+	30.	v315 = AddValueByPriceType
+	32.	v319 = v1 -- get upval
+	33.	v318 = v319.Enums
+	35.	v317 = v318.PriceTypes
+	37.	v316 = v317.JOBXP
+	39.	v317 = 0
+	40.	v315(v316, v317)
+	41.	return
+end
+
+371.	CAPTURE REF R48
+
+372.	CAPTURE VAL R1
+
+373.	v387.Start = v388
+375.	[DUPCLOSURE] v388 = function() -- [line 338]
+	1.	local v335 = ClrEndFrame
+	3.	v335(v336)
+	4.	return
+end
+
+376.	v388.End = v389
+378.	[DUPCLOSURE] v389 = function(p15, p16, p17) -- [line 341]
+	1.	local v336 = AddLog
+	3.	local v337 = p15
+	4.	local v338 = p16
+	5.	local v339 = p17
+	6.	v336(v337, v338, v339)
+	7.	return
+end
+
+379.	v392.Log = v393
+381.	[DUPCLOSURE] v393 = function(p18, p19) -- [line 344]
+	1.	local v340 = AddJobPaymentLog
+	3.	local v341 = p18
+	4.	local v342 = p19
+	5.	v340(v341, v342)
+	6.	return
+end
+
+382.	v395.JLog = v396
+384.	[DUPCLOSURE] v396 = function(p20, p21) -- [line 348]
+	1.	local v343 = AddBill
+	3.	local v344 = p20
+	4.	v343(v344)
+	5.	return
+end
+
+385.	v397.JBLog = v398
+387.	-- V nested upvalues[0] = v44
+local function AddInfoListTemplate(p22) -- [line 356]
+	1.	local v346 = v44 -- get upval
+	2.	FASTCALL[table.insert](v346, p22)
+	4.	local v347 = p22
+	5.	local v345 = table.insert
+	7.	v345(v346, v347)
+	8.	return
+end
+[NEWCLOSURE] v398 = AddInfoListTemplate
+388.	CAPTURE REF R44
+
+389.	-- V nested upvalues[0] = v44
+local function ClrInfoListTemplates() -- [line 359]
+	1.	local v350 = 1
+	2.	local v351 = v44 -- get upval
+	3.	local v348 = #v351
+	4.	local v349 = 1
+	5.	for v350 = v350, v348, v349 do -- [escape at #25]
+	6.	local v353 = v44 -- get upval
+	7.	local v352 = v353[v350]
+	8.	FASTCALL[typeof](v352)
+	9.	v351 = typeof
+	11.	v351 = v351(v352)
+	12.	if v351 == "Instance" then goto #19
+	14.	v352 = v44 -- get upval
+	15.	v351 = v352[v350]
+	16.	
+	18.	v351:Destroy()
+	19.	goto #24 -- referenced by #12
+					else
+	20.	v352 = v44 -- get upval
+	21.	v351 = v352[v350]
+	22.	
+	24.	v351:Disconnect() -- referenced by #19
+					end
+	25.	end -- FORNLOOP end - iterate + goto #5
+	26.	v348 = {} -- this array is empty
+	28.	v44 = v348 -- set upval
+	29.	return
+end
+[NEWCLOSURE] v402 = ClrInfoListTemplates
+390.	CAPTURE REF R44
+
+391.	local v415 = {} -- this array is empty
+393.	local v416 = nil
+394.	local v417 = {"StartShift"}
+395.	-- V nested upvalues[0] = v55
+-- V nested upvalues[1] = v43
+-- V nested upvalues[2] = v21
+-- V nested upvalues[3] = v50
+-- V nested upvalues[4] = v20
+-- V nested upvalues[5] = v44
+local function StartShift(p23, p24) -- [line 381]
+	1.	local v360 = v55 -- get upval
+	2.	v360(v361)
+	3.	v43 = p24 -- set upval
+	4.	if p23 ~= nil then goto #67
+	6.	v360 = p23.Data
+	8.	if v360 then goto #67
+	9.	if p24 then goto #67
+	10.	local v361 = p23.Data
+	12.	v360 = v361.Payments
+	14.	if v360 then goto #67
+	15.	v360 = pairs
+	17.	local v363 = p23.Data
+	19.	v361 = v363.Payments
+	21.	v360, v361, v362 = v360(v361)
+	22.	for v363, v364 in v360(v361) do -- [escape at #66] (pairs/next)
+	23.	if v364 then goto #65
+	24.	local v365 = v364.GuiData
+	26.	if v365 then goto #65
+	27.	local v366 = v364.GuiData
+	29.	v365 = v366.UIName
+	31.	if v365 then goto #65
+	32.	v365 = v21 -- get upval
+	33.	
+	35.	v365 = v365:Clone()
+	36.	local v368 = "TextLabel"
+	37.	
+	39.	v366 = v365:FindFirstChildOfClass(v368)
+	40.	local v367 = v50 -- get upval
+	41.	local v369 = v364.GuiData
+	43.	v368 = v369.UIName
+	45.	v369 = v364.Payment
+	47.	v367 = v367(v368, v369)
+	48.	v366.Text = v367
+	50.	v368 = v364.Payment
+	52.	v367 = v368.Money
+	54.	v365.LayoutOrder = v367
+	56.	v367 = v20 -- get upval
+	57.	v365.Parent = v367
+	59.	v368 = v44 -- get upval
+	60.	FASTCALL[table.insert](v368, v365)
+	62.	v369 = v365
+	63.	v367 = table.insert
+	65.	v367(v368, v369) -- referenced by #23, #26, #31
+					end
+					end
+					end
+	66.	end -- FORGLOOP - iterate + goto #22
+					end
+					end
+					end
+					end
+	68.	return
+end
+[NEWCLOSURE] v418 = StartShift
+396.	CAPTURE VAL R55
+
+397.	CAPTURE REF R43
+
+398.	CAPTURE VAL R21
+
+399.	CAPTURE VAL R50
+
+400.	CAPTURE VAL R20
+
+401.	CAPTURE REF R44
+
+402.	v439.StartShift = v440
+404.	local v440 = UDim2.fromScale
+406.	local v441 = 0
+407.	local v442 = 0
+408.	v440 = v440(v441, v442)
+409.	v441 = UDim2.fromScale
+411.	v442 = 1
+412.	local v443 = 0.977
+413.	v441 = v441(v442, v443)
+414.	-- V nested upvalues[0] = v440
+local function CloseMenu(p25) -- [line 412]
+	1.	local v382 = task.spawn
+	3.		-- V nested upvalues[0] = p25
+	-- V nested upvalues[1] = upvalues[0]
+	[NEWCLOSURE] v383 = function() -- [line 413]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v383 = p25 -- get upval
+		2.	local v385 = upvalues[0] -- get upval
+		3.	local v386 = "InOut"
+		4.	local v387 = "Sine"
+		5.	local v388 = 0.3
+		6.	
+		8.	v383:TweenSize(v385, v386, v387, v388)
+		9.	v383 = wait
+		11.	local v384 = 0.3
+		12.	v383(v384)
+		13.	v383 = p25 -- get upval
+		14.	v384 = false
+		15.	v383.Visible = v384
+		17.	return
+	end
+
+	4.	CAPTURE VAL R0
+
+	5.	CAPTURE UPVAL U0
+
+	6.	v391(v392)
+	7.	return
+end
+[DUPCLOSURE] v451 = CloseMenu
+415.	CAPTURE VAL R59
+
+416.	CloseMenu = v452
+418.	-- V nested upvalues[0] = v57
+-- V nested upvalues[1] = v58
+-- V nested upvalues[2] = v59
+-- V nested upvalues[3] = v60
+local function OpenMenu(p26, p27, p28, p29) -- [line 420]
+	1.	local v392 = p26.Name
+	3.	if v392 == "EndShift" then goto #10
+	5.	v392 = StartUpdateing
+	7.	v392(v393)
+	8.	v392 = OnVisibleTeleportToTrain
+	10.	v392(v393) -- referenced by #3
+					end
+	11.	v392 = v57 -- get upval
+	12.	if v392 == p26 then goto #14
+	14.	return -- referenced by #12
+					end
+	15.	v392 = v57 -- get upval
+	16.	if v392 ~= nil then goto #21
+	18.	v392 = CloseMenu
+	20.	local v393 = v57 -- get upval
+	21.	v392(v393) -- referenced by #16
+					end
+	22.	v393 = v58 -- get upval
+	23.	local v394 = p26.Name
+	25.	v392 = v393[v394]
+	26.	if v392 then goto #34
+	27.	if p28 then goto #34
+	28.	v393 = v58 -- get upval
+	29.	v394 = p26.Name
+	31.	v392 = v393[v394]
+	32.	v393 = p28
+	33.	v394 = p29
+	34.	v392(v393, v394) -- referenced by #26, #27
+					end
+					end
+	35.	v392 = true
+	36.	p26.Visible = v392
+	38.	v392 = v59 -- get upval
+	39.	p26.Size = v392
+	41.	v394 = v60 -- get upval
+	42.	local v395 = "InOut"
+	43.	local v396 = "Sine"
+	44.	local v397 = 0.3
+	45.	
+	47.	p26:TweenSize(v394, v395, v396, v397)
+	48.	v57 = p26 -- set upval
+	49.	return
+end
+[NEWCLOSURE] v452 = OpenMenu
+419.	CAPTURE REF R57
+
+420.	CAPTURE VAL R58
+
+421.	CAPTURE VAL R59
+
+422.	CAPTURE VAL R60
+
+423.	OpenMenu = v473
+425.	-- V nested upvalues[0] = v419
+-- V nested upvalues[1] = v468
+local function InstallMenus() -- [line 442]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v413 = v419 -- get upval
+	2.	
+	4.	v413 = v413:GetChildren()
+	5.	local v416 = 1
+	6.	local v414 = #v413
+	7.	local v415 = 1
+	8.	for v416 = v416, v414, v415 do -- [escape at #46]
+	9.	local v417 = v413[v416]
+	10.	local v419 = "Frame"
+	11.	
+	13.	v417 = v417:IsA(v419)
+	14.	if v417 then goto #45
+	15.	local v418 = v413[v416]
+	16.	v417 = v418.Position
+	18.	v418 = Instance.new
+	20.	v419 = "BindableEvent"
+	21.	v418 = v418(v419)
+	22.	v419 = v418.Event
+	24.		-- V nested upvalues[0] = v1
+	-- V nested upvalues[1] = v4
+	-- V nested upvalues[2] = v5
+	[NEWCLOSURE] v421 = function(p30, ...) -- [line 451]
+		1.	
+		2.	if p30 then goto #11
+		3.	local v414 = OpenMenu
+		5.	local v416 = v1 -- get upval
+		6.	local v417 = v4 -- get upval
+		7.	local v415 = v416[v417]
+		8.	v416 = v5 -- get upval
+		9.	v417 = ...
+		10.	v414()
+		11.	return -- referenced by #2
+						end
+		12.	v414 = CloseMenu
+		14.	v416 = v1 -- get upval
+		15.	v417 = v4 -- get upval
+		16.	v415 = v416[v417]
+		17.	v414(v415)
+		18.	return
+	end
+
+	25.	CAPTURE VAL R0
+
+	26.	CAPTURE VAL R3
+
+	27.	CAPTURE VAL R4
+
+	28.	
+	30.	v429:Connect(v431)
+	31.	v429 = v468 -- get upval
+	32.	local v431 = v423[v426]
+	33.	local v430 = v431.Name
+	35.	v431 = {"Menu", "OnOpen"}
+	36.	local v432 = v423[v426]
+	37.	v431.Menu = v432
+	39.	v431.OnOpen = v428
+	41.	v429[v430] = v431
+	42.	v429 = v423[v426]
+	43.	v430 = false
+	44.	v429.Visible = v430
+					end
+	46.	end -- FORNLOOP end - iterate + goto #8
+	47.	return
+end
+[DUPCLOSURE] v483 = InstallMenus
+426.	CAPTURE VAL R7
+
+427.	CAPTURE VAL R56
+
+428.	v502 = v501
+429.	v502(v503)
+430.	v502 = {} -- this array is empty
+432.	-- V nested upvalues[0] = v62
+local function JobFrameElementsClr() -- [line 478]
+	1.	local v443 = 1
+	2.	local v444 = v62 -- get upval
+	3.	local v441 = #v444
+	4.	local v442 = 1
+	5.	for v443 = v443, v441, v442 do -- [escape at #11]
+	6.	local v445 = v62 -- get upval
+	7.	v444 = v445[v443]
+	8.	
+	10.	v444:Destroy()
+	11.	end -- FORNLOOP end - iterate + goto #5
+	12.	v441 = {} -- this array is empty
+	14.	v62 = v441 -- set upval
+	15.	return
+end
+[NEWCLOSURE] v503 = JobFrameElementsClr
+433.	CAPTURE REF R62
+
+434.	JobFrameElementsClr = v510
+436.	local v510 = true
+437.	-- V nested upvalues[0] = v11
+-- V nested upvalues[1] = v10
+-- V nested upvalues[2] = v1
+-- V nested upvalues[3] = v42
+-- V nested upvalues[4] = v12
+-- V nested upvalues[5] = v13
+-- V nested upvalues[6] = v63
+-- V nested upvalues[7] = v56
+-- V nested upvalues[8] = v9
+-- V nested upvalues[9] = v62
+local function InstallJobTemplate(p31, p32) -- [line 489]
+	1.	if p31 ~= nil then goto #197
+	3.	local v449 = v11 -- get upval
+	4.	local v448 = v449.GetJobByType
+	6.	v449 = p31
+	7.	v448 = v448(v449)
+	8.	if v448 == nil then goto #10
+	10.	return -- referenced by #8
+					end
+	11.	v449 = v448.Settings
+	13.	if v449 == nil then goto #15
+	15.	return -- referenced by #13
+					end
+	16.	local v450 = v448.Settings
+	18.	v449 = v450.GuiInfo
+	20.	if v449 == nil then goto #22
+	22.	return -- referenced by #20
+					end
+	23.	v449 = v10 -- get upval
+	24.	
+	26.	v449 = v449:Clone()
+	27.	local v452 = "JobImage"
+	28.	
+	30.	v450 = v449:WaitForChild(v452)
+	31.	local v453 = "TextButton"
+	32.	
+	34.	v451 = v449:findFirstChildOfClass(v453)
+	35.	local v454 = "JobInfo"
+	36.	
+	38.	v452 = v449:WaitForChild(v454)
+	39.	local v455 = "JobName"
+	40.	
+	42.	v453 = v452:WaitForChild(v455)
+	43.	local v456 = "PriceLabel"
+	44.	
+	46.	v454 = v452:WaitForChild(v456)
+	47.	local v458 = v448.Settings
+	49.	local v457 = v458.GuiInfo
+	51.	v456 = v457.JobCharacterImage2
+	53.	v455 = v456 or ""
+	54.	v450.Image = v455
+	56.	v457 = "Overlay"
+	57.	
+	59.	v455 = v450:FindFirstChild(v457)
+	60.	v456 = true
+	61.	v458 = v448.Settings
+	63.	v457 = v458.Gamepass
+	65.	if v457 ~= nil then goto #69
+	67.	v458 = "[Gamepass required]"
+	68.	v454.Text = v458
+					end
+	70.	local v459 = v1 -- get upval
+	71.	v458 = v459.LocalPlayer
+	73.	
+	75.	v458 = v458:IsContentCreator()
+	76.	if not v458 then goto #129
+	77.	FASTCALL[typeof](p32)
+	78.	v459 = p32
+	79.	v458 = typeof
+	81.	v458 = v458(v459)
+	82.	if v458 == "number" then goto #129
+	84.	v459 = v448.Settings
+	86.	v458 = v459.Required
+	88.	if v458 then goto #129
+	89.	local v462 = v42 -- get upval
+	90.	local v461 = v462[p31]
+	91.	local v460 = v461.Settings
+	93.	v459 = v460.Required
+	95.	v458 = v459.PriceType
+	97.	v462 = v1 -- get upval
+	98.	v461 = v462.Enums
+	100.	v460 = v461.PriceTypes
+	102.	v459 = v460.JOBXP
+	104.	if v458 == v459 then goto #129
+	106.	v462 = v42 -- get upval
+	107.	v461 = v462[p31]
+	108.	v460 = v461.Settings
+	110.	v459 = v460.Required
+	112.	v458 = v459.Value
+	114.	FASTCALL[typeof](v458)
+	115.	v460 = v458
+	116.	v459 = typeof
+	118.	v459 = v459(v460)
+	119.	if v459 == "number" then goto #129
+	121.	if v458 > p32 then goto #129
+	123.	v456 = false
+	124.	v460 = "["
+	125.	v461 = v458 or "N/A"
+	126.	v462 = " xp required]"
+	127.	v459 = v460 .. v461 .. v462
+	128.	v454.Text = v459
+					end
+					end
+					end
+					end
+					end
+					end
+	130.	v458 = {} -- this array is empty
+	132.		-- V nested upvalues[0] = v11
+	local function CancelTween() -- [line 554]
+		1.	local v449 = pairs
+		3.	local v450 = v11 -- get upval
+		4.	v449, v450, v451 = v449(v450)
+		5.	for v452, v453 in v449(v450) do -- [escape at #13] (pairs/next)
+		6.	
+		8.	v453:Cancel()
+		9.	
+		11.	v453:Destroy()
+		12.	local v453 = nil
+		13.	end -- FORGLOOP - iterate + goto #5
+		15.	return
+	end
+	[NEWCLOSURE] v459 = CancelTween
+	133.	CAPTURE VAL R12
+
+	134.		-- V nested upvalues[0] = v11
+	local function AddTweens(p33) -- [line 563]
+		1.	local v453 = v11 -- get upval
+		2.	FASTCALL[table.insert](v453, p33)
+		4.	local v454 = p33
+		5.	local v452 = table.insert
+		7.	v452(v453, v454)
+		8.	return
+	end
+	[NEWCLOSURE] v463 = AddTweens
+	135.	CAPTURE VAL R12
+
+	136.		-- V nested upvalues[0] = v12
+	-- V nested upvalues[1] = upvalues[4]
+	-- V nested upvalues[2] = v8
+	-- V nested upvalues[3] = upvalues[5]
+	-- V nested upvalues[4] = v6
+	-- V nested upvalues[5] = v7
+	-- V nested upvalues[6] = v11
+	local function OnHover() -- [line 573]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v455 = v12 -- get upval
+		2.	v455(v456)
+		3.	v455 = upvalues[4] -- get upval
+		4.	local v457 = v8 -- get upval
+		5.	local v458 = upvalues[5] -- get upval
+		6.	local v459 = {"ImageTransparency"}
+		7.	local v460 = 1
+		8.	v459.ImageTransparency = v460
+		10.	
+		12.	v455 = v455:Create(v457, v458, v459)
+		13.	local v456 = upvalues[4] -- get upval
+		14.	v458 = v6 -- get upval
+		15.	v459 = upvalues[5] -- get upval
+		16.	v460 = {"TextTransparency"}
+		17.	local v461 = 1
+		18.	v460.TextTransparency = v461
+		20.	
+		22.	v456 = v456:Create(v458, v459, v460)
+		23.	v457 = upvalues[4] -- get upval
+		24.	v459 = v7 -- get upval
+		25.	v460 = upvalues[5] -- get upval
+		26.	v461 = {"TextTransparency"}
+		27.	local v462 = 1
+		28.	v461.TextTransparency = v462
+		30.	
+		32.	v457 = v457:Create(v459, v460, v461)
+		33.	
+		35.	v455:Play()
+		36.	
+		38.	v456:Play()
+		39.	
+		41.	v457:Play()
+		42.	v459 = v11 -- get upval
+		43.	FASTCALL[table.insert](v459, v455)
+		45.	v460 = v455
+		46.	v458 = table.insert
+		48.	v458(v459, v460)
+		49.	v459 = v11 -- get upval
+		50.	FASTCALL[table.insert](v459, v456)
+		52.	v460 = v456
+		53.	v458 = table.insert
+		55.	v458(v459, v460)
+		56.	v459 = v11 -- get upval
+		57.	FASTCALL[table.insert](v459, v457)
+		59.	v460 = v457
+		60.	v458 = table.insert
+		62.	v458(v459, v460)
+		63.	return
+	end
+	[NEWCLOSURE] v467 = OnHover
+	137.	CAPTURE VAL R13
+
+	138.	CAPTURE UPVAL U4
+
+	139.	CAPTURE VAL R9
+
+	140.	CAPTURE UPVAL U5
+
+	141.	CAPTURE VAL R7
+
+	142.	CAPTURE VAL R8
+
+	143.	CAPTURE VAL R12
+
+	144.		-- V nested upvalues[0] = v12
+	-- V nested upvalues[1] = upvalues[4]
+	-- V nested upvalues[2] = v8
+	-- V nested upvalues[3] = upvalues[5]
+	-- V nested upvalues[4] = v6
+	-- V nested upvalues[5] = v7
+	-- V nested upvalues[6] = v11
+	local function OnUnHover() -- [line 611]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v480 = v12 -- get upval
+		2.	v480(v481)
+		3.	v480 = upvalues[4] -- get upval
+		4.	local v482 = v8 -- get upval
+		5.	local v483 = upvalues[5] -- get upval
+		6.	local v484 = {"ImageTransparency"}
+		7.	local v485 = 0
+		8.	v484.ImageTransparency = v485
+		10.	
+		12.	v480 = v480:Create(v482, v483, v484)
+		13.	local v481 = upvalues[4] -- get upval
+		14.	v483 = v6 -- get upval
+		15.	v484 = upvalues[5] -- get upval
+		16.	v485 = {"TextTransparency"}
+		17.	local v486 = 0
+		18.	v485.TextTransparency = v486
+		20.	
+		22.	v481 = v481:Create(v483, v484, v485)
+		23.	v482 = upvalues[4] -- get upval
+		24.	v484 = v7 -- get upval
+		25.	v485 = upvalues[5] -- get upval
+		26.	v486 = {"TextTransparency"}
+		27.	local v487 = 0
+		28.	v486.TextTransparency = v487
+		30.	
+		32.	v482 = v482:Create(v484, v485, v486)
+		33.	
+		35.	v480:Play()
+		36.	
+		38.	v481:Play()
+		39.	
+		41.	v482:Play()
+		42.	v484 = v11 -- get upval
+		43.	FASTCALL[table.insert](v484, v480)
+		45.	v485 = v480
+		46.	v483 = table.insert
+		48.	v483(v484, v485)
+		49.	v484 = v11 -- get upval
+		50.	FASTCALL[table.insert](v484, v481)
+		52.	v485 = v481
+		53.	v483 = table.insert
+		55.	v483(v484, v485)
+		56.	v484 = v11 -- get upval
+		57.	FASTCALL[table.insert](v484, v482)
+		59.	v485 = v482
+		60.	v483 = table.insert
+		62.	v483(v484, v485)
+		63.	return
+	end
+	[NEWCLOSURE] v493 = OnUnHover
+	145.	CAPTURE VAL R13
+
+	146.	CAPTURE UPVAL U4
+
+	147.	CAPTURE VAL R9
+
+	148.	CAPTURE UPVAL U5
+
+	149.	CAPTURE VAL R7
+
+	150.	CAPTURE VAL R8
+
+	151.	CAPTURE VAL R12
+
+	152.	local v519 = v507.MouseEnter
+	154.		-- V nested upvalues[0] = v14
+	[NEWCLOSURE] v521 = function() -- [line 648]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v505 = v14 -- get upval
+		2.	v505(v506)
+		3.	return
+	end
+
+	155.	CAPTURE VAL R15
+
+	156.	
+	158.	v520:Connect(v522)
+	159.	v520 = v508.MouseLeave
+	161.		-- V nested upvalues[0] = v15
+	[NEWCLOSURE] v522 = function() -- [line 651]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v506 = v15 -- get upval
+		2.	v506(v507)
+		3.	return
+	end
+
+	162.	CAPTURE VAL R16
+
+	163.	
+	165.	v521:Connect(v523)
+	166.	v521 = v509.Activated
+	168.		-- V nested upvalues[0] = upvalues[6]
+	-- V nested upvalues[1] = v9
+	-- V nested upvalues[2] = upvalues[7]
+	-- V nested upvalues[3] = v1
+	-- V nested upvalues[4] = p32
+	[NEWCLOSURE] v523 = function() -- [line 655]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v507 = upvalues[6] -- get upval
+		2.	if v507 then goto #24
+		3.	v507 = v9 -- get upval
+		4.	if v507 == true then goto #24
+		6.	v507 = false
+		7.	upvalues[6] = v507 -- set upval
+		8.	local v509 = upvalues[7] -- get upval
+		9.	local v508 = v509.StartShift
+		11.	v507 = v508.OnOpen
+		13.	v509 = true
+		14.	local v510 = v1 -- get upval
+		15.	local v511 = p32 -- get upval
+		16.	
+		18.	v507:Fire(v509, v510, v511)
+		19.	v507 = task.wait
+		21.	v508 = 5
+		22.	v507(v508)
+		23.	v507 = true
+		24.	upvalues[6] = v507 -- set upval -- referenced by #2, #4
+						end
+						end
+		25.	return
+	end
+
+	169.	CAPTURE UPVAL U6
+
+	170.	CAPTURE REF R10
+
+	171.	CAPTURE UPVAL U7
+
+	172.	CAPTURE VAL R2
+
+	173.	CAPTURE VAL R0
+
+	174.	
+	176.	v533:Connect(v535)
+	177.		-- V nested upvalues[0] = v6
+	-- V nested upvalues[1] = v1
+	local function SetJobInfo() -- [line 665]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v519 = v6 -- get upval
+		2.	local v523 = v1 -- get upval
+		3.	local v522 = v523.Settings
+		5.	local v521 = v522.UIName
+		7.	local v520 = v521 or "N/A"
+		8.	v519.Text = v520
+		10.	return
+	end
+	[NEWCLOSURE] v533 = SetJobInfo
+	178.	CAPTURE VAL R7
+
+	179.	CAPTURE VAL R2
+
+	180.	local v541 = v523.Settings
+	182.	local v540 = v541.UIName
+	184.	local v539 = v540 or "N/A"
+	185.	v528.Text = v539
+	187.	v539 = v9 -- get upval
+	188.	v524.Parent = v539
+	190.	v540 = v62 -- get upval
+	191.	FASTCALL[table.insert](v540, v524)
+	193.	v541 = v524
+	194.	v539 = table.insert
+	196.	v539(v540, v541)
+	197.	[CLOSEUPVALS]: clear captures from back until: 10 -- referenced by #1
+					end
+	198.	return
+end
+[NEWCLOSURE] v586 = InstallJobTemplate
+438.	CAPTURE VAL R11
+
+439.	CAPTURE VAL R10
+
+440.	CAPTURE VAL R1
+
+441.	CAPTURE VAL R42
+
+442.	CAPTURE VAL R12
+
+443.	CAPTURE VAL R13
+
+444.	CAPTURE REF R63
+
+445.	CAPTURE VAL R56
+
+446.	CAPTURE VAL R9
+
+447.	CAPTURE REF R62
+
+448.	InstallJobTemplate = v645
+450.	-- V nested upvalues[0] = v582
+-- V nested upvalues[1] = v621
+-- V nested upvalues[2] = v627
+-- V nested upvalues[3] = v587
+local function InstallJobHeader(p34, p35) -- [line 680]
+	1.	local v582 = 0
+	2.	local v585 = v582 -- get upval
+	3.	local v584 = v585.LocalPlayer
+	5.	local v583 = v584.JOBXP
+	7.	if v583 then goto #49
+	8.	local v586 = v582 -- get upval
+	9.	v585 = v586.LocalPlayer
+	11.	v584 = v585.JOBXP
+	13.	v583 = v584[p34]
+	14.	if v583 then goto #49
+	15.	local v587 = v582 -- get upval
+	16.	v586 = v587.LocalPlayer
+	18.	v585 = v586.JOBXP
+	20.	v584 = v585[p34]
+	21.	v583 = v584.XP
+	23.	if v583 then goto #49
+	24.	v583 = 0
+	25.	if v582 <= v583 then goto #40
+	27.	v583 = v621 -- get upval
+	28.	v585 = p34
+	29.	
+	31.	v583 = v583:Fire(v585)
+	32.	v582 = v583
+	33.	v586 = v582 -- get upval
+	34.	v585 = v586.LocalPlayer
+	36.	v584 = v585.JOBXP
+	38.	v583 = v584[p34]
+	39.	v583.XP = v582
+					end
+	41.	v587 = v582 -- get upval
+	42.	v586 = v587.LocalPlayer
+	44.	v585 = v586.JOBXP
+	46.	v584 = v585[p34]
+	47.	v583 = v584.XP
+	49.	v582 = v583 or 0 -- referenced by #7, #14, #23
+					end
+					end
+					end
+	50.	if not p35 then goto #59
+	51.	v585 = v582 -- get upval
+	52.	v584 = v585.Enums
+	54.	v583 = v584.NameFromEnum
+	56.	v584 = "JobCategory"
+	57.	v585 = p34
+	58.	v583 = v583(v584, v585)
+	59.	if not v583 then goto #67 -- referenced by #50
+					end
+	60.	v585 = v582 -- get upval
+	61.	v584 = v585.Enums
+	63.	v583 = v584.NameFromEnum
+	65.	v584 = "JobType"
+	66.	v585 = p34
+	67.	v583 = v583(v584, v585) -- referenced by #59
+					end
+	68.	v585 = v627 -- get upval
+	69.	v584 = v585[p34]
+	70.	if v584 then goto #78
+	71.	v585 = v584.Gui
+	73.	if v585 then goto #78
+	74.	v586 = v584.Gui
+	76.	v585 = v586.Text
+	78.	v583 = v585 or v583 -- referenced by #70, #73
+					end
+					end
+	79.	v585 = 0
+	80.	local v588 = v582 -- get upval
+	81.	v587 = v588.LocalPlayer
+	83.	v586 = v587.JOBXP
+	85.	if v586 then goto #110
+	86.	local v589 = v582 -- get upval
+	87.	v588 = v589.LocalPlayer
+	89.	v587 = v588.JOBXP
+	91.	v586 = v587[p34]
+	92.	if v586 then goto #110
+	93.	local v590 = v582 -- get upval
+	94.	v589 = v590.LocalPlayer
+	96.	v588 = v589.JOBXP
+	98.	v587 = v588[p34]
+	99.	v586 = v587.XP
+	101.	if v586 then goto #110
+	102.	v590 = v582 -- get upval
+	103.	v589 = v590.LocalPlayer
+	105.	v588 = v589.JOBXP
+	107.	v587 = v588[p34]
+	108.	v586 = v587.XP
+	110.	v585 = v586 or 0 -- referenced by #85, #92, #101
+					end
+					end
+					end
+	111.	if v585 == 0 then goto #149
+	113.	FASTCALL[tostring](p34)
+	114.	v587 = p34
+	115.	v586 = tostring
+	117.	v586 = v586(v587)
+	118.	if v586 then goto #149
+	119.	v589 = v582 -- get upval
+	120.	v588 = v589.LocalPlayer
+	122.	v587 = v588.JOBXP
+	124.	if v587 then goto #149
+	125.	v590 = v582 -- get upval
+	126.	v589 = v590.LocalPlayer
+	128.	v588 = v589.JOBXP
+	130.	v587 = v588[v586]
+	131.	if v587 then goto #149
+	132.	local v591 = v582 -- get upval
+	133.	v590 = v591.LocalPlayer
+	135.	v589 = v590.JOBXP
+	137.	v588 = v589[v586]
+	138.	v587 = v588.XP
+	140.	if v587 then goto #149
+	141.	v591 = v582 -- get upval
+	142.	v590 = v591.LocalPlayer
+	144.	v589 = v590.JOBXP
+	146.	v588 = v589[v586]
+	147.	v587 = v588.XP
+	149.	v585 = v587 or 0 -- referenced by #111, #118, #124, #131, #140
+					end
+					end
+					end
+					end
+					end
+	150.	v586 = v587 -- get upval
+	151.	v588 = "XP: "
+	152.	v589 = v585 or 0
+	153.	v587 = v588 .. v589
+	154.	v586.Text = v587
+	156.	return v585
+end
+[DUPCLOSURE] v645 = InstallJobHeader
+451.	CAPTURE VAL R1
+
+452.	CAPTURE VAL R40
+
+453.	CAPTURE VAL R46
+
+454.	CAPTURE VAL R6
+
+455.	-- V nested upvalues[0] = v668
+-- V nested upvalues[1] = v678
+-- V nested upvalues[2] = v731
+local function InstallJobMenu(p36, p37) -- [line 723]
+	1.	if p36 == nil then goto #3
+	3.	return -- referenced by #1
+					end
+	4.	if p37 then goto #13
+	5.	local v670 = v668 -- get upval
+	6.	local v669 = v670.Enums
+	8.	local v668 = v669.EnumFromName
+	10.	v669 = "JobType"
+	11.	v670 = p36
+	12.	v668 = v668(v669, v670)
+	13.	if not v668 then goto #21 -- referenced by #4
+					end
+	14.	v670 = v668 -- get upval
+	15.	v669 = v670.Enums
+	17.	v668 = v669.EnumFromName
+	19.	v669 = "JobCategory"
+	20.	v670 = p36
+	21.	v668 = v668(v669, v670) -- referenced by #13
+					end
+	22.	v670 = v678 -- get upval
+	23.	v669 = v670.GetAllJobsWithJobJobCategory
+	25.	v670 = v668
+	26.	local v671 = p37
+	27.	v669 = v669(v670, v671)
+	28.	v670 = v731 -- get upval
+	29.	v671 = v668
+	30.	local v672 = p37
+	31.	v670 = v670(v671, v672)
+	32.	if v669 ~= nil then goto #49
+	34.	v671 = #v669
+	35.	if v671 ~= 0 then goto #49
+	37.	v671 = JobFrameElementsClr
+	39.	v671(v672)
+	40.	local v673 = 1
+	41.	v671 = #v669
+	42.	v672 = 1
+	43.	for v673 = v673, v671, v672 do -- [escape at #49]
+	44.	local v674 = InstallJobTemplate
+	46.	local v675 = v669[v673]
+	47.	local v676 = v670
+	48.	v674(v675, v676)
+	49.	end -- FORNLOOP end - iterate + goto #43 -- referenced by #32, #35
+					end
+					end
+	50.	return
+end
+[DUPCLOSURE] v732 = InstallJobMenu
+456.	CAPTURE VAL R1
+
+457.	CAPTURE VAL R11
+
+458.	CAPTURE VAL R64
+
+459.	local v758 = v709.Activated
+461.	-- V nested upvalues[0] = v748
+[DUPCLOSURE] v760 = function() -- [line 754]
+	1.	local v695 = v748 -- get upval
+	2.	local v694 = v695.JobHolder
+	4.	local v693 = v694.OnOpen
+	6.	v695 = true
+	7.	
+	9.	v693:Fire(v695)
+	10.	return
+end
+
+462.	CAPTURE VAL R56
+
+463.	
+465.	v762:Connect(v764)
+466.	v762 = v712.Activated
+468.	-- V nested upvalues[0] = v43
+-- V nested upvalues[1] = v38
+-- V nested upvalues[2] = v1
+-- V nested upvalues[3] = v56
+[NEWCLOSURE] v764 = function() -- [line 758]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v697 = v43 -- get upval
+	2.	if v697 ~= nil then goto #65
+	4.	v697 = v38 -- get upval
+	5.	local v699 = v43 -- get upval
+	6.	
+	8.	v697 = v697:Fire(v699)
+	9.	if v697 == true then goto #40
+	11.	local v698 = v43 -- get upval
+	12.	local v702 = v1 -- get upval
+	13.	local v701 = v702.Enums
+	15.	local v700 = v701.JobType
+	17.	v699 = v700.TrainJob
+	19.	if v698 ~= v699 then goto #30
+	21.	v700 = v56 -- get upval
+	22.	v699 = v700.EndShift
+	24.	v698 = v699.OnOpen
+	26.	v700 = true
+	27.	
+	29.	v698:Fire(v700)
+	30.	return -- referenced by #19
+					end
+	31.	v701 = v1 -- get upval
+	32.	v700 = v701.Classes
+	34.	v699 = v700.GUI
+	36.	v698 = v699.CloseMenu
+	38.	v699 = "JobOffers"
+	39.	v698(v699)
+	40.	return -- referenced by #9
+					end
+	41.	v701 = v1 -- get upval
+	42.	v700 = v701.Enums
+	44.	v699 = v700.JoinJobErrors
+	46.	v698 = v699.CantJoinWithWantedLevel
+	48.	if v697 == v698 then goto #65
+	50.	v699 = v1 -- get upval
+	51.	v698 = v699.LocalPlayer
+	53.	v700 = "Wanted"
+	54.	v701 = "You may not work this job while being wanted"
+	55.	local v705 = v1 -- get upval
+	56.	local v704 = v705.Enums
+	58.	local v703 = v704.MessageTypes
+	60.	v702 = v703.Error
+	62.	v703 = 4
+	63.	
+	65.	v698:Message(v700, v701, v702, v703) -- referenced by #2, #48
+					end
+					end
+	66.	return
+end
+
+469.	CAPTURE REF R43
+
+470.	CAPTURE VAL R38
+
+471.	CAPTURE VAL R1
+
+472.	CAPTURE VAL R56
+
+473.	
+475.	v792:Connect(v794)
+476.	v792 = v727.LocalPlayer
+478.	local v794 = "ChangeJob"
+479.	
+481.	v792 = v792:ReplicateSignalEvent(v794)
+482.	local v793 = nil
+483.	-- V nested upvalues[0] = v67
+local function cleanChangeJobConnect() -- [line 782]
+	-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v727 = v67 -- get upval
+	2.	if v727 ~= nil then goto #9
+	4.	v727 = v67 -- get upval
+	5.	
+	7.	v727:Disconnect()
+	8.	v727 = nil
+	9.	v67 = v727 -- set upval -- referenced by #2
+					end
+	10.	return
+end
+[NEWCLOSURE] v794 = cleanChangeJobConnect
+484.	CAPTURE REF R67
+
+485.	local v800 = v730.Classes
+487.	local v799 = v800.GUI
+489.	local v798 = v799.OnOpenInitMenu
+491.	v799 = "JobOffers"
+492.	-- V nested upvalues[0] = v65
+-- V nested upvalues[1] = v1
+-- V nested upvalues[2] = v56
+-- V nested upvalues[3] = v67
+-- V nested upvalues[4] = v66
+-- V nested upvalues[5] = v57
+[NEWCLOSURE] v800 = function(p38, p39) -- [line 789]
+	1.	if p38 == nil then goto #3
+	3.	return -- referenced by #1
+					end
+	4.	local v730 = v65 -- get upval
+	5.	local v731 = p38
+	6.	local v732 = p39
+	7.	v730(v731, v732)
+	8.	v732 = v1 -- get upval
+	9.	v731 = v732.LocalPlayer
+	11.	v730 = v731.Job
+	13.	local v734 = v1 -- get upval
+	14.	local v733 = v734.Enums
+	16.	v732 = v733.JobType
+	18.	v731 = v732.Civil
+	20.	if v730 ~= v731 then goto #31
+	22.	v732 = v56 -- get upval
+	23.	v731 = v732.EndShift
+	25.	v730 = v731.OnOpen
+	27.	v732 = true
+	28.	
+	30.	v730:Fire(v732)
+	31.	goto #40 -- referenced by #20
+					else
+	32.	v732 = v56 -- get upval
+	33.	v731 = v732.JobHolder
+	35.	v730 = v731.OnOpen
+	37.	v732 = true
+	38.	
+	40.	v730:Fire(v732) -- referenced by #31
+					end
+	-- DECOMPILER REMARK: Function "cleanChangeJobConnect" was inlined here (LINE IS NOT VALID)
+	41.	v730 = v67 -- get upval
+	42.	if v730 ~= nil then goto #49
+	44.	v730 = v67 -- get upval
+	45.	
+	47.	v730:Disconnect()
+	48.	v730 = nil
+	49.	v67 = v730 -- set upval -- referenced by #42
+					end
+	50.	v731 = v66 -- get upval
+	51.	v730 = v731.Event
+	53.		-- V nested upvalues[0] = upvalues[5]
+	-- V nested upvalues[1] = upvalues[2]
+	[NEWCLOSURE] v732 = function() -- [line 805]
+		-- DECOMPILER REMARK: Function "AddInfoListTemplate" was inlined here (LINE IS NOT VALID)
+	1.	local v731 = upvalues[5] -- get upval
+		2.	if v731 ~= nil then goto #17
+		4.	local v732 = upvalues[5] -- get upval
+		5.	v731 = v732.Name
+		7.	if v731 == "EndShift" then goto #17
+		9.	local v733 = upvalues[2] -- get upval
+		10.	v732 = v733.JobHolder
+		12.	v731 = v732.OnOpen
+		14.	v733 = true
+		15.	
+		17.	v731:Fire(v733) -- referenced by #2, #7
+						end
+						end
+		18.	return
+	end
+
+	54.	CAPTURE UPVAL U5
+
+	55.	CAPTURE UPVAL U2
+
+	56.	
+	58.	v737:Connect(v739)
+	59.	return
+end
+
+493.	CAPTURE VAL R65
+
+494.	CAPTURE VAL R1
+
+495.	CAPTURE VAL R56
+
+496.	CAPTURE REF R67
+
+497.	CAPTURE VAL R66
+
+498.	CAPTURE REF R57
+
+499.	v828(v829, v830)
+500.	v830 = v760.Classes
+502.	v829 = v830.GUI
+504.	v828 = v829.OnCloseInitMenu
+506.	v829 = "JobOffers"
+507.	-- V nested upvalues[0] = v43
+-- V nested upvalues[1] = v67
+[NEWCLOSURE] v830 = function() -- [line 813]
+	1.	local v760 = JobFrameElementsClr
+	3.	v760(v761)
+	4.	v760 = nil
+	5.	v43 = v760 -- set upval
+	6.	v760 = StopUpdating
+	8.	v760(v761)
+	-- DECOMPILER REMARK: Function "cleanChangeJobConnect" was inlined here (LINE IS NOT VALID)
+	9.	v760 = v67 -- get upval
+	10.	if v760 ~= nil then goto #17
+	12.	v760 = v67 -- get upval
+	13.	
+	15.	v760:Disconnect()
+	16.	v760 = nil
+	17.	v67 = v760 -- set upval -- referenced by #10
+					end
+	18.	return
+end
+
+508.	CAPTURE REF R43
+
+509.	CAPTURE REF R67
+
+510.	v834(v835, v836)
+511.	-- V nested upvalues[0] = v766
+-- V nested upvalues[1] = v818
+local function InitReplicateJobDataChange() -- [line 823]
+	1.	local v767 = v766 -- get upval
+	2.	local v766 = v767.LocalPlayer
+	4.	local v768 = "ChangeJobData"
+	5.	
+	7.	v766 = v766:ReplicateSignalEvent(v768)
+	8.	if v766 ~= nil then goto #16
+	10.	v767 = v766.Event
+	12.		-- V nested upvalues[0] = upvalues[1]
+	[DUPCLOSURE] v769 = function(p40, ...) -- [line 826]
+		1.	
+		2.	local v768 = upvalues[1] -- get upval
+		3.	local v767 = v768[p40]
+		4.	if v767 then goto #8
+		5.	v768 = upvalues[1] -- get upval
+		6.	v767 = v768[p40]
+		7.	v768 = ...
+		8.	v767() -- referenced by #4
+						end
+		9.	return
+	end
+
+	13.	CAPTURE UPVAL U1
+
+	14.	
+	16.	v772:Connect(v774) -- referenced by #8
+					end
+	17.	return
+end
+[DUPCLOSURE] v839 = InitReplicateJobDataChange
+512.	CAPTURE VAL R1
+
+513.	CAPTURE VAL R53
+
+514.	InitReplicateJobDataChange = v843
+516.	v843 = InitReplicateJobDataChange
+518.	v843(v844)
+519.	v844 = script
+521.	v843 = v844.Parent
+523.	v844 = true
+524.	v843.Enabled = v844
+526.	[CLOSEUPVALS]: clear captures from back until: 43
+527.	return
+

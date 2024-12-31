@@ -13,12 +13,12 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 		Default = {
-			Main = Color3.fromRGB(25, 25, 35),     -- Dunkles Blau
-			Second = Color3.fromRGB(32, 32, 42),  
-			Stroke = Color3.fromRGB(255, 69, 58), 
-			Divider = Color3.fromRGB(255, 69, 58),
-			Text = Color3.fromRGB(255, 255, 255),  
-			TextDark = Color3.fromRGB(200, 200, 200), 
+			 Main = Color3.new(0.000000, 0.000000, 0.000000),
+			Second = Color3.new(0.039216, 0.039216, 0.039216), 
+			Stroke = Color3.new(1.000000, 0.050980, 0.000000),
+			Divider = Color3.new(0.992157, 0.992157, 0.992157),
+			Text = Color3.fromRGB(255, 255, 255),
+			TextDark = Color3.fromRGB(200, 200, 200)
 		}
 	},
 	SelectedTheme = "Default",
